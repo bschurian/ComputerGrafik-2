@@ -34,7 +34,7 @@ define(["jquery", "Line", "Circle"],
             };
             
             var randomRadius = function() {
-                return Math.floor(Math.random()*(1))+30;  
+                return Math.floor(Math.random()*(40))+15;  
             };
             
             // generate random color in hex notation
