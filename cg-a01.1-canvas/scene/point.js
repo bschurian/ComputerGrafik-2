@@ -3,9 +3,9 @@
  * (C)opyright Hartmut Schirmacher, hschirmacher.beuth-hochschule.de
  * changes by Kristian Hildebrand, khildebrand@beuth-hochschule.de
  *
- * Module: straight_Circle
+ * Module: point
  *
- * A Circle knows how to draw itself into a specified 2D context,
+ * A Point knows how to draw itself into a specified 2D context,
  * can tell whether a certain mouse position "hits" the object,
  * and implements the function createDraggers() to create a set of
  * draggers to manipulate itself.
@@ -20,51 +20,57 @@ define(["util", "vec2", "Scene", "PointDragger"],
         "use strict";
 
         /**
-         *  A simple circle that can be dragged
-         *  around by its center point.
+         *  A simple straight point that can be dragged
+         *  around by its endpoints.
          *  Parameters:
-         *  - point0: array object representing [x,y] coordinates of center point
-         *  - radius: value representing the radius of the circle
-         *  - circleStyle: object defining width and color attributes for circle drawing,
+         *  - point0 : array object representing [x,y] coordinates of center point
+         *  - drawStyle: object defining width and color attributes for point drawing,
          *       begin of the form { width: 2, color: "#00FF00" }
          */
 
-        var Circle = function (point0, radius, circleStyle) {
+        var Point = function (point0, drawStyle) {
 
-            console.log("creating straight circle at [" +
-                point0[0] + "," + point0[1] + "] with radius " + radius + ".");
+            console.log("creating point at [" +
+                point0[0] + "," + point0[1] + "].");
 
             // draw style for drawing the circle
-            this.drawStyle = circleStyle || {width: "2", color: "#0000AA"};
+            this.drawStyle = drawStyle || {width: "2", color: "#0000AA"};
+            this.drawStyle.fill = drawStyle.fill || "false";
 
             // initial values in case either parameter is undefined
             this.p0 = point0 || [10, 10];
-            this.radius = parseInt(radius) || 10;
+            this.radius = 5;
         };
 
         // draw this circle into the provided 2D rendering context
-        Circle.prototype.draw = function (context) {
+        Point.prototype.draw = function (context) {
 
-            // draw actual circle
+            // draw actual point
             context.beginPath();
 
             // set points to be drawn
             context.arc(this.p0[0], this.p0[1], Math.max(2, this.radius), 0, 2*Math.PI);
+            context.closePath();
             
             // set drawing style
             context.drawWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
-
+            context.fillStyle = this.drawStyle.color;
+            
+            // trigger the actual drawing
+            if (this.drawStyle.fill) {
+                context.fill();
+            };            
+            
             // actually start drawing
             context.stroke();
 
         };
 
-        // test whether the mouse position is on this circle segment
-        Circle.prototype.isHit = function (context, mousePos) {
+        // test whether the mouse position is on this point
+        Point.prototype.isHit = function (context, mousePos) {
 
-
-            // check whether distance between mouse and circle's center
+            // check whether distance between mouse and point's center
             // is less or equal ( radius + (style width)/2 )
             var dx = mousePos[0] - this.p0[0];
             var dy = mousePos[1] - this.p0[1];
@@ -73,36 +79,29 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
         };
 
-        // return list of draggers to manipulate this circle
-        Circle.prototype.createDraggers = function () {
+        // return list of draggers to manipulate this point
+        Point.prototype.createDraggers = function () {
 
             var draggerStyle = {radius: 4, color: this.drawStyle.color, width: 0, fill: true}
             var draggers = [];
 
             // create closure and callbacks for dragger
-            var _circle = this;
+            var _point = this;
             var getP0 = function () {
-                return _circle.p0;
-            };
-            var getP1 = function () {
-                return [_circle.p0[0], _circle.p0[1]+_circle.radius];
+                return _point.p0;
             };
             var setP0 = function (dragEvent) {
-                _circle.p0 = dragEvent.position;
-            };
-            var setP1 = function (dragEvent) {
-                _circle.radius = dragEvent.position[1] - getP0()[1];
+                _point.p0 = dragEvent.position;
             };
             draggers.push(new PointDragger(getP0, setP0, draggerStyle));
-            draggers.push(new PointDragger(getP1, setP1, draggerStyle));
 
             return draggers;
 
         };
 
 
-        // this module only exports the constructor for Straightcircle objects
-        return Circle;
+        // this module only exports the constructor for point objects
+        return Point;
 
     })); // define
 
