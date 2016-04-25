@@ -97,6 +97,7 @@ define(["jquery", "Line", "Circle", "Point"],
                 sceneController.deselect();
                 sceneController.select(circle); // this will also redraw
 
+
             }));
 
             /*
