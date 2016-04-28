@@ -25,7 +25,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
          *  Parameters:
          *  - point0: array object representing [x,y] coordinates of center point
          *  - radius: value representing the radius of the circle
-         *  - circleStyle: object defining width and color attributes for circle drawing,
+         *  - circleStyle: object defining width and color attributes for line drawing,
          *       begin of the form { width: 2, color: "#00FF00" }
          */
 
@@ -52,7 +52,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
             context.arc(this.p0[0], this.p0[1], Math.max(2, this.radius), 0, 2*Math.PI);
             
             // set drawing style
-            context.drawWidth = this.drawStyle.width;
+            context.lineWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
 
             // actually start drawing

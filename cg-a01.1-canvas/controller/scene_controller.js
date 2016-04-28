@@ -207,16 +207,6 @@ define(["util", "Scene"],
 
                     // redraw the scene
                     this.scene.draw(this.context);
-
-                    var line=document.getElementById("line");
-                    var a=this.dragObj;
-
-                    if(a.drawStyle){
-                    line.value=a.drawStyle.width;
-                    }else if(a.lineStyle){
-                        line.value=a.lineStyle.width;
-                    }
-
                     return;
                 }
             }

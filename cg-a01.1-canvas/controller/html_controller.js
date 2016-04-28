@@ -71,6 +71,12 @@ define(["jquery", "Line", "Circle", "Point"],
                     style );
                 scene.addObjects([line]);
 
+/*                                                
+                sceneController.onSelection( function(){
+                    $("#inLineWidth").attr("value",parseInt(line.drawStyle.color.slice(1)),10);
+                });
+*/
+                
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(line); // this will also redraw
@@ -92,11 +98,10 @@ define(["jquery", "Line", "Circle", "Point"],
                     randomRadius(),
                     style );
                 scene.addObjects([circle]);
-
+                
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(circle); // this will also redraw
-
 
             }));
 
@@ -121,10 +126,14 @@ define(["jquery", "Line", "Circle", "Point"],
                 sceneController.select(point); // this will also redraw
 
             }));
-            
 
         };
 
+        $("#inLineWidth").change( function() {
+            var newColor = $("#inLineWidth").attr("value");
+            sceneController.getSelectedObject().drawStyle.color = newColor;
+        });
+    
         // return the constructor function
         return HtmlController;
 

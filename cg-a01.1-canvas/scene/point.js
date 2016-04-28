@@ -53,7 +53,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
             context.closePath();
             
             // set drawing style
-            context.drawWidth = this.drawStyle.width;
+            context.lineWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
             context.fillStyle = this.drawStyle.color;
             
