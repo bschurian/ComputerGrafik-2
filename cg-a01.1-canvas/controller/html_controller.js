@@ -71,12 +71,12 @@ define(["jquery", "Line", "Circle", "Point"],
                     style );
                 scene.addObjects([line]);
 
-/*                                                
-                sceneController.onSelection( function(){
-                    $("#inLineWidth").attr("value",parseInt(line.drawStyle.color.slice(1)),10);
+                sceneController.onSelection(function(obj){
+                   var width=document.getElementById("inLineWidth");
+                    width.value=obj.drawStyle.width;
+                    var color=document.getElementById("inColor");
+                    color.value=obj.drawStyle.color;
                 });
-*/
-                
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(line); // this will also redraw
@@ -133,9 +133,18 @@ define(["jquery", "Line", "Circle", "Point"],
                 // change color
                 var newColor = $("#inColor").attr("value");
                 sceneController.getSelectedObject().drawStyle.color = newColor;
-                // redraw
+                scene.draw(context);
                 //scene.draw();
                 console.log(newColor);
+            });
+
+            $("#inLineWidth").change( function() {
+                // change line width
+                var newLineWidth = $("#inLineWidth").attr("value");
+                sceneController.getSelectedObject().drawStyle.width = newLineWidth;
+                scene.draw(context);
+                //scene.draw();
+                console.log(newLineWidth);
             });
     
 
