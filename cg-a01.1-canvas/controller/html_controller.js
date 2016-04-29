@@ -126,14 +126,21 @@ define(["jquery", "Line", "Circle", "Point"],
                 sceneController.select(point); // this will also redraw
 
             }));
+            /*
+             * event handler for "color property"
+             */
+            $("#inColor").change( function() {
+                // change color
+                var newColor = $("#inColor").attr("value");
+                sceneController.getSelectedObject().drawStyle.color = newColor;
+                // redraw
+                //scene.draw();
+                console.log(newColor);
+            });
+    
 
         };
 
-        $("#inLineWidth").change( function() {
-            var newColor = $("#inLineWidth").attr("value");
-            sceneController.getSelectedObject().drawStyle.color = newColor;
-        });
-    
         // return the constructor function
         return HtmlController;
 
