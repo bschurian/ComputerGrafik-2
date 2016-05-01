@@ -65,11 +65,13 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
 
             // check whether distance between mouse and circle's center
-            // is less or equal ( radius + (style width)/2 )
+            // is less or equal ( radius + (style width)/2 ) and greater or equal ( radius + (style width)/2 )
             var dx = mousePos[0] - this.p0[0];
             var dy = mousePos[1] - this.p0[1];
-            var r = this.radius + this.drawStyle.width / 2;
-            return (dx * dx + dy * dy) <= (r * r);
+            var outerR = this.radius + this.drawStyle.width / 2;
+            var innerR = this.radius - this.drawStyle.width / 2;
+            console.log("circ oute "+((dx * dx + dy * dy) <= (outerR * outerR))+"   inn "+((dx+ dy) >= (innerR)));
+            return ((dx * dx + dy * dy) <= (outerR * outerR)) && ((dx+ dy) >= (innerR));
 
         };
 
