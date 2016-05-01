@@ -31,7 +31,11 @@ requirejs.config({
         "vec2" : "./math/vec2",
 
         "SceneController" : "./controller/scene_controller",
-        "HtmlController" : "./controller/html_controller"
+        "HtmlController" : "html_controller",
+        "BoundingBox" : "./kdtree/boundingbox",
+        "KdNode" : "./kdtree/kdnode",
+        "KdTree" : "./kdtree/kdtree",
+        "kdutil" : "./kdtree/kdutil"
     }
 });
 
