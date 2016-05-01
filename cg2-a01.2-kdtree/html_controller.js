@@ -124,9 +124,9 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                     color: randomColor()
                 };
 
-                var numPoints = parseInt($("#numPoints").attr("value"));;
-                for(var i=0; i<numPoints; ++i) {
-                    var point = new Point([randomX(), randomY()], 5,
+                var numPoints = parseInt($("#inNumberPoints").attr("value"));
+                for(var i=0; i<(numPoints || 10); ++i) {
+                    var point = new Point([randomX(), randomY()],
                         style);
                     scene.addObjects([point]);
                     pointList.push(point);
