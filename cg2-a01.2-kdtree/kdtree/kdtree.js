@@ -33,7 +33,32 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
              */
             this.build = function(pointList, dim, parent, isLeft) {
 
-                var node = undefined;
+                var node = new KdNode(dim);
+
+
+                if(pointList.length==0){
+                    return; 
+                }
+
+                var median = KdUtil.sortAndMedian(pointList);
+
+
+                node.point = pointList[median];
+                
+                if(!parent){
+                    // node.bbox = new BoundingBox(0,0,$("#drawing_area").width-1,$("#drawing_area").height-1,node.point,dim);
+                    node.bbox = new BoundingBox(0,0,500,400,node.point,dim);
+                } else {
+                var ppbox = parent.bbox;
+                console.log("PPBOX: ", ppbox.xmin, ppbox.xmax, ppbox.ymin, ppbox.ymax, parent.point);
+
+
+                // dim 1 = y
+
+                node.bbox = isLeft ? new BoundingBox(ppbox.xmin,ppbox.ymin,dim == 0 ? ppbox.xmax : parent.point[0], dim == 0 ? parent.point[1] : ppbox.ymax, node.point, dim) :
+                new BoundingBox(dim == 0 ? ppbox.xmin : parent.point[0], dim == 0 ? parent.point[1] : ppbox.ymin, ppbox.xmax, ppbox.ymax, node.point, dim);
+                }
+
 
                 // ===========================================
                 // TODO: implement build tree
@@ -54,7 +79,13 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
 
                 //<Unterbaum für linke Seite aufbauen>
                 //<Unterbaum für rinke Seite aufbauen>
+
+
+
+                var left = this.build(pointList.slice(0,median),dim==0 ? 1 : 0, node, true);
                 
+                node.leftChild = left;
+                node.rightChild = this.build(pointList.slice(median+1),dim==0 ? 1 : 0, node, false);
 
                 return node;
             };
