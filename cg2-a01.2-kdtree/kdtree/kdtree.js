@@ -44,6 +44,7 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
 
 
                 node.point = pointList[median];
+                console.log(node.point);
                 
                 if(!parent){
                     // node.bbox = new BoundingBox(0,0,$("#drawing_area").width-1,$("#drawing_area").height-1,node.point,dim);
