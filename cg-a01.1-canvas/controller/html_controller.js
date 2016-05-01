@@ -177,7 +177,7 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                     width: 2,
                     color: "#ff0000"
                 };
-                var queryPoint = new Point([randomX(), randomY()], 2,
+                var queryPoint = new Point([randomX(), randomY()],
                     style);
                 scene.addObjects([queryPoint]);
                 sceneController.select(queryPoint); 
@@ -190,14 +190,25 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                 ////////////////////////////////////////////////
                 var linearTiming;
                 var kdTiming;
-
+                
+                var tLBefore = Date.now();
                 var minIdx = KdUtil.linearSearch(pointList, queryPoint);
-
+                var tLAfter =  Date.now();
+                linearTiming =tLAfter-tLBefore;
+                
                 console.log("nearest neighbor linear: ", pointList[minIdx].center);
-
-                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, 10000000, kdTree.root, 0);
+                
+                var tFNNBefore= Date.now();
+                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, kdTree.root, 10000000, 0);
+                var tFNNAfter = Date.now();
+                kdTiming = tFNNAfter-tFNNBefore;
 
                 console.log("nearest neighbor kd: ", kdNearestNeighbor.point.center);
+
+
+                console.log("times  ",linearTiming,"   ",kdTiming);
+                console.log("timesLin  ",tLBefore,"   ",tLAfter);
+                console.log("timesRec  ",tFNNBefore,"   ",tFNNAfter);
 
                 sceneController.select(pointList[minIdx]);
                 sceneController.select(kdNearestNeighbor.point);
