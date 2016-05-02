@@ -33,28 +33,35 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
              */
             this.build = function(pointList, dim, parent, isLeft) {
 
-                var node = undefined;
+                var node = new KdNode(dim);
 
-                // ===========================================
-                // TODO: implement build tree
-                // ===========================================
 
-                // Note: We need to compute the bounding box for EACH new 'node'
-                //       to be able to query correctly
+                if(pointList.length==0){
+                    return; 
+                }
+
+                var median = KdUtil.sortAndMedian(pointList, dim);
+
+
+                node.point = pointList[median];
+                console.log(node.point);
                 
-                //<Neuen Knoten im Baum erzeugen>
-                //<Berechne Split Position in pointlist>
+                if(!parent){
+                    // node.bbox = new BoundingBox(0,0,$("#drawing_area").width-1,$("#drawing_area").height-1,node.point,dim);
+                    node.bbox = new BoundingBox(0,0,500,400,node.point, dim );
+                } else {
+                var ppbox = parent.bbox;
 
-                //<set node.point>
+                // dim 1 means y
 
-                //<Berechne Bounding Box des Unterbaumes / node.bbox >
+                node.bbox = isLeft ? new BoundingBox(ppbox.xmin,ppbox.ymin,dim == 0 ? ppbox.xmax : parent.point.center[0], dim == 0 ? parent.point.center[1] : ppbox.ymax, node.point, dim) :
+                new BoundingBox(dim == 0 ? ppbox.xmin : parent.point.center[0], dim == 0 ? parent.point.center[1] : ppbox.ymin, ppbox.xmax, ppbox.ymax, node.point, dim);
+                }
 
-                //<Extrahiere Punkte für die linke Unterbaumhälfte>
-                //<Extrahiere Punkte für die rechte Unterbaumhälfte>
-
-                //<Unterbaum für linke Seite aufbauen>
-                //<Unterbaum für rinke Seite aufbauen>
+                var left = this.build(pointList.slice(0,median),dim==0 ? 1 : 0, node, true);
                 
+                node.leftChild = left;
+                node.rightChild = this.build(pointList.slice(median+1),dim==0 ? 1 : 0, node, false);
 
                 return node;
             };

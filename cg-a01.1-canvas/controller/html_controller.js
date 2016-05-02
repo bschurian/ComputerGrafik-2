@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point"],
-    (function($, Line, Circle, Point) {
+define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "ParametricCurve"],
+    (function($, Line, Circle, Point, KdTree, Util, KdUtil, ParametricCurve) {
         "use strict";
 
         /*
@@ -22,6 +22,9 @@ define(["jquery", "Line", "Circle", "Point"],
          */
         var HtmlController = function(context,scene,sceneController) {
 
+            //for KdTree functionality
+            var kdTree;
+            var pointList = [];
 
             // generate random X coordinate within the canvas
             var randomX = function() {
@@ -71,6 +74,12 @@ define(["jquery", "Line", "Circle", "Point"],
                     style );
                 scene.addObjects([line]);
 
+                sceneController.onSelection(function(obj){
+                   var width=document.getElementById("inLineWidth");
+                    width.value=obj.drawStyle.width;
+                    var color=document.getElementById("inColor");
+                    color.value=obj.drawStyle.color;
+                });
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(line); // this will also redraw
@@ -92,11 +101,10 @@ define(["jquery", "Line", "Circle", "Point"],
                     randomRadius(),
                     style );
                 scene.addObjects([circle]);
-
+                
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(circle); // this will also redraw
-
 
             }));
 
@@ -122,6 +130,140 @@ define(["jquery", "Line", "Circle", "Point"],
 
             }));
             
+            
+            $("#btnNewPointList").click( (function() {
+
+                // create the actual line and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor()
+                };
+
+                var numPoints = parseInt($("#inNumberPoints").attr("value"));
+                for(var i=0; i<(numPoints || 10); ++i) {
+                    var point = new Point([randomX(), randomY()],
+                        style);
+                    scene.addObjects([point]);
+                    pointList.push(point);
+                }
+
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+
+            }));
+
+            $("#visKdTree").click( (function() {
+
+                var showTree = $("#visKdTree").attr("checked");
+                if(showTree && kdTree) {
+                    KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
+                }
+
+            }));
+
+            $("#btnBuildKdTree").click( (function() {
+
+                kdTree = new KdTree(pointList);
+
+            }));
+
+            /**
+             * creates a random query point and
+             * runs linear search and kd-nearest-neighbor search
+             */
+            $("#btnQueryKdTree").click( (function() {
+
+                var style = {
+                    width: 2,
+                    color: "#ff0000"
+                };
+                var queryPoint = new Point([randomX(), randomY()],
+                    style);
+                scene.addObjects([queryPoint]);
+                sceneController.select(queryPoint); 
+
+                console.log("query point: ", queryPoint.center);
+
+                var linearTiming;
+                var kdTiming;
+                
+                var tLBefore = Date.now();
+                var minIdx = KdUtil.linearSearch(pointList, queryPoint);
+                var tLAfter =  Date.now();
+                linearTiming =tLAfter-tLBefore;
+                
+                console.log("nearest neighbor linear: ", pointList[minIdx].center);
+                
+                var tFNNBefore= Date.now();
+                var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, kdTree.root, 10000000, 0);
+                var tFNNAfter = Date.now();
+                kdTiming = tFNNAfter-tFNNBefore;
+
+                console.log("nearest neighbor kd: ", kdNearestNeighbor.point.center);
+
+
+                console.log("times  ",linearTiming,"   ",kdTiming);
+                console.log("timesLin  ",tLBefore,"   ",tLAfter);
+                console.log("timesRec  ",tFNNBefore,"   ",tFNNAfter);
+
+                sceneController.select(pointList[minIdx]);
+                sceneController.select(kdNearestNeighbor.point);
+
+            }));
+
+            
+            $("#btnNewParametricCurve").click( (function() {
+
+                // create the actual line and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor()
+                };
+                
+                var f1 = $("#parCrvF1").value||"t";
+                var f2 = $("#parCrvF2").value||"t";
+                var tMin = $("#tMin").value||"0";
+                var tMax = $("#tMax").value||"100";
+                var segmentCount = $("#segmentCount").value;
+                
+                var paramCurve = new ParametricCurve(f1, f2, tMin, tMax, segmentCount, style
+                );
+                scene.addObjects([paramCurve]);
+
+                sceneController.onSelection(function(obj){
+                   var width = $("#inLineWidth").value;
+                    width = obj.drawStyle.width;
+                    var color=$("#inColor").value;
+                    colo = obj.drawStyle.color;
+                });
+                
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+                sceneController.select(paramCurve); // this will also redraw
+
+            }));
+
+            /*
+             * event handler for "color property"
+             */
+            $("#inColor").change( function() {
+                // change color
+                var newColor = $("#inColor").attr("value");
+                sceneController.getSelectedObject().drawStyle.color = newColor;
+                scene.draw(context);
+                console.log(newColor);
+            });
+            /*
+             * event handler for "line width"
+             */
+            $("#inLineWidth").change( function() {
+                // change line width
+                var newLineWidth = $("#inLineWidth").attr("value");
+                sceneController.getSelectedObject().drawStyle.width = newLineWidth;
+                scene.draw(context);
+                console.log(newLineWidth);
+            });
+    
 
         };
 

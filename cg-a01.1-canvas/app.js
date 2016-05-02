@@ -21,13 +21,21 @@ requirejs.config({
             '../lib/jquery-1.7.2.min'],
 
         "util" : "./utils/util",
-
-        "Scene" : "./scene/scene",
-        "Line" : "./scene/line",
-        "Circle" : "./scene/circle",
-        "Point" : "./scene/point",
-        "PointDragger" : "./scene/point_dragger",
-
+        //a01
+            //a01.1
+            "Scene" : "./scene/scene",
+            "Line" : "./scene/line",
+            "Circle" : "./scene/circle",
+            "Point" : "./scene/point",
+            "PointDragger" : "./scene/point_dragger",
+            //a01.2
+            "BoundingBox" : "../cg2-a01.2-kdtree/kdtree/boundingbox",
+            "KdNode" : "../cg2-a01.2-kdtree/kdtree/kdnode",
+            "KdTree" : "../cg2-a01.2-kdtree/kdtree/kdtree",
+            "kdutil" : "../cg2-a01.2-kdtree/kdtree/kdutil",
+            //a01.3
+            "ParametricCurve" : "./scene/parametriccurve",
+        
         "vec2" : "./math/vec2",
 
         "SceneController" : "./controller/scene_controller",

@@ -1,24 +1,22 @@
 /*
- * JavaScript / Canvas teaching framwork 
+ * JavaScript / Canvas teaching framwork
  * (C)opyright Hartmut Schirmacher, hschirmacher.beuth-hochschule.de
  * changes by Kristian Hildebrand, khildebrand@beuth-hochschule.de
  *
- * Module: straight_Circle
+ * Module: Parametric_Curve
  *
- * A Circle knows how to draw itself into a specified 2D context,
- * can tell whether a certain mouse position "hits" the object,
- * and implements the function createDraggers() to create a set of
- * draggers to manipulate itself.
- *
+ * A parametric curve knows how to draw itself into a specified 2D context and
+ * can tell whether a certain mouse position "hits" the object
  */
 
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "PointDragger"],
-    (function (util, vec2, Scene, PointDragger) {
+define(["util", "vec2", "Scene", "Point"],
+    (function (util, vec2, Scene, Point) {
 
         "use strict";
 
+        //TODO: change comment
         /**
          *  A simple circle that can be dragged
          *  around by its center point.
@@ -29,7 +27,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
          *       begin of the form { width: 2, color: "#00FF00" }
          */
 
-        var Circle = function (point0, radius, circleStyle) {
+        var ParametricCurve = function (funcF, radius, circleStyle) {
 
             console.log("creating straight circle at [" +
                 point0[0] + "," + point0[1] + "] with radius " + radius + ".");
@@ -43,14 +41,14 @@ define(["util", "vec2", "Scene", "PointDragger"],
         };
 
         // draw this circle into the provided 2D rendering context
-        Circle.prototype.draw = function (context) {
+        ParametricCurve.prototype.draw = function (context) {
 
             // draw actual circle
             context.beginPath();
 
             // set points to be drawn
             context.arc(this.p0[0], this.p0[1], Math.max(2, this.radius), 0, 2*Math.PI);
-            
+
             // set drawing style
             context.lineWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
@@ -61,7 +59,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
         };
 
         // test whether the mouse position is on this circle segment
-        Circle.prototype.isHit = function (context, mousePos) {
+        ParametricCurve.prototype.isHit = function (context, mousePos) {
 
 
             // check whether distance between mouse and circle's center
@@ -75,37 +73,17 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
         };
 
-        // return list of draggers to manipulate this circle
-        Circle.prototype.createDraggers = function () {
+        // list of draggers empty as Object should only be manipulated through the GUI
+        ParametricCurve.prototype.createDraggers = function () {
 
-            var draggerStyle = {radius: 4, color: this.drawStyle.color, width: 0, fill: true}
-            var draggers = [];
-
-            // create closure and callbacks for dragger
-            var _circle = this;
-            var getP0 = function () {
-                return _circle.p0;
-            };
-            var getP1 = function () {
-                return [_circle.p0[0], _circle.p0[1]+_circle.radius];
-            };
-            var setP0 = function (dragEvent) {
-                _circle.p0 = dragEvent.position;
-            };
-            var setP1 = function (dragEvent) {
-                _circle.radius = dragEvent.position[1] - getP0()[1];
-            };
-            draggers.push(new PointDragger(getP0, setP0, draggerStyle));
-            draggers.push(new PointDragger(getP1, setP1, draggerStyle));
-
-            return draggers;
+            return [];
 
         };
 
 
         // this module only exports the constructor for Straightcircle objects
-        return Circle;
+        return ParametricCurve;
 
     })); // define
 
-    
+

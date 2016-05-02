@@ -38,7 +38,7 @@ define(["util", "vec2", "Scene", "PointDragger"],
             this.drawStyle.fill = drawStyle.fill || "false";
 
             // initial values in case either parameter is undefined
-            this.p0 = point0 || [10, 10];
+            this.center = point0 || [10, 10];
             this.radius = 5;
         };
 
@@ -49,11 +49,11 @@ define(["util", "vec2", "Scene", "PointDragger"],
             context.beginPath();
 
             // set points to be drawn
-            context.arc(this.p0[0], this.p0[1], Math.max(2, this.radius), 0, 2*Math.PI);
+            context.arc(this.center[0], this.center[1], Math.max(2, this.radius), 0, 2*Math.PI);
             context.closePath();
             
             // set drawing style
-            context.drawWidth = this.drawStyle.width;
+            context.lineWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
             context.fillStyle = this.drawStyle.color;
             
@@ -72,8 +72,8 @@ define(["util", "vec2", "Scene", "PointDragger"],
 
             // check whether distance between mouse and point's center
             // is less or equal ( radius + (style width)/2 )
-            var dx = mousePos[0] - this.p0[0];
-            var dy = mousePos[1] - this.p0[1];
+            var dx = mousePos[0] - this.center[0];
+            var dy = mousePos[1] - this.center[1];
             var r = this.radius + this.drawStyle.width / 2;
             return (dx * dx + dy * dy) <= (r * r);
 
@@ -88,10 +88,10 @@ define(["util", "vec2", "Scene", "PointDragger"],
             // create closure and callbacks for dragger
             var _point = this;
             var getP0 = function () {
-                return _point.p0;
+                return _point.center;
             };
             var setP0 = function (dragEvent) {
-                _point.p0 = dragEvent.position;
+                _point.center = dragEvent.position;
             };
             draggers.push(new PointDragger(getP0, setP0, draggerStyle));
 
