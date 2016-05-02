@@ -184,10 +184,6 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
 
                 console.log("query point: ", queryPoint.center);
 
-                ////////////////////////////////////////////////
-                // TODO: measure and compare timings of linear
-                //       and kd-nearest-neighbor search
-                ////////////////////////////////////////////////
                 var linearTiming;
                 var kdTiming;
                 
@@ -223,7 +219,6 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                 var newColor = $("#inColor").attr("value");
                 sceneController.getSelectedObject().drawStyle.color = newColor;
                 scene.draw(context);
-                //scene.draw();
                 console.log(newColor);
             });
 
@@ -232,7 +227,6 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                 var newLineWidth = $("#inLineWidth").attr("value");
                 sceneController.getSelectedObject().drawStyle.width = newLineWidth;
                 scene.draw(context);
-                //scene.draw();
                 console.log(newLineWidth);
             });
     
