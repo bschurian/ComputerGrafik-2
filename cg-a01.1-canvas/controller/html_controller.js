@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
-    (function($, Line, Circle, Point, KdTree, Util, KdUtil) {
+define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "ParametricCurve"],
+    (function($, Line, Circle, Point, KdTree, Util, KdUtil, ParametricCurve) {
         "use strict";
 
         /*
@@ -211,6 +211,38 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
 
             }));
 
+            
+            $("#btnNewParametricCurve").click( (function() {
+
+                // create the actual line and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor()
+                };
+                
+                var f1 = $("#parCrvF1").value||"t";
+                var f2 = $("#parCrvF2").value||"t";
+                var tMin = $("#tMin").value||"0";
+                var tMax = $("#tMax").value||"100";
+                var segmentCount = $("#segmentCount").value;
+                
+                var paramCurve = new ParametricCurve(f1, f2, tMin, tMax, segmentCount, style
+                );
+                scene.addObjects([paramCurve]);
+
+                sceneController.onSelection(function(obj){
+                   var width = $("#inLineWidth").value;
+                    width = obj.drawStyle.width;
+                    var color=$("#inColor").value;
+                    colo = obj.drawStyle.color;
+                });
+                
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+                sceneController.select(paramCurve); // this will also redraw
+
+            }));
+
             /*
              * event handler for "color property"
              */
@@ -221,7 +253,9 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil"],
                 scene.draw(context);
                 console.log(newColor);
             });
-
+            /*
+             * event handler for "line width"
+             */
             $("#inLineWidth").change( function() {
                 // change line width
                 var newLineWidth = $("#inLineWidth").attr("value");
