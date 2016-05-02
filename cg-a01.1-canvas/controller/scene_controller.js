@@ -207,19 +207,7 @@ define(["util", "Scene"],
 
                     // redraw the scene
                     this.scene.draw(this.context);
-<<<<<<< HEAD
-                    //Liniendicke anzeigen lassen
-                    var line=document.getElementById("line");
-                    var a=this.dragObj;
 
-                    if(a.drawStyle){
-                    line.value=a.drawStyle.width;
-                    }else if(a.lineStyle){
-                        line.value=a.lineStyle.width;
-                    }
-
-=======
->>>>>>> dd16c5f31e17a44792146c345d416469f9a8331a
                     return;
                 }
             }
