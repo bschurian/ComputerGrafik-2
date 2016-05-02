@@ -207,7 +207,7 @@ define(["util", "Scene"],
 
                     // redraw the scene
                     this.scene.draw(this.context);
-
+                    //Liniendicke anzeigen lassen
                     var line=document.getElementById("line");
                     var a=this.dragObj;
 
