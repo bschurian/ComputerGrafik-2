@@ -220,11 +220,11 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "Parame
                     color: randomColor()
                 };
                 
-                var f1 = $("#parCrvF1").value||"t";
-                var f2 = $("#parCrvF2").value||"t";
-                var tMin = $("#tMin").value||"0";
-                var tMax = $("#tMax").value||"100";
-                var segmentCount = $("#segmentCount").value;
+                var f1 = $("#parCrvF1").val()||"t";
+                var f2 = $("#parCrvF2").val()||"t";
+                var tMin = $("#tMin").val()||0;
+                var tMax = $("#tMax").val()||100;
+                var segmentCount = $("#segmentCount").val();
                 
                 var paramCurve = new ParametricCurve(f1, f2, tMin, tMax, segmentCount, style
                 );
@@ -234,7 +234,7 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "Parame
                    var width = $("#inLineWidth").value;
                     width = obj.drawStyle.width;
                     var color=$("#inColor").value;
-                    colo = obj.drawStyle.color;
+                    color = obj.drawStyle.color;
                 });
                 
                 // deselect all objects, then select the newly created object
