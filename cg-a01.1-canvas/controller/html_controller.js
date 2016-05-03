@@ -220,10 +220,10 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "Parame
                     color: randomColor()
                 };
                 
-                var f1 = $("#parCrvF1").val()||"t";
-                var f2 = $("#parCrvF2").val()||"t";
-                var tMin = $("#tMin").val()||0;
-                var tMax = $("#tMax").val()||100;
+                var f1 = $("#parCrvF1").val();
+                var f2 = $("#parCrvF2").val();
+                var tMin = $("#tMin").val();
+                var tMax = $("#tMax").val();
                 var segmentCount = $("#segmentCount").val();
                 
                 var paramCurve = new ParametricCurve(f1, f2, tMin, tMax, segmentCount, style

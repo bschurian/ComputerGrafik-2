@@ -36,29 +36,27 @@ define(["util", "vec2", "Scene", "Point"],
             this.drawStyle = curveStyle || {width: "2", color: "#0000AA"};
 
             // initial values in case either parameter is undefined
-            console.log(funcF, "------", funcG);
             try{
-                this.funcF = function(t){return eval(funcF)};
+                this.funcF = function(t){return eval(funcF||"t")};
             } catch(err) {
-                this.funcF = function(t){return t;};
+                // this.funcF = function(t){return t;};
             }
 
             try{
-                this.funcG = function(t){return eval(funcG)};
+                this.funcG = function(t){return eval(funcG||"t")};
             } catch(err) {
-                this.funcG = function(t){return t;};
+                // this.funcG = function(t){return t;};
             }
 
-            this.tmin = tmin || 0;
-            this.tmax = tmax || 10;
-            this.segmentCount = segmentsCount || 10;
+            this.tmin = parseInt(tmin) || 0;
+            this.tmax = parseInt(tmax) || 500;
+            this.segmentCount = segmentsCount || 100;
 
         };
 
         // draw this parametric curve into the provided 2D rendering context
         ParametricCurve.prototype.draw = function (context) {
             var points = this.curvePoints();
-            console.log(points);
 
             context.beginPath();
             context.moveTo((points[0])[0], (points[0])[1]);
@@ -76,30 +74,37 @@ define(["util", "vec2", "Scene", "Point"],
         ParametricCurve.prototype.curvePoints = function(){
             var points = [];
 
-            console.log("segm: ", this.segmentCount);
             for(var i = 0; i < this.segmentCount; i++){
                 var t = this.tmin + i*((this.tmax-this.tmin)/this.segmentCount);
-                console.log("t: ", t, " tmin: ", this.tmin, " tmax: ", this.tmax);
                 points.push([this.funcF(t), this.funcG(t)]);
             }
 
             return points;
-        }
+        };
 
 
         // test whether the mouse position is on this curve segment
         ParametricCurve.prototype.isHit = function (context, mousePos) {
 
+            var points = this.curvePoints();
+            for(var i = 0; i < points.length -1; i++){
+                var distance = vec2.projectPointOnLine(mousePos, points[i], points[i+1]);
+                // outside the line segment?
+                if (distance < 0.0 || distance > 1.0) {
+                    continue;
+                }
+                // coordinates of the projected point
+                var p = vec2.add(points[i], vec2.mult(vec2.sub(points[i+1], points[i]), distance));
 
-            // check whether distance between mouse and circle's center
-            // is less or equal ( radius + (style width)/2 ) and greater or equal ( radius + (style width)/2 )
-            var dx = mousePos[0] - this.p0[0];
-            var dy = mousePos[1] - this.p0[1];
-            var outerR = this.radius + this.drawStyle.width / 2;
-            var innerR = this.radius - this.drawStyle.width / 2;
-            console.log("circ oute "+((dx * dx + dy * dy) <= (outerR * outerR))+"   inn "+((dx+ dy) >= (innerR)));
-            return ((dx * dx + dy * dy) <= (outerR * outerR)) && ((dx+ dy) >= (innerR));
+                // distance of the point from the line
+                var d = vec2.length(vec2.sub(p, mousePos));
 
+                // allow 2 pixels extra "sensitivity"
+                if(d <= (this.drawStyle.width / 2) + 2){
+                    return true;
+                }
+            }
+            return false;
         };
 
         // list of draggers empty as Object should only be manipulated through the GUI

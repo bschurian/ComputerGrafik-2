@@ -70,7 +70,6 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var dy = mousePos[1] - this.p0[1];
             var outerR = this.radius + this.drawStyle.width;
             var innerR = this.radius - this.drawStyle.width;
-            console.log("circ oute "+((dx * dx + dy * dy) <= (outerR * outerR))+"   inn "+((dx+ dy) >= (innerR)));
             return ((dx * dx + dy * dy) <= (outerR * outerR)) && ((dx*dx + dy*dy) >= (innerR*innerR));
 
         };
