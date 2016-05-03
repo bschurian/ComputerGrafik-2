@@ -234,7 +234,7 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "Parame
                    var width = $("#inLineWidth").value;
                     width = obj.drawStyle.width;
                     var color=$("#inColor").value;
-                    colo = obj.drawStyle.color;
+                    color = obj.drawStyle.color;
                 });
                 
                 // deselect all objects, then select the newly created object
