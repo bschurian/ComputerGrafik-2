@@ -58,6 +58,48 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 return "#"+toHex2(r)+toHex2(g)+toHex2(b);
             };
 
+            // public method: show parameters for selected object
+            this.showParamsForObj = function(obj) {
+
+                if(!obj) {
+                    $("#inRadius").hide();
+                    return;
+                }
+
+                $("#inLineWidth").attr("value", obj.drawStyle.width);
+                $("#inColor").attr("value", obj.drawStyle.color);
+                if(obj.radius == undefined) {
+                    $("#inRadius").hide();
+                } else {
+                    $("#inRadius").show();
+                    $("#inRadius").attr("value", obj.radius);
+                };
+
+            };
+
+            // for all elements of class objParams
+            $(".objParam").change( (function(ev) {
+
+                var obj = sceneController.getSelectedObject();
+                if(!obj) {
+                    window.console.log("ParamController: no object selected.");
+                    return;
+                };
+                obj.drawStyle.width = parseInt($("#inLineWidth").attr("value"));
+                obj.drawStyle.color = $("#inColor").attr("value");
+                if(obj.constructor!=Point) {
+                    sceneController.selected[0].draggers[0].drawStyle.color = $("#inColor").attr("value");
+                    sceneController.selected[0].draggers[1].drawStyle.color = $("#inColor").attr("value");
+                }
+                if(obj.radius != undefined) {
+                    obj.radius = parseInt($("#inRadius").attr("value"));
+                };
+
+                scene.draw(context);
+            }));
+
+            sceneController.onSelection(this.showParamsForObj);
+
             /*
              * event handler for "new line button".
              */
@@ -73,14 +115,6 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     [randomX(),randomY()],
                     style );
                 scene.addObjects([line]);
-
-                sceneController.onSelection(function(obj){
-                   var width=document.getElementById("inLineWidth");
-                    width.value=obj.drawStyle.width;
-                    var color=document.getElementById("inColor");
-                    color.value=obj.drawStyle.color;
-                });
-                // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(line); // this will also redraw
 
@@ -158,6 +192,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 };
 
                 var numPoints = parseInt($("#inNumberPoints").attr("value"));
+                $("#inColor").attr("value",style.color);
                 for(var i=0; i<(numPoints || 10); ++i) {
                     var point = new Point([randomX(), randomY()],
                         style);
@@ -248,12 +283,12 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 );
                 scene.addObjects([paramCurve]);
 
-                sceneController.onSelection(function(obj){
+              /*  sceneController.onSelection(function(obj){
                    var width = $("#inLineWidth").value;
                     width = obj.drawStyle.width;
                     var color=$("#inColor").value;
                     color = obj.drawStyle.color;
-                });
+                });*/
                 
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
@@ -264,23 +299,23 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             /*
              * event handler for "color property"
              */
-            $("#inColor").change( function() {
+           /* $("#inColor").change( function() {
                 // change color
                 var newColor = $("#inColor").attr("value");
                 sceneController.getSelectedObject().drawStyle.color = newColor;
                 scene.draw(context);
                 console.log(newColor);
             });
-            /*
+            /!*
              * event handler for "line width"
-             */
+             *!/
             $("#inLineWidth").change( function() {
                 // change line width
                 var newLineWidth = $("#inLineWidth").attr("value");
                 sceneController.getSelectedObject().drawStyle.width = newLineWidth;
                 scene.draw(context);
                 console.log(newLineWidth);
-            });
+            });*/
     
 
         };
