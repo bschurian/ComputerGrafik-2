@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "ParametricCurve"],
-    (function($, Line, Circle, Point, KdTree, Util, KdUtil, ParametricCurve) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdutil", "ParametricCurve"],
+    (function($, Line, Circle, Point, Rectangle, KdTree, Util, KdUtil, ParametricCurve) {
         "use strict";
 
         /*
@@ -129,7 +129,25 @@ define(["jquery", "Line", "Circle", "Point", "KdTree", "util", "kdutil", "Parame
                 sceneController.select(point); // this will also redraw
 
             }));
-            
+
+            $("#btnNewRect").click( (function() {
+
+                // create the actual rectangle and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor(),
+                    fill: true
+                };
+
+                var rect = new Rectangle( [randomX(),randomY()], [randomX(),randomY()],
+                    style );
+                scene.addObjects([rect]);
+
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+                sceneController.select(rect); // this will also redraw
+
+            }));            
             
             $("#btnNewPointList").click( (function() {
 

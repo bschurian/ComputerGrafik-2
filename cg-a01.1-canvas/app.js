@@ -28,6 +28,7 @@ requirejs.config({
             "Circle" : "./scene/circle",
             "Point" : "./scene/point",
             "PointDragger" : "./scene/point_dragger",
+            "Rectangle" : "./scene/rectangle",
             //a01.2
             "BoundingBox" : "../cg2-a01.2-kdtree/kdtree/boundingbox",
             "KdNode" : "../cg2-a01.2-kdtree/kdtree/kdnode",
