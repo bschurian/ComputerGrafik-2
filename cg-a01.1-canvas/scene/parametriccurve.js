@@ -27,58 +27,92 @@ define(["util", "vec2", "Scene", "Point"],
          *       begin of the form { width: 2, color: "#00FF00" }
          */
 
-        var ParametricCurve = function (funcF, radius, circleStyle) {
+        var ParametricCurve = function (funcF, funcG, tmin, tmax, segmentsCount, curveStyle) {
 
-            console.log("creating straight circle at [" +
-                point0[0] + "," + point0[1] + "] with radius " + radius + ".");
+            console.log("creating parametric curve with x = ", funcF, "; y = ", funcG,
+            "; tmin: ", tmin, "; tmax: ", tmax);
 
-            // draw style for drawing the circle
-            this.drawStyle = circleStyle || {width: "2", color: "#0000AA"};
+            // draw style for drawing the parametric curve
+            this.drawStyle = curveStyle || {width: "2", color: "#0000AA"};
 
             // initial values in case either parameter is undefined
-            this.p0 = point0 || [10, 10];
-            this.radius = parseInt(radius) || 10;
+            try{
+                this.funcF = function(t){return eval(funcF||"t")};
+            } catch(err) {
+                // this.funcF = function(t){return t;};
+            }
+
+            try{
+                this.funcG = function(t){return eval(funcG||"t")};
+            } catch(err) {
+                // this.funcG = function(t){return t;};
+            }
+
+            this.tmin = parseInt(tmin) || 0;
+            this.tmax = parseInt(tmax) || 500;
+            this.segmentCount = segmentsCount || 100;
+
         };
 
-        // draw this circle into the provided 2D rendering context
+        // draw this parametric curve into the provided 2D rendering context
         ParametricCurve.prototype.draw = function (context) {
+            var points = this.curvePoints();
 
-            // draw actual circle
             context.beginPath();
+            context.moveTo((points[0])[0], (points[0])[1]);
 
-            // set points to be drawn
-            context.arc(this.p0[0], this.p0[1], Math.max(2, this.radius), 0, 2*Math.PI);
+            for(var i = 1; i < points.length; i++){
+                context.lineTo((points[i])[0], (points[i])[1]);
+            }
 
-            // set drawing style
             context.lineWidth = this.drawStyle.width;
             context.strokeStyle = this.drawStyle.color;
-
-            // actually start drawing
             context.stroke();
 
         };
 
-        // test whether the mouse position is on this circle segment
+        ParametricCurve.prototype.curvePoints = function(){
+            var points = [];
+
+            for(var i = 0; i < this.segmentCount; i++){
+                var t = this.tmin + i*((this.tmax-this.tmin)/this.segmentCount);
+                points.push([this.funcF(t), this.funcG(t)]);
+            }
+
+            return points;
+        };
+
+
+        // test whether the mouse position is on this curve segment
         ParametricCurve.prototype.isHit = function (context, mousePos) {
 
+            var points = this.curvePoints();
+            for(var i = 0; i < points.length -1; i++){
+                var distance = vec2.projectPointOnLine(mousePos, points[i], points[i+1]);
+                // outside the line segment?
+                if (distance < 0.0 || distance > 1.0) {
+                    continue;
+                }
+                // coordinates of the projected point
+                var p = vec2.add(points[i], vec2.mult(vec2.sub(points[i+1], points[i]), distance));
 
-            // check whether distance between mouse and circle's center
-            // is less or equal ( radius + (style width)/2 ) and greater or equal ( radius + (style width)/2 )
-            var dx = mousePos[0] - this.p0[0];
-            var dy = mousePos[1] - this.p0[1];
-            var outerR = this.radius + this.drawStyle.width / 2;
-            var innerR = this.radius - this.drawStyle.width / 2;
-            console.log("circ oute "+((dx * dx + dy * dy) <= (outerR * outerR))+"   inn "+((dx+ dy) >= (innerR)));
-            return ((dx * dx + dy * dy) <= (outerR * outerR)) && ((dx+ dy) >= (innerR));
+                // distance of the point from the line
+                var d = vec2.length(vec2.sub(p, mousePos));
 
+                // allow 2 pixels extra "sensitivity"
+                if(d <= (this.drawStyle.width / 2) + 2){
+                    return true;
+                }
+            }
+            return false;
         };
 
         // list of draggers empty as Object should only be manipulated through the GUI
         ParametricCurve.prototype.createDraggers = function () {
-
             return [];
 
         };
+
 
 
         // this module only exports the constructor for Straightcircle objects
