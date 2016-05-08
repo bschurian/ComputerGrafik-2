@@ -107,7 +107,7 @@ define(["util", "vec2", "Scene", "Point"],
             return false;
         };
 
-        // list of draggers empty as Object should only be manipulated through the GUI
+        // list of draggers empty as Object should only be2 manipulated through the GUI
         ParametricCurve.prototype.createDraggers = function () {
             return [];
 

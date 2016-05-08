@@ -36,6 +36,7 @@ requirejs.config({
             "kdutil" : "../cg2-a01.2-kdtree/kdtree/kdutil",
             //a01.3
             "ParametricCurve" : "./scene/parametriccurve",
+            "BezierCurve" : "./scene/beziercurve",
         
         "vec2" : "./math/vec2",
 
