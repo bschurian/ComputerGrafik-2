@@ -69,33 +69,34 @@ define(["util", "vec2", "Scene", "PointDragger"],
         Rectangle.prototype.isHit = function (context, pos) {
             //if filled rectangle entire area registers clicks
             if(this.drawStyle.fill) {
+                //check if in rectangle
                 var sensitivity = this.drawStyle.width / 2 + 2;
                 return (pos[0] >= Math.min(this.p0[0], this.p1[0]) - (sensitivity))
                     && (pos[1] >= Math.min(this.p0[1], this.p1[1]) - (sensitivity))
                     && (pos[0] <= Math.max(this.p0[0], this.p1[0]) + (sensitivity))
                     && (pos[1] <= Math.max(this.p0[1], this.p1[1]) + (sensitivity));
-            };
-            
-            //iterate through all the edges of the Rectangle
-            var allLines = [this.p0,[this.p0[0], this.p1[1]], this.p1, [this.p1[0], this.p0[1]]];
-            for(var i=0; i<allLines.length; i++){
-                // project point on the lines of the rectangle, get parameter of that projection point
-                var t = vec2.projectPointOnLine(pos, allLines[i], allLines[(i+1)%4]);
-                console.log("t:", t," ", i);
-                
-                // outside the line segment?
-                if (t < 0.0 || t > 1.0) {
-                    return false;
-                }
+            }else{            
+                //iterate through all the edges of the Rectangle
+                var allLines = [this.p0,[this.p0[0], this.p1[1]], this.p1, [this.p1[0], this.p0[1]]];
+                for(var i=0; i<allLines.length; i++){
+                    // project point on the lines of the rectangle, get parameter of that projection point
+                    var t = vec2.projectPointOnLine(pos, allLines[i], allLines[(i+1)%4]);
+                    console.log("t:", t," ", i);
 
-                // coordinates of the projected point
-                var p = vec2.add(allLines[i], vec2.mult(vec2.sub(allLines[(i+1)%4], (allLines[i]), t)));
+                    // outside the line segment?
+                    if (t < 0.0 || t > 1.0) {
+                        continue;
+                    }
 
-                // distance of the point from the line
-                var d = vec2.length(vec2.sub(p, pos));
+                    // coordinates of the projected point
+                    var p = vec2.add(allLines[i], vec2.mult(vec2.sub(allLines[(i+1)%4], allLines[i]), t));
+                    // distance of the point from the line
+                    var d = vec2.length(vec2.sub(p, pos));
 
-                // allow 2 pixels extra "sensitivity"
-                if(d <= (this.drawStyle.width / 2) + 2) return true;
+                    // allow 2 pixels extra "sensitivity"
+                    if(d <= (this.drawStyle.width / 2) + 2) return true;
+                };
+                return false;
             };
         };
 
