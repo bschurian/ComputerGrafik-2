@@ -310,7 +310,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 var point3 =[$("#cp3x").val(), $("#cp3y").val()];
                 var segmentCount = $("#segmentCount_bezier").val();
 
-                var bezierCurve = new bezierCurve(point0,point1,point2,point3,segmentCount_bezier,style
+                var bezierCurve = new bezierCurve(point0,point1,point2,point3,segmentCount,style
                 );
                 scene.addObjects([bezierCurve]);
 
