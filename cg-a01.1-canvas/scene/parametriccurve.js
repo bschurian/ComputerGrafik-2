@@ -36,14 +36,20 @@ define(["util", "vec2", "Scene", "Point"],
             // initial values in case either parameter is undefined
             try{
                 this.funcF = function(t){return eval(funcF||"t")};
-            } catch(err) {
-                // this.funcF = function(t){return t;};
+                if(funcF == "")throw new Error ("Keine Formel für x angegeben");
+                if(this.funcF() == 0 )throw new Error ("Die Eingabe oder das Ergebnis darf nicht null sein");
+            } catch(e) {
+                alert(e.message);
+                $("#parCrvF1").attr("value", "");
             }
 
             try{
                 this.funcG = function(t){return eval(funcG||"t")};
-            } catch(err) {
-                // this.funcG = function(t){return t;};
+                if(funcG == "")throw new Error ("Keine Formel für y angegeben");
+                if(this.funcG() == 0 )throw new Error ("Die Eingabe oder das ergebnis darf nicht null sein");
+            } catch(e) {
+                alert(e.message);
+                $("#parCrvF1").attr("value", "");
             }
 
             this.tmin = parseInt(tmin) || 0;
