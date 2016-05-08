@@ -58,6 +58,8 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             context.strokeStyle = this.drawStyle.color;
             context.stroke();
 
+            this.drawTickMarks(context);
+
         };
 
         BezierCurve.prototype.curvePoints = function(){
@@ -69,6 +71,44 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             }
                         
             return points;
+        };
+
+        BezierCurve.prototype.drawTickMarks = function(context){
+            // length of tick marks
+            var length = 10;
+
+            context.beginPath();
+            context.strokeStyle = "FF0000";
+            context.lineWidth = 0.5;
+
+            var points = this.curvePoints();
+
+            // for each point (except first and last):
+            // 1) determine the vector between this point and the next one
+            // 2) calculate the normal ("rotate" the vector at 180 degrees)
+            // 3) normalize the result (so its length doesn't depend on the vectors length)
+            // 4) set start and end points of the tick mark depending on its given length
+            // 5) draw line between start and end point
+            for(var i = 1; i < points.length - 1; i++){
+                // vector between current point and next point
+                var vector = vec2.sub(points[i+1], points[i]);
+
+                // normal of the vector between the two points
+                var normal = [vector[1], -vector[0]];
+
+                // normalize the normal
+                var normalized = vec2.mult(normal, 1/vec2.length(normal));
+
+                // points for the tick mark
+                var tm0 = vec2.add(points[i], vec2.mult(normalized, length/2));
+                var tm1 = vec2.sub(points[i], vec2.mult(normalized, length/2));
+
+                // draw line between the tick-mark points
+                context.moveTo(tm0[0], tm0[1]);
+                context.lineTo(tm1[0], tm1[1]);
+            }
+
+            context.stroke();
         };
 
         // test whether the mouse position is on this curve segment

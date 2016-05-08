@@ -129,7 +129,7 @@ define(["util", "Scene", "BezierCurve", "Polygon"],
             var draggers = obj.createDraggers();
 
             // store object and its draggers in an internal list
-            if(obj instanceof BezierCurve) {
+            if(obj.constructor === BezierCurve) {
                 var polygon = [];
                 polygon.push(obj.getPolygon());
                 this.selected.push({"obj": obj, "draggers": draggers, "polygon": polygon});
