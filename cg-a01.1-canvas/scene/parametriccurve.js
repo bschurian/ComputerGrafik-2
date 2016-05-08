@@ -39,7 +39,10 @@ define(["util", "vec2", "Scene", "Point"],
                 if(funcF == "")throw new Error ("Keine Formel für x angegeben");
                 if(this.funcF() == 0 )throw new Error ("Die Eingabe oder das Ergebnis darf nicht null sein");
             } catch(e) {
-                alert(e.message);
+                if(e.name=="TypeError"){
+                    alert("Die Eingabe für x ist keine Funktion");
+                }
+                else alert(e.message);
                 $("#parCrvF1").attr("value", "");
             }
 
@@ -48,7 +51,10 @@ define(["util", "vec2", "Scene", "Point"],
                 if(funcG == "")throw new Error ("Keine Formel für y angegeben");
                 if(this.funcG() == 0 )throw new Error ("Die Eingabe oder das ergebnis darf nicht null sein");
             } catch(e) {
-                alert(e.message);
+                if(e.name=="TypeError"){
+                    alert("Die Eingabe für y ist keine Funktion");
+                }
+                else alert(e.message);
                 $("#parCrvF2").attr("value", "");
             }
 
@@ -86,10 +92,16 @@ define(["util", "vec2", "Scene", "Point"],
         ParametricCurve.prototype.curvePoints = function(){
             var points = [];
 
-            for(var i = 0; i < this.segmentCount; i++){
-                var t = this.tmin + i*((this.tmax-this.tmin)/this.segmentCount);
-                points.push([this.funcF(t), this.funcG(t)]);
-            }
+
+                    for (var i = 0; i < this.segmentCount; i++) {
+                        var t = this.tmin + i * ((this.tmax - this.tmin) / this.segmentCount);
+                        points.push([this.funcF(t), this.funcG(t)]);
+
+                }/*catch(e){
+                    alert (e.message);
+                }*/
+
+
 
             return points;
         };
