@@ -13,7 +13,7 @@
 
 /* requireJS module definition */
 define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdutil", "ParametricCurve", "BezierCurve"],
-    (function($, Line, Circle, Point, Rectangle, KdTree, Util, KdUtil, ParametricCurve, bezierCurve) {
+    (function($, Line, Circle, Point, Rectangle, KdTree, Util, KdUtil, ParametricCurve, BezierCurve) {
         "use strict";
 
         /*
@@ -308,9 +308,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 var point1 = [$("#cp1x").val(), $("#cp1y").val()];
                 var point2 =[$("#cp2x").val(), $("#cp2y").val()];
                 var point3 =[$("#cp3x").val(), $("#cp3y").val()];
-                var segmentCount = $("#segmentCount_bezier").val();
+                var segmentCount_bezier = $("#segmentCount_bezier").val();
 
-                var bezierCurve = new bezierCurve(point0,point1,point2,point3,segmentCount_bezier,style
+                var bezierCurve = new BezierCurve(point0,point1,point2,point3,segmentCount_bezier,style
                 );
                 scene.addObjects([bezierCurve]);
 
