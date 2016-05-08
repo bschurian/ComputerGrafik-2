@@ -35,11 +35,11 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             var randomY = function() {
                 return Math.floor(Math.random()*(context.canvas.height-10))+5;
             };
-            
+
             var randomRadius = function() {
-                return Math.floor(Math.random()*(40))+15;  
+                return Math.floor(Math.random()*(40))+15;
             };
-            
+
             // generate random color in hex notation
             var randomColor = function() {
 
@@ -87,9 +87,14 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 };
                 obj.drawStyle.width = parseInt($("#inLineWidth").attr("value"));
                 obj.drawStyle.color = $("#inColor").attr("value");
-                if(obj.constructor!=Point) {
+                if(obj.constructor!=Point && obj.constructor!=ParametricCurve) {
                     sceneController.selected[0].draggers[0].drawStyle.color = $("#inColor").attr("value");
                     sceneController.selected[0].draggers[1].drawStyle.color = $("#inColor").attr("value");
+                    if(obj.constructor==BezierCurve){
+                        sceneController.selected[0].draggers[2].drawStyle.color = $("#inColor").attr("value");
+                        sceneController.selected[0].draggers[3].drawStyle.color = $("#inColor").attr("value");
+                        sceneController.selected[0].polygon[0].drawStyle.color = $("#inColor").attr("value");
+                    }
                 }
                 if(obj.radius != undefined) {
                     obj.radius = parseInt($("#inRadius").attr("value"));
@@ -135,7 +140,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     randomRadius(),
                     style );
                 scene.addObjects([circle]);
-                
+
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(circle); // this will also redraw
@@ -181,8 +186,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 sceneController.deselect();
                 sceneController.select(rect); // this will also redraw
 
-            }));            
-            
+            }));
+
             $("#btnNewPointList").click( (function() {
 
                 // create the actual line and add it to the scene
@@ -233,20 +238,20 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 var queryPoint = new Point([randomX(), randomY()],
                     style);
                 scene.addObjects([queryPoint]);
-                sceneController.select(queryPoint); 
+                sceneController.select(queryPoint);
 
                 console.log("query point: ", queryPoint.center);
 
                 var linearTiming;
                 var kdTiming;
-                
+
                 var tLBefore = Date.now();
                 var minIdx = KdUtil.linearSearch(pointList, queryPoint);
                 var tLAfter =  Date.now();
                 linearTiming =tLAfter-tLBefore;
-                
+
                 console.log("nearest neighbor linear: ", pointList[minIdx].center);
-                
+
                 var tFNNBefore= Date.now();
                 var kdNearestNeighbor = kdTree.findNearestNeighbor(kdTree.root, queryPoint, kdTree.root, 10000000, 0);
                 var tFNNAfter = Date.now();
@@ -264,7 +269,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
             }));
 
-            
+
             $("#btnNewParametricCurve").click( (function() {
 
                 // create the actual line and add it to the scene
@@ -272,24 +277,24 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     width: Math.floor(Math.random()*3)+1,
                     color: randomColor()
                 };
-                
+
                 var f1 = $("#parCrvF1").val();
                 var f2 = $("#parCrvF2").val();
                 var tMin = $("#tMin").val();
                 var tMax = $("#tMax").val();
                 var segmentCount = $("#segmentCount").val();
-                
+
                 var paramCurve = new ParametricCurve(f1, f2, tMin, tMax, segmentCount, style
                 );
                 scene.addObjects([paramCurve]);
 
-              /*  sceneController.onSelection(function(obj){
-                   var width = $("#inLineWidth").value;
-                    width = obj.drawStyle.width;
-                    var color=$("#inColor").value;
-                    color = obj.drawStyle.color;
-                });*/
-                
+                /*  sceneController.onSelection(function(obj){
+                 var width = $("#inLineWidth").value;
+                 width = obj.drawStyle.width;
+                 var color=$("#inColor").value;
+                 color = obj.drawStyle.color;
+                 });*/
+
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(paramCurve); // this will also redraw
@@ -330,24 +335,24 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             /*
              * event handler for "color property"
              */
-           /* $("#inColor").change( function() {
-                // change color
-                var newColor = $("#inColor").attr("value");
-                sceneController.getSelectedObject().drawStyle.color = newColor;
-                scene.draw(context);
-                console.log(newColor);
-            });
-            /!*
+            /* $("#inColor").change( function() {
+             // change color
+             var newColor = $("#inColor").attr("value");
+             sceneController.getSelectedObject().drawStyle.color = newColor;
+             scene.draw(context);
+             console.log(newColor);
+             });
+             /!*
              * event handler for "line width"
              *!/
-            $("#inLineWidth").change( function() {
-                // change line width
-                var newLineWidth = $("#inLineWidth").attr("value");
-                sceneController.getSelectedObject().drawStyle.width = newLineWidth;
-                scene.draw(context);
-                console.log(newLineWidth);
-            });*/
-    
+             $("#inLineWidth").change( function() {
+             // change line width
+             var newLineWidth = $("#inLineWidth").attr("value");
+             sceneController.getSelectedObject().drawStyle.width = newLineWidth;
+             scene.draw(context);
+             console.log(newLineWidth);
+             });*/
+
 
         };
 

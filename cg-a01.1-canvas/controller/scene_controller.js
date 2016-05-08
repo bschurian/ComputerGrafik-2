@@ -36,8 +36,8 @@
 
 
 /* requireJS module definition */
-define(["util", "Scene"],
-    (function (util, Scene) {
+define(["util", "Scene", "BezierCurve", "Polygon"],
+    (function (util, Scene, BezierCurve, Polygon) {
 
         "use strict";
 
@@ -129,8 +129,14 @@ define(["util", "Scene"],
             var draggers = obj.createDraggers();
 
             // store object and its draggers in an internal list
-            this.selected.push({"obj": obj, "draggers": draggers});
-
+            if(obj.constructor === BezierCurve) {
+                var polygon = [];
+                polygon.push(obj.getPolygon());
+                this.selected.push({"obj": obj, "draggers": draggers, "polygon": polygon});
+                this.scene.addObjects(polygon);
+            } else {
+                this.selected.push({"obj": obj, "draggers": draggers});
+            }
             // add draggers as scene objects so they get rendered
             this.scene.addObjects(draggers);
 
@@ -158,6 +164,10 @@ define(["util", "Scene"],
 
                     // remove draggers from scene
                     this.scene.removeObjects(this.selected[i].draggers);
+
+                    if(this.selected[i].obj instanceof BezierCurve){
+                        this.scene.removeObjects(this.selected[i].polygon);
+                    }
                     // remove object from list
                     this.selected.splice(i, 1);
                 }

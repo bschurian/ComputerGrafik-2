@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "Point"],
-    (function (util, vec2, Scene, Point) {
+define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
+    (function (util, vec2, Scene, Point, PointDragger, Polygon) {
         "use strict";
     
         /**
@@ -58,6 +58,8 @@ define(["util", "vec2", "Scene", "Point"],
             context.strokeStyle = this.drawStyle.color;
             context.stroke();
 
+            this.drawTickMarks(context);
+
         };
 
         BezierCurve.prototype.curvePoints = function(){
@@ -69,6 +71,44 @@ define(["util", "vec2", "Scene", "Point"],
             }
                         
             return points;
+        };
+
+        BezierCurve.prototype.drawTickMarks = function(context){
+            // length of tick marks
+            var length = 10;
+
+            context.beginPath();
+            context.strokeStyle = "FF0000";
+            context.lineWidth = 0.5;
+
+            var points = this.curvePoints();
+
+            // for each point (except first and last):
+            // 1) determine the vector between this point and the next one
+            // 2) calculate the normal ("rotate" the vector at 180 degrees)
+            // 3) normalize the result (so its length doesn't depend on the vectors length)
+            // 4) set start and end points of the tick mark depending on its given length
+            // 5) draw line between start and end point
+            for(var i = 1; i < points.length - 1; i++){
+                // vector between current point and next point
+                var vector = vec2.sub(points[i+1], points[i]);
+
+                // normal of the vector between the two points
+                var normal = [vector[1], -vector[0]];
+
+                // normalize the normal
+                var normalized = vec2.mult(normal, 1/vec2.length(normal));
+
+                // points for the tick mark
+                var tm0 = vec2.add(points[i], vec2.mult(normalized, length/2));
+                var tm1 = vec2.sub(points[i], vec2.mult(normalized, length/2));
+
+                // draw line between the tick-mark points
+                context.moveTo(tm0[0], tm0[1]);
+                context.lineTo(tm1[0], tm1[1]);
+            }
+
+            context.stroke();
         };
 
         // test whether the mouse position is on this curve segment
@@ -95,9 +135,88 @@ define(["util", "vec2", "Scene", "Point"],
             return false;
         };
 
-        // list of draggers empty as Object should only be2 manipulated through the GUI
+
         BezierCurve.prototype.createDraggers = function () {
-            return [];
+            var draggerStyle = {radius: 4, color: this.drawStyle.color, width: 0, fill: true}
+            var draggers = [];
+            
+            var _bezier = this;
+            
+            var getCP0 = function(){
+                return _bezier.cp0;
+            };
+
+            var setCP0 = function(dragEvent){
+                _bezier.cp0 = dragEvent.position;
+            };
+
+            var getCP1 = function(){
+                return _bezier.cp1;
+            };
+
+            var setCP1 = function(dragEvent){
+                _bezier.cp1 = dragEvent.position;
+            };
+
+            var getCP2 = function(){
+                return _bezier.cp2;
+            };
+
+            var setCP2 = function(dragEvent){
+                _bezier.cp2 = dragEvent.position;
+            };
+
+            var getCP3 = function(){
+                return _bezier.cp3;
+            };
+
+            var setCP3 = function(dragEvent){
+                _bezier.cp3 = dragEvent.position;
+            };
+
+            draggers.push(new PointDragger(getCP0, setCP0, draggerStyle));
+            draggers.push(new PointDragger(getCP1, setCP1, draggerStyle));
+            draggers.push(new PointDragger(getCP2, setCP2, draggerStyle));
+            draggers.push(new PointDragger(getCP3, setCP3, draggerStyle));
+
+            return draggers;
+
+        };
+
+
+        BezierCurve.prototype.getPolygon = function(){
+            var polystyle = {color: this.drawStyle.color, width: "0.5"};
+            var _bezier = this;
+
+            var getCP0 = function(){
+                return _bezier.cp0;
+            };
+            var getCP1 = function(){
+                return _bezier.cp1;
+            };
+            var getCP2 = function(){
+                return _bezier.cp2;
+            };
+            var getCP3 = function(){
+                return _bezier.cp3;
+            };
+            var setCP0 = function(dragEvent){
+                this.cp0 = dragEvent.position;
+            };
+
+            var setCP1 = function(dragEvent){
+                this.cp1 = dragEvent.position;
+            };
+
+            var setCP2 = function(dragEvent){
+                this.cp2 = dragEvent.position;
+            };
+
+            var setCP3 = function(dragEvent){
+                this.cp3 = dragEvent.position;
+            };
+
+            return new Polygon(getCP0, getCP1, getCP2, getCP3, setCP0, setCP1, setCP2, setCP3, polystyle);
 
         };
     
