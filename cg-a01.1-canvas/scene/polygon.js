@@ -26,7 +26,7 @@ define(["util", "Scene"],
             this.getCP2 = getCP2;
             this.getCP3 = getCP3;
 
-            this.polyStyle = polyStyle;
+            this.drawStyle = polyStyle;
         };
 
         Polygon.prototype.draw = function(context){
@@ -38,8 +38,8 @@ define(["util", "Scene"],
             context.lineTo(this.getCP2()[0], this.getCP2()[1]);
             context.lineTo(this.getCP3()[0], this.getCP3()[1]);
 
-            context.lineWidth = this.polyStyle.width;
-            context.strokeStyle = this.polyStyle.color;
+            context.lineWidth = this.drawStyle.width;
+            context.strokeStyle = this.drawStyle.color;
 
             context.stroke();
         };

@@ -87,9 +87,14 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 };
                 obj.drawStyle.width = parseInt($("#inLineWidth").attr("value"));
                 obj.drawStyle.color = $("#inColor").attr("value");
-                if(obj.constructor!=Point) {
+                if(obj.constructor!=Point && obj.constructor!=ParametricCurve) {
                     sceneController.selected[0].draggers[0].drawStyle.color = $("#inColor").attr("value");
                     sceneController.selected[0].draggers[1].drawStyle.color = $("#inColor").attr("value");
+                    if(obj.constructor==BezierCurve){
+                        sceneController.selected[0].draggers[2].drawStyle.color = $("#inColor").attr("value");
+                        sceneController.selected[0].draggers[3].drawStyle.color = $("#inColor").attr("value");
+                        sceneController.selected[0].polygon[0].drawStyle.color = $("#inColor").attr("value");
+                    }
                 }
                 if(obj.radius != undefined) {
                     obj.radius = parseInt($("#inRadius").attr("value"));
