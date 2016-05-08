@@ -49,7 +49,7 @@ define(["util", "vec2", "Scene", "Point"],
                 if(this.funcG() == 0 )throw new Error ("Die Eingabe oder das ergebnis darf nicht null sein");
             } catch(e) {
                 alert(e.message);
-                $("#parCrvF1").attr("value", "");
+                $("#parCrvF2").attr("value", "");
             }
 
             this.tmin = parseInt(tmin) || 0;
