@@ -134,9 +134,9 @@ define(["util", "Scene", "BezierCurve", "Polygon"],
                 polygon.push(obj.getPolygon());
                 this.selected.push({"obj": obj, "draggers": draggers, "polygon": polygon});
                 this.scene.addObjects(polygon);
+            } else {
+                this.selected.push({"obj": obj, "draggers": draggers});
             }
-            this.selected.push({"obj": obj, "draggers": draggers});
-
             // add draggers as scene objects so they get rendered
             this.scene.addObjects(draggers);
 
@@ -164,6 +164,10 @@ define(["util", "Scene", "BezierCurve", "Polygon"],
 
                     // remove draggers from scene
                     this.scene.removeObjects(this.selected[i].draggers);
+
+                    if(this.selected[i].obj instanceof BezierCurve){
+                        this.scene.removeObjects(this.selected[i].polygon);
+                    }
                     // remove object from list
                     this.selected.splice(i, 1);
                 }
