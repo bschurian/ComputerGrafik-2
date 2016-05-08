@@ -62,18 +62,29 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             this.showParamsForObj = function(obj) {
 
                 if(!obj) {
-                    $("#inRadius").hide();
                     return;
                 }
+                
+                $(".formgroup").hide();
 
+                $("#formLine").show();
+                $("#formColor").show();
+                $("#formDelete").show();
                 $("#inLineWidth").attr("value", obj.drawStyle.width);
                 $("#inColor").attr("value", obj.drawStyle.color);
-                if(obj.radius == undefined) {
-                    $("#inRadius").hide();
-                } else {
-                    $("#inRadius").show();
+
+                if(obj.radius != undefined){
+                   $("#formRadius").show();
                     $("#inRadius").attr("value", obj.radius);
-                };
+                }
+                if(obj.segmentCount != undefined){
+                    $("#formSegments").show();
+                    $("#changeSegments").attr("value", obj.segmentCount);
+                }
+                if(obj.hasTickMarks != undefined){
+                    $("#formTickmarks").show();
+                    $("#tickmarks").attr("checked", obj.hasTickMarks);
+                }
 
             };
 

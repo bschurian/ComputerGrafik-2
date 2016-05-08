@@ -55,6 +55,7 @@ define(["util", "vec2", "Scene", "Point"],
             this.tmin = parseInt(tmin) || 0;
             this.tmax = parseInt(tmax) || 500;
             this.segmentCount = segmentsCount || 100;
+            this.hasTickMarks = false;
 
 
             console.log("creating parametric curve with x = ", this.funcF, "; y = ", this.funcG,

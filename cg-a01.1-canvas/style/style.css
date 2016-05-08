@@ -41,6 +41,8 @@ h3 {
 input {
     width:80px;
 }
+
+
 .bezier {
     display:inline;
 }
@@ -53,4 +55,9 @@ input {
     border-style: dashed;
     border-color: #c3c3c3;
     text-align:left;
+}
+
+.formgroup{
+    display: none;
+    margin-bottom: 5px;
 }

@@ -35,6 +35,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             console.log("creating bezier-curve with control points ", this.cp0, this.cp1, this.cp2, this.cp3, " and ", this.segmentCount, " segments.");
 
             this.drawStyle = curveStyle || {width: "2", color: "#0000AA"};
+            this.hasTickMarks = false;
 
             this.b0 = function(t){ return Math.pow(1-t,3);};
             this.b1 = function(t){ return 3*t*Math.pow(1-t,2);};
