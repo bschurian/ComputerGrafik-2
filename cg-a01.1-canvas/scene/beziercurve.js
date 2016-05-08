@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "Point"],
-    (function (util, vec2, Scene, Point) {
+define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
+    (function (util, vec2, Scene, Point, PointDragger, Polygon) {
         "use strict";
     
         /**
@@ -95,9 +95,88 @@ define(["util", "vec2", "Scene", "Point"],
             return false;
         };
 
-        // list of draggers empty as Object should only be2 manipulated through the GUI
+
         BezierCurve.prototype.createDraggers = function () {
-            return [];
+            var draggerStyle = {radius: 4, color: this.drawStyle.color, width: 0, fill: true}
+            var draggers = [];
+            
+            var _bezier = this;
+            
+            var getCP0 = function(){
+                return _bezier.cp0;
+            };
+
+            var setCP0 = function(dragEvent){
+                _bezier.cp0 = dragEvent.position;
+            };
+
+            var getCP1 = function(){
+                return _bezier.cp1;
+            };
+
+            var setCP1 = function(dragEvent){
+                _bezier.cp1 = dragEvent.position;
+            };
+
+            var getCP2 = function(){
+                return _bezier.cp2;
+            };
+
+            var setCP2 = function(dragEvent){
+                _bezier.cp2 = dragEvent.position;
+            };
+
+            var getCP3 = function(){
+                return _bezier.cp3;
+            };
+
+            var setCP3 = function(dragEvent){
+                _bezier.cp3 = dragEvent.position;
+            };
+
+            draggers.push(new PointDragger(getCP0, setCP0, draggerStyle));
+            draggers.push(new PointDragger(getCP1, setCP1, draggerStyle));
+            draggers.push(new PointDragger(getCP2, setCP2, draggerStyle));
+            draggers.push(new PointDragger(getCP3, setCP3, draggerStyle));
+
+            return draggers;
+
+        };
+
+
+        BezierCurve.prototype.getPolygon = function(){
+            var polystyle = {color: this.drawStyle.color, width: "0.5"};
+            var _bezier = this;
+
+            var getCP0 = function(){
+                return _bezier.cp0;
+            };
+            var getCP1 = function(){
+                return _bezier.cp1;
+            };
+            var getCP2 = function(){
+                return _bezier.cp2;
+            };
+            var getCP3 = function(){
+                return _bezier.cp3;
+            };
+            var setCP0 = function(dragEvent){
+                this.cp0 = dragEvent.position;
+            };
+
+            var setCP1 = function(dragEvent){
+                this.cp1 = dragEvent.position;
+            };
+
+            var setCP2 = function(dragEvent){
+                this.cp2 = dragEvent.position;
+            };
+
+            var setCP3 = function(dragEvent){
+                this.cp3 = dragEvent.position;
+            };
+
+            return new Polygon(getCP0, getCP1, getCP2, getCP3, setCP0, setCP1, setCP2, setCP3, polystyle);
 
         };
     
