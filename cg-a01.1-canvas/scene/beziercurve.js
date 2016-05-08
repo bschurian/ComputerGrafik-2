@@ -24,10 +24,10 @@ define(["util", "vec2", "Scene", "Point"],
          *       begin of the form { width: 2, color: "#00FF00" }
          */
         var BezierCurve = function(cp0, cp1, cp2, cp3, segmentCount, curveStyle){
-            this.cp0 = cp0 || [ 10,  10];
-            this.cp1 = cp1 || [210,  10];
-            this.cp2 = cp2 || [ 10, 210];
-            this.cp3 = cp3 || [210, 210];
+            this.cp0 = [cp0[0] ||   10, cp0[1] ||  10];
+            this.cp1 = [cp1[0] ||  210, cp1[1] ||  10];
+            this.cp2 = [cp2[0] ||   10, cp2[1] || 210];
+            this.cp3 = [cp3[0] ||  210, cp3[1] || 210];
             
             
             this.segmentCount = segmentCount || 100;
@@ -49,7 +49,6 @@ define(["util", "vec2", "Scene", "Point"],
 
             context.beginPath();
             context.moveTo((points[0])[0], (points[0])[1]);
-            console.log((points[0])[0], (points[0])[1]);
 
             for(var i = 1; i < points.length; i++){
                 context.lineTo((points[i])[0], (points[i])[1]);
@@ -66,7 +65,7 @@ define(["util", "vec2", "Scene", "Point"],
 
             for(var i = 0; i < this.segmentCount; i++){
                 var t = i*(1/this.segmentCount);
-                points.push(this.b0(t)*this.cp0[0]+this.b1(t)*this.cp1[0]+this.b2(t)*this.cp2[0]+this.b3(t)*this.cp3[0], this.b0(t)*this.cp0[1]+this.b1(t)*this.cp1[1]+this.b2(t)*this.cp2[1]+this.b3(t)*this.cp3[1]);
+                points.push([this.b0(t)*this.cp0[0]+this.b1(t)*this.cp1[0]+this.b2(t)*this.cp2[0]+this.b3(t)*this.cp3[0], this.b0(t)*this.cp0[1]+this.b1(t)*this.cp1[1]+this.b2(t)*this.cp2[1]+this.b3(t)*this.cp3[1]]);
             }
                         
             return points;
