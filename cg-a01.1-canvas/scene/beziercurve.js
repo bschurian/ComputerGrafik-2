@@ -28,7 +28,9 @@ define(["util", "vec2", "Scene", "Point"],
             this.cp1 = cp1 || [210,  10];
             this.cp2 = cp2 || [ 10, 210];
             this.cp3 = cp3 || [210, 210];
-
+            
+            console.log("creating bezier-curve with control points ", this.cp0, this.cp1, this.cp2, this.cp3," .");
+            
             this.segmentCount = segmentCount || 100;
             this.drawStyle = curveStyle || {width: "2", color: "#0000AA"};
 
@@ -61,7 +63,8 @@ define(["util", "vec2", "Scene", "Point"],
 
             for(var i = 0; i < this.segmentCount; i++){
                 var t = i*(1/this.segmentCount);
-                points.push(this.b0(t)*p0[0]+this.b1(t)*p1[0]+this.b2(t)*p2[0]+this.b3(t)*p3[0], this.b0(t)*p0[1]+this.b1(t)*p1[1]+this.b2(t)*p2[1]+this.b3(t)*p3[1]);
+                points.push(this.b0(t)*this.cp0[0]+this.b1(t)*this.cp1[0]+this.b2(t)*this.cp2[0]+this.b3(t)*this.cp3[0], this.b0(t)*this.cp0[1]+this.b1(t)*this.cp1[1]+this.b2(t)*this.cp2[1]+this.b3(t)*this.cp3[1]);
+                points.push(this.b0(t)*this.cp0[0]+this.b1(t)*this.cp1[0]+this.b2(t)*this.cp2[0]+this.b3(t)*this.cp3[0], this.b0(t)*this.cp0[1]+this.b1(t)*this.cp1[1]+this.b2(t)*this.cp2[1]+this.b3(t)*this.cp3[1]);
             }
 
             return points;
@@ -97,7 +100,8 @@ define(["util", "vec2", "Scene", "Point"],
 
         };
     
-        // this module only exports the constructor for Straightcircle objects
-        return ParametricCurve;
+        // this module only exports the constructor for beziercurve objects
+        return BezierCurve;
 
-    }));//define
+    })//
+);//define
