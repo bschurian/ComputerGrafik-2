@@ -170,7 +170,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 var style = {
                     width: Math.floor(Math.random()*3)+1,
                     color: randomColor(),
-                    fill: true
+                    fill: false
                 };
 
                 var rect = new Rectangle( [randomX(),randomY()], [randomX(),randomY()],
