@@ -50,11 +50,11 @@
         <!-- add more here... -->
 
           <label for="inLineWidth">Line Width</label>
-          <input type="number" id="inLineWidth"><br>
+          <input type="number" id="inLineWidth" class="objParam"><br>
           <label for="inColor">Color</label>
-          <input type="color" id="inColor"><br>
+          <input type="color" id="inColor" class="objParam"><br>
           <label for="inRadius">Radius</label>
-          <input type="number" id="inRadius"><br>
+          <input type="number" id="inRadius" class="objParam"><br>
           
           <h3>kd-Tree:</h3>
             <button id="btnNewPointList">New PointList</button>
@@ -76,10 +76,30 @@
           <label for="segmentCount">segments:</label>
           <input type="number" id="segmentCount"><br>
           <br>
-          <button id=""></button>
-
-
     </div>
+
+      <div id="bezier_input">
+         <p class="bezier">
+          <label> control point 0:</label>
+          <input type="number" id="cp0x">
+          <input type="number" id="cp0y"><br>
+             <label> control point 1:</label>
+             <input type="number" id="cp1x">
+             <input type="number" id="cp1y"><br>
+             <label> control point 2:</label>
+             <input type="number" id="cp2x">
+             <input type="number" id="cp2y"><br>
+             <label> control point 3:</label>
+             <input type="number" id="cp3x">
+             <input type="number" id="cp3y"><br>
+             <label for="segmentCount_bezier">segments:</label>
+             <input type="number" id="segmentCount_bezier"><br>
+             <button id="btnNewBezierCurve">New Bezier Curve</button>
+
+
+
+         </p>
+      </div>
 
 
     <div style="float:clear;">
