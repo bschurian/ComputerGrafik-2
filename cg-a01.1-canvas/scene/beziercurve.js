@@ -98,6 +98,6 @@ define(["util", "vec2", "Scene", "Point"],
         };
     
         // this module only exports the constructor for Straightcircle objects
-        return ParametricCurve;
+        return BezierCurve;
 
     }));//define
