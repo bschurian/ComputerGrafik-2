@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdutil", "ParametricCurve"],
-    (function($, Line, Circle, Point, Rectangle, KdTree, Util, KdUtil, ParametricCurve) {
+define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdutil", "ParametricCurve", "BezierCurve"],
+    (function($, Line, Circle, Point, Rectangle, KdTree, Util, KdUtil, ParametricCurve, bezierCurve) {
         "use strict";
 
         /*
@@ -293,6 +293,37 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(paramCurve); // this will also redraw
+
+            }));
+
+            $("#btnNewBezierCurve").click( (function() {
+
+                // create the actual line and add it to the scene
+                var style = {
+                    width: Math.floor(Math.random()*3)+1,
+                    color: randomColor()
+                };
+
+                var point0 = [$("#cp0x").val(), $("#cp0y").val()];
+                var point1 = [$("#cp1x").val(), $("#cp1y").val()];
+                var point2 =[$("#cp2x").val(), $("#cp2y").val()];
+                var point3 =[$("#cp3x").val(), $("#cp3y").val()];
+                var segmentCount = $("#segmentCount_bezier").val();
+
+                var bezierCurve = new bezierCurve(point0,point1,point2,point3,segmentCount_bezier,style
+                );
+                scene.addObjects([bezierCurve]);
+
+                /*  sceneController.onSelection(function(obj){
+                 var width = $("#inLineWidth").value;
+                 width = obj.drawStyle.width;
+                 var color=$("#inColor").value;
+                 color = obj.drawStyle.color;
+                 });*/
+
+                // deselect all objects, then select the newly created object
+                sceneController.deselect();
+                sceneController.select(bezierCurve); // this will also redraw
 
             }));
 
