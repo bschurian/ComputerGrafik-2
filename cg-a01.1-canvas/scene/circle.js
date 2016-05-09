@@ -85,17 +85,17 @@ define(["util", "vec2", "Scene", "PointDragger"],
             var getP0 = function () {
                 return _circle.p0;
             };
-            var getP1 = function () {
+            var getRadius = function () {
                 return [_circle.p0[0], _circle.p0[1]+_circle.radius];
             };
             var setP0 = function (dragEvent) {
                 _circle.p0 = dragEvent.position;
             };
-            var setP1 = function (dragEvent) {
-                _circle.radius = dragEvent.position[1] - getP0()[1];
+            var setRadius = function (dragEvent) {
+                _circle.radius = Math.max(1, dragEvent.position[1] - getP0()[1]);
             };
             draggers.push(new PointDragger(getP0, setP0, draggerStyle));
-            draggers.push(new PointDragger(getP1, setP1, draggerStyle));
+            draggers.push(new PointDragger(getRadius, setRadius, draggerStyle));
 
             return draggers;
 
