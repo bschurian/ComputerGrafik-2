@@ -30,7 +30,7 @@ h3 {
 /* container to display editable parameters */
 #param_area {
     float:left;
-    padding: 5px 15px;
+    padding: 5px 5px 5px 15px;
     width:220px;
     height:655px;
     border-width:1px;
@@ -56,13 +56,13 @@ label{
 
 #bezier_input {
     float:left;
-    width:330px;
+    width:320px;
     height:655px;
     border-width:1px;
     border-style: dashed;
     border-color: #c3c3c3;
     text-align:left;
-    padding: 5px 15px;
+    padding: 5px 5px 5px 15px;
 }
 
 .formgroup{
