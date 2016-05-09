@@ -64,7 +64,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 if(!obj) {
                     return;
                 }
-                
+
                 $(".formgroup").hide();
 
                 $("#formLine").show();
@@ -197,6 +197,15 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 sceneController.deselect();
                 sceneController.select(rect); // this will also redraw
 
+            }));
+
+            $("#btnDeleteObject").click( (function(){
+                var obj = sceneController.getSelectedObject();
+                if(!obj){
+                    return;
+                }
+                scene.removeObjects([obj]);
+                sceneController.deselect(obj);
             }));
 
             $("#btnNewPointList").click( (function() {
