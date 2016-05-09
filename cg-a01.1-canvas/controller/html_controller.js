@@ -81,9 +81,20 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     $("#formSegments").show();
                     $("#changeSegments").attr("value", obj.segmentCount);
                 }
-                if(obj.constructor == BezierCurve){
+                if(obj.constructor == BezierCurve || obj.constructor == ParametricCurve){
                     $("#formTickmarks").show();
                     $("#tickmarks").attr("checked", obj.hasTickMarks);
+                }
+                if(obj.constructor == ParametricCurve){
+                    $("#formFuncF").show();
+                    $("#formFuncG").show();
+                    $("#formTmin").show();
+                    $("#formTmax").show();
+
+                    $("#changefuncf").attr("value", obj.funcF);
+                    $("#changeFuncG").attr("value", obj.funcG);
+                    $("#changeTmin").attr("value", obj.tmin);
+                    $("#changeTmax").attr("value", obj.tmax);
                 }
 
             };
@@ -112,6 +123,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 };
                 if(obj.segmentCount != undefined){
                     obj.segmentCount = $("#changeSegments").val();
+                }
+                if(obj.constructor == ParametricCurve){
+                    obj.tmin = parseInt($("#changeTmin").val());
+                    obj.tmax = parseInt($("#changeTmax").val());
                 }
 
                 scene.draw(context);
