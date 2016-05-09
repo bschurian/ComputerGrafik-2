@@ -1,6 +1,7 @@
 /* default: white background, sans serif font */
 body {
     font-family:Arial,Helvetica;
+    font-size: 12px;
     background-color:white;
 }
 
@@ -29,8 +30,9 @@ h3 {
 /* container to display editable parameters */
 #param_area {
     float:left;
-    width:200px;
-    height:400px;
+    padding: 5px 15px;
+    width:220px;
+    height:655px;
     border-width:1px;
     border-style: dashed;
     border-color: #c3c3c3;
@@ -39,7 +41,12 @@ h3 {
 
 /* all input elements get a fixed width */
 input {
-    width:80px;
+    width:100px;
+}
+
+label{
+    display: inline-block;
+    width: 100px;
 }
 
 
@@ -49,15 +56,38 @@ input {
 
 #bezier_input {
     float:left;
-    width:400px;
-    height:400px;
+    width:330px;
+    height:655px;
     border-width:1px;
     border-style: dashed;
     border-color: #c3c3c3;
     text-align:left;
+    padding: 5px 15px;
 }
 
 .formgroup{
     display: none;
-    margin-bottom: 5px;
+}
+
+.formgroup, .form{
+    margin-bottom: 3px;
+}
+
+button{
+    width: 100px;
+    border-radius: 0%;
+    background-color: white;
+    color: #315C99;
+    border: 1px solid #5C81B5;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #5C81B5;
+    color: white;
+}
+
+
+input[type="checkbox"]:hover{
+    cursor: pointer;
 }

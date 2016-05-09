@@ -81,7 +81,6 @@ define(["util", "vec2", "Scene", "PointDragger"],
                 for(var i=0; i<allLines.length; i++){
                     // project point on the lines of the rectangle, get parameter of that projection point
                     var t = vec2.projectPointOnLine(pos, allLines[i], allLines[(i+1)%4]);
-                    console.log("t:", t," ", i);
 
                     // outside the line segment?
                     if (t < 0.0 || t > 1.0) {

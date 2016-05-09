@@ -280,6 +280,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 var showTree = $("#visKdTree").attr("checked");
                 if(showTree && kdTree) {
                     KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
+                    $("#visKdTree").attr("disabled", true);
                 }
 
             }));
@@ -334,6 +335,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
                 sceneController.select(pointList[minIdx]);
                 sceneController.select(kdNearestNeighbor.point);
+                $(".formgroup").hide();
 
             }));
 
