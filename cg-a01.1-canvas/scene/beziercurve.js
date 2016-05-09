@@ -20,6 +20,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
          *  around by its control points.
          *  Parameters:
          *  - point0-point3: array objects representing [x,y] coordinates of a control point
+         *  - segmentCount - number of segments 
          *  - curveStyle: object defining width and color attributes for line drawing,
          *       begin of the form { width: 2, color: "#00FF00" }
          */
@@ -44,7 +45,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
 
         }
         
-               // draw this parametric curve into the provided 2D rendering context
+        // draw this parametric curve into the provided 2D rendering context
         BezierCurve.prototype.draw = function (context) {
             var points = this.curvePoints();
 
@@ -76,6 +77,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             return points;
         };
 
+        // draws tick marks along the curve
         BezierCurve.prototype.drawTickMarks = function(context){
             // length of tick marks
             var length = 10;
@@ -138,7 +140,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             return false;
         };
 
-
+        // return list of draggers to manipulate this circle
         BezierCurve.prototype.createDraggers = function () {
             var draggerStyle = {radius: 4, color: this.drawStyle.color, width: 0, fill: true}
             var draggers = [];
@@ -186,7 +188,7 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
 
         };
 
-
+        // returns the polygon object drawn around the control points of the curve
         BezierCurve.prototype.getPolygon = function(){
             var polystyle = {color: this.drawStyle.color, width: "0.5"};
             var _bezier = this;

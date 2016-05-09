@@ -14,7 +14,12 @@ define([],
 
         "use strict";
 
-        // A node in the kd-tree
+        /**
+         * Creates a kd-node
+         *
+         * @param axis - axis of the current node
+         * @constructor
+         */
         var KdNode = function (axis) {
 
             // axis x or y

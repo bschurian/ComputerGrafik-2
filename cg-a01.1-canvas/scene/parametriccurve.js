@@ -11,23 +11,24 @@
 
 
 /* requireJS module definition */
-define(["util", "vec2", "Scene", "Point"],
-    (function (util, vec2, Scene, Point) {
+define(["util", "vec2"],
+    (function (util, vec2) {
 
         "use strict";
 
-        //TODO: change comment
         /**
-         *  A simple circle that can be dragged
-         *  around by its center point.
+         *  A parametric curve
          *  Parameters:
-         *  - point0: array object representing [x,y] coordinates of center point
-         *  - radius: value representing the radius of the circle
-         *  - circleStyle: object defining width and color attributes for line drawing,
+         *  - funcF: the function for the x-values of the curve
+         *  - funcG: the function for the y-values of the curve
+         *  - tmin: the minimum T
+         *  - tmax: the maximum T
+         *  - segmentCount: number of segments
+         *  - curveStyle: object defining width and color attributes for line drawing,
          *       begin of the form { width: 2, color: "#00FF00" }
          */
 
-        var ParametricCurve = function (funcF, funcG, tmin, tmax, segmentsCount, curveStyle) {
+        var ParametricCurve = function (funcF, funcG, tmin, tmax, segmentCount, curveStyle) {
 
 
             // draw style for drawing the parametric curve
@@ -43,7 +44,6 @@ define(["util", "vec2", "Scene", "Point"],
                     alert("Die Eingabe für x ist keine Funktion");
                 }
                 else alert(e.message);
-                $("#parCrvF1").attr("value", "");
             }
 
             try{
@@ -55,17 +55,16 @@ define(["util", "vec2", "Scene", "Point"],
                     alert("Die Eingabe für y ist keine Funktion");
                 }
                 else alert(e.message);
-                $("#parCrvF2").attr("value", "");
             }
 
             this.tmin = parseInt(tmin) || 0;
             this.tmax = parseInt(tmax) || 500;
-            this.segmentCount = segmentsCount || 100;
+            this.segmentCount = segmentCount || 100;
             this.hasTickMarks = false;
 
 
             console.log("creating parametric curve with x = ", this.funcF, "; y = ", this.funcG,
-                "; tmin: ", this.tmin, "; tmax: ", this.tmax);
+                "; tmin: ", this.tmin, "; tmax: ", this.tmax, " using ", this.segmentCount, " segments");
 
         };
 
@@ -94,19 +93,15 @@ define(["util", "vec2", "Scene", "Point"],
             var points = [];
 
 
-                    for (var i = 0; i < this.segmentCount; i++) {
-                        var t = this.tmin + i * ((this.tmax - this.tmin) / this.segmentCount);
-                        points.push([this.funcF(t), this.funcG(t)]);
-
-                }/*catch(e){
-                    alert (e.message);
-                }*/
-
-
+            for (var i = 0; i < this.segmentCount; i++) {
+                var t = this.tmin + i * ((this.tmax - this.tmin) / this.segmentCount);
+                points.push([this.funcF(t), this.funcG(t)]);
+            }
 
             return points;
         };
 
+        // draws tick marks along the curve
         ParametricCurve.prototype.drawTickMarks = function(context){
             // length of tick marks
             var length = 10;
@@ -173,12 +168,7 @@ define(["util", "vec2", "Scene", "Point"],
         // list of draggers empty as Object should only be2 manipulated through the GUI
         ParametricCurve.prototype.createDraggers = function () {
             return [];
-
         };
-
-
-
-
 
         // this module only exports the constructor for Straightcircle objects
         return ParametricCurve;

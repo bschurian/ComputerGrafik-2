@@ -5,8 +5,7 @@
  *
  * Module: polygon
  *
- * A Polygon is drawn around the control points by the selection of a Bezier curve
-*
+ *
  */
 
 define(["util", "Scene"],
@@ -14,6 +13,13 @@ define(["util", "Scene"],
 
         "use strict";
 
+        /**
+         *  A polygon drawn around the control points of a Bezier curve
+         *  Parameters:
+         *  - getCP0, getCP1, getCP2, getCP3: callback returning the respective control point
+         *  - setCP0, setCP1, setCP2, setCP3: callback setting a new value to the respective control point
+         *  - polyStyle: object defining width and color attributes for line drawing
+         */
         var Polygon = function(getCP0, getCP1, getCP2, getCP3, setCP0, setCP1, setCP2, setCP3, polyStyle){
 
             this.setCP0 = setCP0;
@@ -29,6 +35,7 @@ define(["util", "Scene"],
             this.drawStyle = polyStyle;
         };
 
+        // draws a polygon around the four control points of a Bezier curve
         Polygon.prototype.draw = function(context){
 
             context.beginPath();

@@ -60,19 +60,20 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
             // public method: show parameters for selected object
             this.showParamsForObj = function(obj) {
-
+                // hide all input elements before
+                // visualizing the needed ones
                 $(".formgroup").hide();
 
-                if(!obj) {
-                    return;
-                }
+                if(!obj) { return; }
 
+                // show elements that are common for all type of objects
                 $("#formLine").show();
                 $("#formColor").show();
                 $("#formDelete").show();
                 $("#inLineWidth").attr("value", obj.drawStyle.width);
                 $("#inColor").attr("value", obj.drawStyle.color);
 
+                // show elements needed by specific objects
                 if(obj.radius != undefined){
                    $("#formRadius").show();
                     $("#inRadius").attr("value", obj.radius);
@@ -86,13 +87,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     $("#tickmarks").attr("checked", obj.hasTickMarks);
                 }
                 if(obj.constructor == ParametricCurve){
-                    $("#formFuncF").show();
-                    $("#formFuncG").show();
                     $("#formTmin").show();
                     $("#formTmax").show();
-
-                    $("#changefuncf").attr("value", obj.funcF);
-                    $("#changeFuncG").attr("value", obj.funcG);
                     $("#changeTmin").attr("value", obj.tmin);
                     $("#changeTmax").attr("value", obj.tmax);
                 }
@@ -107,6 +103,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     window.console.log("ParamController: no object selected.");
                     return;
                 };
+                // change attributes of the selected object depending on its type
                 obj.drawStyle.width = parseInt($("#inLineWidth").attr("value"));
                 obj.drawStyle.color = $("#inColor").attr("value");
                 if(obj.constructor!=Point && obj.constructor!=ParametricCurve) {
@@ -132,11 +129,18 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 scene.draw(context);
             }));
 
+            /*
+             * callback for selection of an object
+             */
             sceneController.onSelection(this.showParamsForObj);
+
+            /*
+             * callback for changing an object
+             */
             sceneController.onObjChange(this.showParamsForObj);
 
             /*
-             * event handler for "new line button".
+             * event handler for "new Line" button
              */
             $("#btnNewLine").click( (function() {
 
@@ -156,7 +160,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             }));
 
             /*
-             * event handler for "new circle button".
+             * event handler for "new Circle" button
              */
             $("#btnNewCircle").click( (function() {
 
@@ -178,7 +182,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             }));
 
             /*
-             * event handler for "new point button".
+             * event handler for "new Point" button
              */
             $("#btnNewPoint").click( (function() {
 
@@ -199,6 +203,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
             }));
 
+            /*
+            * event handler for "new Square" button
+             */
             $("#btnNewRect").click( (function() {
 
                 // create the actual rectangle and add it to the scene
@@ -218,16 +225,21 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
             }));
 
+            /*
+             * event handler for "delete object" button
+             */
             $("#btnDeleteObject").click( (function(){
                 var obj = sceneController.getSelectedObject();
-                if(!obj){
-                    return;
-                }
+                if(!obj){ return; }
                 scene.removeObjects([obj]);
                 sceneController.deselect(obj);
+                // hide all interface input elements as deleting an object should not select another one
                 $(".formgroup").hide();
             }));
 
+            /*
+             * event handler for "tick-marks" checkbox
+             */
             $("#tickmarks").click((function(){
                 var obj = sceneController.getSelectedObject();
                 if(!obj){ return };
@@ -235,6 +247,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 obj.hasTickMarks = showMarks;
             }));
 
+            /*
+             * event handler for "new PointList" button
+             */
             $("#btnNewPointList").click( (function() {
 
                 // create the actual line and add it to the scene
@@ -252,15 +267,16 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     pointList.push(point);
                 }
 
-                // deselect all objects, then select the newly created object
+                // deselect all objects
                 sceneController.deselect();
 
             }));
 
 
-
+            /*
+             * event handler for "visualize kd-Tree" checkbox
+             */
             $("#visKdTree").click( (function() {
-
                 var showTree = $("#visKdTree").attr("checked");
                 if(showTree && kdTree) {
                     KdUtil.visualizeKdTree(sceneController, scene, kdTree.root, 0, 0, 600, true);
@@ -268,6 +284,9 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
 
             }));
 
+            /*
+             * event handler for "build kd-Tree" button
+             */
             $("#btnBuildKdTree").click( (function() {
 
                 kdTree = new KdTree(pointList);
@@ -319,9 +338,10 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             }));
 
 
+            /*
+             * event handler for "new Parametric Curve" button
+             */
             $("#btnNewParametricCurve").click( (function() {
-
-                // create the actual line and add it to the scene
                 var style = {
                     width: Math.floor(Math.random()*3)+1,
                     color: randomColor()
@@ -337,22 +357,16 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 );
                 scene.addObjects([paramCurve]);
 
-                /*  sceneController.onSelection(function(obj){
-                 var width = $("#inLineWidth").value;
-                 width = obj.drawStyle.width;
-                 var color=$("#inColor").value;
-                 color = obj.drawStyle.color;
-                 });*/
-
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(paramCurve); // this will also redraw
 
             }));
 
+            /*
+             * event handler for "new Beziere Curve" button
+             */
             $("#btnNewBezierCurve").click( (function() {
-
-                // create the actual line and add it to the scene
                 var style = {
                     width: Math.floor(Math.random()*3)+1,
                     color: randomColor()
@@ -368,40 +382,11 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 );
                 scene.addObjects([bezierCurve]);
 
-                /*  sceneController.onSelection(function(obj){
-                 var width = $("#inLineWidth").value;
-                 width = obj.drawStyle.width;
-                 var color=$("#inColor").value;
-                 color = obj.drawStyle.color;
-                 });*/
-
                 // deselect all objects, then select the newly created object
                 sceneController.deselect();
                 sceneController.select(bezierCurve); // this will also redraw
 
             }));
-
-            /*
-             * event handler for "color property"
-             */
-            /* $("#inColor").change( function() {
-             // change color
-             var newColor = $("#inColor").attr("value");
-             sceneController.getSelectedObject().drawStyle.color = newColor;
-             scene.draw(context);
-             console.log(newColor);
-             });
-             /!*
-             * event handler for "line width"
-             *!/
-             $("#inLineWidth").change( function() {
-             // change line width
-             var newLineWidth = $("#inLineWidth").attr("value");
-             sceneController.getSelectedObject().drawStyle.width = newLineWidth;
-             scene.draw(context);
-             console.log(newLineWidth);
-             });*/
-
 
         };
 

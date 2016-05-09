@@ -46,8 +46,10 @@ define(["kdutil", "vec2", "Scene", "KdNode", "BoundingBox"],
                 var ppbox = parent.bbox;
 
                 node.bbox =     
-                    isLeft ? new BoundingBox(ppbox.xmin,ppbox.ymin,dim == 0 ? ppbox.xmax : parent.point.center[0], dim == 0 ? parent.point.center[1] : ppbox.ymax, node.point, dim) :
-                    new BoundingBox(dim == 0 ? ppbox.xmin : parent.point.center[0], dim == 0 ? parent.point.center[1] : ppbox.ymin, ppbox.xmax, ppbox.ymax, node.point, dim);
+                    isLeft ? new BoundingBox(ppbox.xmin,ppbox.ymin,dim == 0 ? ppbox.xmax : parent.point.center[0],
+                        dim == 0 ? parent.point.center[1] : ppbox.ymax, node.point, dim) :
+                    new BoundingBox(dim == 0 ? ppbox.xmin : parent.point.center[0], dim == 0 ? parent.point.center[1] :
+                        ppbox.ymin, ppbox.xmax, ppbox.ymax, node.point, dim);
                 }
                 
                 node.leftChild = this.build(pointList.slice(0,median),dim==0 ? 1 : 0, node, true)

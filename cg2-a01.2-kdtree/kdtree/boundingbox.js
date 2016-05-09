@@ -4,7 +4,6 @@
  *
  * Module: boundingbox
  *
- *
  */
 
 
@@ -14,6 +13,14 @@ define([],
 
         "use strict";
 
+        /**
+         * Creates a BoundingBox, used for the visualization of a kd-Tree
+         *
+         * @param xmin, ymin, xmax, ymax - dimensions of the box
+         * @param point
+         * @param dim
+         * @constructor
+         */
         var BoundingBox = function (xmin, ymin, xmax, ymax, point, dim) {
 
             this.xmin = xmin;
