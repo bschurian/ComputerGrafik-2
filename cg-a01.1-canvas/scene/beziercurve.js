@@ -59,7 +59,9 @@ define(["util", "vec2", "Scene", "Point", "PointDragger", "Polygon"],
             context.strokeStyle = this.drawStyle.color;
             context.stroke();
 
-            this.drawTickMarks(context);
+            if(this.hasTickMarks){
+                this.drawTickMarks(context);
+            }
 
         };
 

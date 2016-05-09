@@ -61,11 +61,11 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
             // public method: show parameters for selected object
             this.showParamsForObj = function(obj) {
 
+                $(".formgroup").hide();
+
                 if(!obj) {
                     return;
                 }
-
-                $(".formgroup").hide();
 
                 $("#formLine").show();
                 $("#formColor").show();
@@ -81,7 +81,7 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                     $("#formSegments").show();
                     $("#changeSegments").attr("value", obj.segmentCount);
                 }
-                if(obj.hasTickMarks != undefined){
+                if(obj.constructor == BezierCurve){
                     $("#formTickmarks").show();
                     $("#tickmarks").attr("checked", obj.hasTickMarks);
                 }
@@ -110,11 +110,15 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 if(obj.radius != undefined) {
                     obj.radius = parseInt($("#inRadius").attr("value"));
                 };
+                if(obj.segmentCount != undefined){
+                    obj.segmentCount = $("#changeSegments").val();
+                }
 
                 scene.draw(context);
             }));
 
             sceneController.onSelection(this.showParamsForObj);
+            sceneController.onObjChange(this.showParamsForObj);
 
             /*
              * event handler for "new line button".
@@ -206,6 +210,14 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 }
                 scene.removeObjects([obj]);
                 sceneController.deselect(obj);
+                $(".formgroup").hide();
+            }));
+
+            $("#tickmarks").click((function(){
+                var obj = sceneController.getSelectedObject();
+                if(!obj){ return };
+                var showMarks = $("#tickmarks").attr("checked");
+                obj.hasTickMarks = showMarks;
             }));
 
             $("#btnNewPointList").click( (function() {
@@ -229,6 +241,8 @@ define(["jquery", "Line", "Circle", "Point", "Rectangle", "KdTree", "util", "kdu
                 sceneController.deselect();
 
             }));
+
+
 
             $("#visKdTree").click( (function() {
 

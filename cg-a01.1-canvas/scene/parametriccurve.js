@@ -84,8 +84,9 @@ define(["util", "vec2", "Scene", "Point"],
             context.strokeStyle = this.drawStyle.color;
             context.stroke();
 
-            this.drawTickMarks(context);
-
+            if(this.hasTickMarks){
+                this.drawTickMarks(context);
+            }
 
         };
 
