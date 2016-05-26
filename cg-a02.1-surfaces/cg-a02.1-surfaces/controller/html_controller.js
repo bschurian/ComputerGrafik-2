@@ -25,6 +25,9 @@ define(["jquery", "BufferGeometry", "random", "band"],
             $("#random").show();
             $("#band").hide();
             $("#box").hide();
+            $("#sphere").hide();
+            $("#torusKnot").hide();
+
 
 
             $("#btnRandom").click( (function() {
@@ -32,6 +35,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#band").hide();
                 $("#box").hide();
                 $("#sphere").hide();
+                $("#torusKnot").hide();
+
             }));
 
             $("#btnBand").click( (function() {
@@ -39,6 +44,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#band").show();
                 $("#box").hide();
                 $("#sphere").hide();
+                $("#torusKnot").hide();
+
             }));
 
             $("#btnBoxGeometry").click( (function() {
@@ -46,6 +53,7 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#band").hide();
                 $("#box").show();
                 $("#sphere").hide();
+                $("#torusKnot").hide();
             }));
 
             $("#btnSphere").click( (function() {
@@ -53,6 +61,15 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#band").hide();
                 $("#box").hide();
                 $("#sphere").show();
+                $("#torusKnot").hide();
+            }));
+
+            $("#btnTorusKnot").click( (function() {
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").show();
             }));
             $("#btnNewRandom").click( (function() {
 
@@ -91,7 +108,7 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 var z = parseInt($("#zKoordinate").attr("value"))
                 var color = $("#boxFarbe").attr("value")
                 var geometry = new THREE.BoxGeometry( x, y, z );
-                var material = new THREE.MeshBasicMaterial(  { color: 0x00ff00 } );
+                var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var cube = new THREE.Mesh( geometry, material );
                 scene.scene.add( cube );
                 alert(cube.geometry.parameters.height)
@@ -102,11 +119,29 @@ define(["jquery", "BufferGeometry", "random", "band"],
             $("#btnNewSphere").click( (function() {
 
                 var radius = parseInt($("#radiusSphere").attr("value"))
+                var color = $("#boxFarbe").attr("value")
                 var geometry = new THREE.SphereGeometry( radius);
-                var material = new THREE.MeshBasicMaterial(  { color: 0x00ff00 } );
+                var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var sphere = new THREE.Mesh( geometry, material );
                 scene.scene.add( sphere )
                
+            }));
+
+            $("#btnNewTorusKnot").click( (function() {
+
+                var radius = parseInt($("#radiusKnot").attr("value"))
+                var tube = parseInt($("#tube").attr("value"))
+                var tubularSegments = parseInt($("#tubularSegmentsKnot").attr("value"))
+                var radialSegments = parseInt($("#radialSegmentsKnot").attr("value"))
+                var color = parseInt($("#torusKnotFarbe").attr("value"))
+
+
+
+                var geometry = new THREE.TorusKnotGeometry( radius, tube, tubularSegments, radialSegments);
+                var material = new THREE.MeshBasicMaterial(  { color: color } );
+                var knot = new THREE.Mesh( geometry, material );
+                scene.scene.add( knot )
+
             }));
             
             
