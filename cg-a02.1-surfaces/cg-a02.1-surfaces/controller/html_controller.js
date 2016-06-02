@@ -169,11 +169,11 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
             $("#btnNewParametricSurface").click( (function() {
 
                 var config = {
-                    segments : parseInt($("#Segments").attr("value")),
+                    segments : parseInt($("#segments").attr("value")),
                     umin : parseInt($("#umin").attr("value")),
                     umax : parseInt($("#umax").attr("value")),
-                    vmin : parseInt($("#vminmin").attr("value")),
-                    vmax : parseInt($("#vmaxmax").attr("value"))
+                    vmin : parseInt($("#vmin").attr("value")),
+                    vmax : parseInt($("#vmax").attr("value"))
                 };
 
                 var posFunc=function(u,v){
@@ -185,7 +185,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                     var array =[x,y,z];
                     return array;
 
-                }
+                };
 
 
                 var surface = new ParametricSurface(posFunc,config);
