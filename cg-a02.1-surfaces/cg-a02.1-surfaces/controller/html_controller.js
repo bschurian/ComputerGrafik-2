@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band"],
-    (function($,BufferGeometry, Random, Band) {
+define(["jquery", "BufferGeometry", "random", "band", "parametric"],
+    (function($,BufferGeometry, Random, Band, ParametricSurface) {
         "use strict";
 
         /*
@@ -27,6 +27,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
             $("#box").hide();
             $("#sphere").hide();
             $("#torusKnot").hide();
+            $("#parametricSurface").hide();
+
 
 
 
@@ -36,6 +38,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#box").hide();
                 $("#sphere").hide();
                 $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+
 
             }));
 
@@ -45,6 +49,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#box").hide();
                 $("#sphere").hide();
                 $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+
 
             }));
 
@@ -54,6 +60,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#box").show();
                 $("#sphere").hide();
                 $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+
             }));
 
             $("#btnSphere").click( (function() {
@@ -62,6 +70,8 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#box").hide();
                 $("#sphere").show();
                 $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+
             }));
 
             $("#btnTorusKnot").click( (function() {
@@ -69,8 +79,19 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 $("#band").hide();
                 $("#box").hide();
                 $("#sphere").hide();
+                $("#parametricSurface").hide();
                 $("#torusKnot").show();
             }));
+
+            $("#btnParametric").click( (function() {
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").hide();
+                $("#parametricSurface").show();
+            }));
+
             $("#btnNewRandom").click( (function() {
 
                 var numPoints = parseInt($("#numItems").attr("value"));
@@ -103,23 +124,23 @@ define(["jquery", "BufferGeometry", "random", "band"],
             $("#btnNewBox").click( (function() {
 
 
-                var x = parseInt($("#xKoordinate").attr("value"))
-                var y = parseInt($("#yKoordinate").attr("value"))
-                var z = parseInt($("#zKoordinate").attr("value"))
-                var color = $("#boxFarbe").attr("value")
+                var x = parseInt($("#xKoordinate").attr("value"));
+                var y = parseInt($("#yKoordinate").attr("value"));
+                var z = parseInt($("#zKoordinate").attr("value"));
+                var color = $("#boxFarbe").attr("value");
                 var geometry = new THREE.BoxGeometry( x, y, z );
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var cube = new THREE.Mesh( geometry, material );
                 scene.scene.add( cube );
-                alert(cube.geometry.parameters.height)
-                alert(cube.geometry.parameters.width)
+                alert(cube.geometry.parameters.height);
+                alert(cube.geometry.parameters.width);
                 alert(cube.material.color)
             }));
 
             $("#btnNewSphere").click( (function() {
 
-                var radius = parseInt($("#radiusSphere").attr("value"))
-                var color = $("#boxFarbe").attr("value")
+                var radius = parseInt($("#radiusSphere").attr("value"));
+                var color = $("#boxFarbe").attr("value");
                 var geometry = new THREE.SphereGeometry( radius);
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var sphere = new THREE.Mesh( geometry, material );
@@ -129,11 +150,11 @@ define(["jquery", "BufferGeometry", "random", "band"],
 
             $("#btnNewTorusKnot").click( (function() {
 
-                var radius = parseInt($("#radiusKnot").attr("value"))
-                var tube = parseInt($("#tube").attr("value"))
-                var tubularSegments = parseInt($("#tubularSegmentsKnot").attr("value"))
-                var radialSegments = parseInt($("#radialSegmentsKnot").attr("value"))
-                var color = parseInt($("#torusKnotFarbe").attr("value"))
+                var radius = parseInt($("#radiusKnot").attr("value"));
+                var tube = parseInt($("#tube").attr("value"));
+                var tubularSegments = parseInt($("#tubularSegmentsKnot").attr("value"));
+                var radialSegments = parseInt($("#radialSegmentsKnot").attr("value"));
+                var color = parseInt($("#torusKnotFarbe").attr("value"));
 
 
 
@@ -143,6 +164,39 @@ define(["jquery", "BufferGeometry", "random", "band"],
                 scene.scene.add( knot )
 
             }));
+
+
+            $("#btnNewParametricSurface").click( (function() {
+
+                var config = {
+                    segments : parseInt($("#Segments").attr("value")),
+                    umin : parseInt($("#umin").attr("value")),
+                    umax : parseInt($("#umax").attr("value")),
+                    vmin : parseInt($("#vminmin").attr("value")),
+                    vmax : parseInt($("#vmaxmax").attr("value"))
+                };
+
+                var posFunc=function(u,v){
+
+                    var x=Math.cos(u)*Math.sin(v);
+                    var y=Math.sin(u)*Math.sin(v);
+                    var z=Math.cos(v);
+
+                    var array =[x,y,z];
+                    return array;
+
+                }
+
+
+                var surface = new ParametricSurface(posFunc,config);
+                var bufferGeometrySurface = new BufferGeometry();
+                bufferGeometrySurface.addAttribute("position", surface.getPositions());
+                bufferGeometrySurface.addAttribute("color", surface.getColors());
+
+                scene.addBufferGeometry(bufferGeometrySurface);
+            }));
+
+
             
             
 

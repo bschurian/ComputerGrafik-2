@@ -64,7 +64,7 @@
                 <td><input id="height" class="objParam" type="number" min="1" max="1000" value="100">
             </tr>
             <tr>
-                <td><button id="btnNewBand"   type="button"   >Create Band</button></td>
+                <td><button id="btnNewBand" type="button">Create Band</button></td>
             </tr>
         </table>
 
@@ -100,7 +100,7 @@
                 <td><input id="sphereFarbe" class="objParam" type="color">
             </tr>
             <tr>
-                <td><button id="btnNewSphere"   type="button"   >Create Sphere</button></td>
+                <td><button id="btnNewSphere" type="button">Create Sphere</button></td>
             </tr>
 
         </table>
@@ -127,7 +127,33 @@
                 <td><input id="torusKnotFarbe" class="objParam" type="color">
             </tr>
             <tr>
-                <td><button id="btnNewTorusKnot"   type="button"   >Create Torus <TorusKnot></TorusKnot></button></td>
+                <td><button id="btnNewTorusKnot" type="button">Create Torus</button></td>
+            </tr>
+        </table>
+
+        <table id="parametricSurface">
+            <tr>
+                <td>Umin:</td>
+                <td><input id="umin" class="objParam" value="0">
+            </tr>
+            <tr>
+                <td>Umax:</td>
+                <td><input id="umax" class="objParam" type="number" value="6.283">
+            </tr>
+            <tr>
+                <td>Vmin:</td>
+                <td><input id="vmin" class="objParam" type="number" value="0">
+            </tr>
+            <tr>
+                <td>Vmax:</td>
+                <td><input id="vmax" class="objParam" type="number" min="2" value="3.141">
+            </tr>
+            <tr>
+                <td>Segmente:</td>
+                <td><input id="segments" class="objParam" type="number" value="100">
+            </tr>
+            <tr>
+                <td><button id="btnNewParametricSurface" type="button">Create Parametric Surface</button></td>
             </tr>
         </table>
 
