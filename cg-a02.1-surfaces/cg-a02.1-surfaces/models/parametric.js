@@ -40,9 +40,9 @@ define(["three"],
 
                 console.log("u: " + u);
 
-                for(var j=0; j<this.segments*3;j+=3){
+                for(var j=0; j<this.segments;j++){
 
-                    var v = this.vmin + i * ((this.vmax - this.vmin) / this.segments);
+                    var v = this.vmin + j * ((this.vmax - this.vmin) / this.segments);
 
                     console.log("v: " + v);
 
