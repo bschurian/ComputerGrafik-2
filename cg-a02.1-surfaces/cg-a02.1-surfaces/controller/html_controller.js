@@ -180,16 +180,13 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                     " vmin: " + parseInt($("#vmin").attr("value"))  + " vmax: " + parseInt($("#vmax").attr("value")) + " segments: " + parseInt($("#segments").attr("value")));
 
                 var posFunc=function(u,v){
-
-                    var x=Math.cos(u)*Math.sin(v);
-                    var y=Math.sin(u)*Math.sin(v);
-                    var z=Math.cos(v);
+                    var x=Math.cos(u)*Math.sin(v)*100;
+                    var y=Math.sin(u)*Math.sin(v)*100;
+                    var z=Math.cos(v)*100;
 
                     var array =[x,y,z];
                     return array;
-
                 };
-
 
                 var surface = new ParametricSurface(posFunc,config);
                 var bufferGeometrySurface = new BufferGeometry();
@@ -197,14 +194,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
 
                 scene.addBufferGeometry(bufferGeometrySurface);
-
-
+                alert("testing-- " + surface.getPositions().length);
             }));
-
-
-            
-            
-
 
         };
 

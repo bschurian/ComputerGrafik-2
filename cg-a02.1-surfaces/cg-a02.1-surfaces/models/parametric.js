@@ -23,8 +23,8 @@ define(["three"],
             this.segments=config.segments;
             var color = new THREE.Color();
 
-            this.positions = new Array;
-            this.colors = new Array;
+            this.positions = new Float32Array(this.segments * 3);
+            this.colors = new Float32Array(this.segments * 3);
 
             var ellipsoid=posFunc;
 
