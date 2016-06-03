@@ -132,9 +132,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var cube = new THREE.Mesh( geometry, material );
                 scene.scene.add( cube );
-                alert(cube.geometry.parameters.height);
-                alert(cube.geometry.parameters.width);
-                alert(cube.material.color)
+                
             }));
 
             $("#btnNewSphere").click( (function() {
@@ -194,7 +192,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
 
                 scene.addBufferGeometry(bufferGeometrySurface);
-                alert("testing-- " + surface.getPositions().length);
+                
             }));
 
         };

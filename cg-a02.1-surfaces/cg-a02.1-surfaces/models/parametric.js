@@ -32,19 +32,9 @@ define(["three"],
             var countc=0;
 
             for(var i=0; i<this.segments;i++){
-
-                console.log(i+1 + ". Schleifendurchlauf erste Schleife");
-
-
                 var u = this.umin + i * ((this.umax - this.umin) / this.segments);
-
-                console.log("u: " + u);
-
                 for(var j=0; j<this.segments;j++){
-
                     var v = this.vmin + j * ((this.vmax - this.vmin) / this.segments);
-
-                    console.log("v: " + v);
 
                     var point=ellipsoid(u,v);
 
