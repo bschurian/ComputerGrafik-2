@@ -14,37 +14,63 @@ define(["three"],
 
         var ParametricSurface = function (posFunc, config) {
 
-            this.positions = [];
-            this.colors = [];
 
-            var umin=config.umin;
-            var umax=config.umax;
-            var vmin=config.vmin;
-            var vmax=config.vmax
-            var segments=config.segments;
+
+            this.umin=config.umin;
+            this.umax=config.umax;
+            this.vmin=config.vmin;
+            this.vmax=config.vmax;
+            this.segments=config.segments;
             var color = new THREE.Color();
-            
 
-
+            this.positions = new Array;
+            this.colors = new Array;
 
             var ellipsoid=posFunc;
 
-            for(var u=umin;u<=umax;u+=((umax-umin)/segments)){
+            var countp=0;
+            var countc=0;
 
-                for(var v=vmin;v<=vmax;v+=((vmax-vmin)/segments)){
+            for(var i=0; i<this.segments;i++){
+
+                console.log(i+1 + ". Schleifendurchlauf erste Schleife");
+
+
+                var u = this.umin + i * ((this.umax - this.umin) / this.segments);
+
+                console.log("u: " + u);
+
+                for(var j=0; j<this.segments*3;j+=3){
+
+                    var v = this.vmin + i * ((this.vmax - this.vmin) / this.segments);
+
+                    console.log("v: " + v);
 
                     var point=ellipsoid(u,v);
-                    this.positions.push(point[0]);
-                    this.positions.push(point[1]);
-                    this.positions.push(point[2]);
-                    
+
+                    var x=point[0];
+                    var y=point[1];
+                    var z=point[2];
+
+                    this.positions[ countp++]  = x;
+                    this.positions[ countp++] = y;
+                    this.positions[ countp++] = z;
+
+                    console.log("Größe von positions: " + this.positions.length);
+
+                    console.log("x: " + x + " y: " + y + " z: " + z);
+
                     color.setRGB( 1,0,0 );
-                    
-                    this.colors.push(color.r);
-                    this.colorscolors.push(color.g);
-                    this.colorscolors.push(color.b);
+
+                    this.colors[ countc++] = color.r;
+                    this.colors[ countc++] = color.g;
+                    this.colors[ countc++] = color.b;
                 }
             }
+
+            console.log(this.positions.length);
+            console.log(this.segments);
+            console.log(this.colors.length);
 
             this.getPositions = function() {
                 return this.positions;

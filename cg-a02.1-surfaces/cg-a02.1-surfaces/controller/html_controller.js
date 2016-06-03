@@ -176,6 +176,9 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                     vmax : parseInt($("#vmax").attr("value"))
                 };
 
+                console.log("neues ParametricSurface erstellt mit: " + "umin: " + parseInt($("#umin").attr("value")) + " umax: " + parseInt($("#umax").attr("value")) +
+                    " vmin: " + parseInt($("#vmin").attr("value"))  + " vmax: " + parseInt($("#vmax").attr("value")) + " segments: " + parseInt($("#segments").attr("value")));
+
                 var posFunc=function(u,v){
 
                     var x=Math.cos(u)*Math.sin(v);
@@ -194,6 +197,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
 
                 scene.addBufferGeometry(bufferGeometrySurface);
+
+
             }));
 
 
