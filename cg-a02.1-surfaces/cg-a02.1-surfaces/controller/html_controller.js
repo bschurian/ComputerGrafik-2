@@ -178,19 +178,20 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                     " vmin: " + parseInt($("#vmin").attr("value"))  + " vmax: " + parseInt($("#vmax").attr("value")) + " segments: " + parseInt($("#segments").attr("value")));
 
                 var posFunc=function(u,v){
-                    var x=Math.cos(u)*Math.sin(v)*100;
-                    var y=Math.sin(u)*Math.sin(v)*100;
-                    var z=Math.cos(v)*100;
+                    var x=Math.sin(u)*Math.cos(v)*100;
+                    var y=Math.sin(v)*100;
+                    var z=Math.cos(u)*Math.cos(v)*100;
 
-                    var array =[x,y,z];
+                    var array =[x, y, z];
                     return array;
                 };
 
-                var surface = new ParametricSurface(posFunc,config);
+                var surface = new ParametricSurface(posFunc, config);
                 var bufferGeometrySurface = new BufferGeometry();
                 bufferGeometrySurface.addAttribute("position", surface.getPositions());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-
+                //bufferGeometrySurface.addAttribute("index", surface.getIndices());
+                
                 scene.addBufferGeometry(bufferGeometrySurface);
                 
             }));
