@@ -25,17 +25,31 @@ define(["three"],
             this.colors = new Float32Array(Math.pow((this.segments + 1), 2) * 3);
             this.indices = new Uint32Array(this.segments * this.segments * 2 * 3);
 
-            var pointFunc = posFunc;
+            var worldCoordFromSurfacePoint = posFunc;
 
             var countp = 0;
             var countc = 0;
+            var counti = 0;
             
             for(var i = 0; i<this.segments+1; i++){
                 var u = this.umin + i * ((this.umax - this.umin) / this.segments);
                 for(var j = 0; j<this.segments+1; j++){
+                    if(i<this.segments && j<this.segments){
+                        var p1 = countp / 3;
+                        var p2 = countp / 3 + 1;
+                        var p3 = (i + 1) * (this.segments + 1) + j;
+                        var p4 = (i + 1) * (this.segments + 1) + j + 1;
+                        this.indices[counti++] = p1;
+                        this.indices[counti++] = p2;
+                        this.indices[counti++] = p3;
+                        this.indices[counti++] = p2;
+                        this.indices[counti++] = p4;
+                        this.indices[counti++] = p3;
+                    }
+
                     var v = this.vmin + j * ((this.vmax - this.vmin) / this.segments);
 
-                    var point = pointFunc(u, v);
+                    var point = worldCoordFromSurfacePoint(u, v);
 
                     var x = point[0];
                     var y = point[1];
@@ -50,8 +64,6 @@ define(["three"],
                     this.colors[countc++] = color.b;
                 }
             }
-
-            console.log(countp);
             
             this.getPositions = function() {
                 return this.positions;

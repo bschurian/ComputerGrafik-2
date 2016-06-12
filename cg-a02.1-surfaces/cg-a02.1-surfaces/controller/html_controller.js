@@ -188,9 +188,9 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
 
                 var surface = new ParametricSurface(posFunc, config);
                 var bufferGeometrySurface = new BufferGeometry();
-                bufferGeometrySurface.addAttribute("position", surface.getPositions());
+                bufferGeometrySurface.addMeshAttribute("position", surface.getPositions());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-                //bufferGeometrySurface.addAttribute("index", surface.getIndices());
+                bufferGeometrySurface.addMeshAttribute("index", surface.getIndices());
                 
                 scene.addBufferGeometry(bufferGeometrySurface);
                 
