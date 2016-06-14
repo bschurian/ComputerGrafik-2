@@ -13,10 +13,15 @@ define(["three"],
         "use strict";
 
         var ParametricSurface = function (posFunc, config) {
+            
+            var worldCoordFromSurfacePoint = posFunc;
+
             this.umin=config.umin;
             this.umax=config.umax;
             this.vmin=config.vmin;
             this.vmax=config.vmax;
+            this.scal = config.scal;
+
             this.segments=config.segments;
             var color = new THREE.Color();
             var triangles = config.triangles;
@@ -24,8 +29,6 @@ define(["three"],
             this.positions = new Float32Array(Math.pow((this.segments + 1), 2) * 3);
             this.colors = new Float32Array(Math.pow((this.segments + 1), 2) * 3);
             this.indices = new Uint32Array(this.segments * this.segments * 2 * 3);
-
-            var worldCoordFromSurfacePoint = posFunc;
 
             var countp = 0;
             var countc = 0;
@@ -51,12 +54,9 @@ define(["three"],
 
                     var point = worldCoordFromSurfacePoint(u, v);
 
-                    var x = point[0];
-                    var y = point[1];
-                    var z = point[2];
-                    this.positions[countp++] = x;
-                    this.positions[countp++] = y;
-                    this.positions[countp++] = z;
+                    this.positions[countp++] = point[0] * this.scal;
+                    this.positions[countp++] = point[1] * this.scal;
+                    this.positions[countp++] = point[2] * this.scal;
 
                     color.setRGB(1, 0, 0 );
                     this.colors[countc++] = color.r;

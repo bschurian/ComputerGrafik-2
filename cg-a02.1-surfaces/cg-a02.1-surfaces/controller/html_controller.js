@@ -142,7 +142,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var geometry = new THREE.SphereGeometry( radius);
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var sphere = new THREE.Mesh( geometry, material );
-                scene.scene.add( sphere )
+                scene.scene.add( sphere );
                
             }));
 
@@ -159,7 +159,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var geometry = new THREE.TorusKnotGeometry( radius, tube, tubularSegments, radialSegments);
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var knot = new THREE.Mesh( geometry, material );
-                scene.scene.add( knot )
+                scene.scene.add( knot );
 
             }));
 
@@ -168,42 +168,43 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
 
                 var config = {
                     segments : parseInt($("#segments").attr("value")),
-                    umin : parseInt($("#umin").attr("value")),
-                    umax : parseInt($("#umax").attr("value")),
-                    vmin : parseInt($("#vmin").attr("value")),
-                    vmax : parseInt($("#vmax").attr("value"))
+                    umin : parseFloat($("#umin").attr("value")),
+                    umax : parseFloat($("#umax").attr("value")),
+                    vmin : parseFloat($("#vmin").attr("value")),
+                    vmax : parseFloat($("#vmax").attr("value")),
+                    scal : parseFloat($("#paraSkal").attr("value"))
                 };
 
                 console.log("neues ParametricSurface erstellt mit: " + "umin: " + parseInt($("#umin").attr("value")) + " umax: " + parseInt($("#umax").attr("value")) +
                     " vmin: " + parseInt($("#vmin").attr("value"))  + " vmax: " + parseInt($("#vmax").attr("value")) + " segments: " + parseInt($("#segments").attr("value")));
-                
-                var scaleFactor = 400;
-                
-                var posFunc=function(u,v){
-                    var x = u*50;Math.sin(u)*Math.cos(v)/Math.PI*scaleFactor;
-                    var y = v*50;//Math.sin(v)/Math.PI*scaleFactor;
-                    var z = -0;//Math.cos(u)/Math.PI*Math.cos(v)*scaleFactor;
-
-                    var array =[x, y, z];
-                    return array;
-                };
+                                
+                var posFunc = function(u, v){return eval($("#paraFunc").attr("value") || "[u, v, 0];")};
 
                 var surface = new ParametricSurface(posFunc, config);
                 var bufferGeometrySurface = new BufferGeometry();
-                bufferGeometrySurface.addMeshAttribute("position", surface.getPositions());
+                bufferGeometrySurface.addAttribute("position", surface.getPositions());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-                bufferGeometrySurface.addMeshAttribute("index", surface.getIndices());
-                
-                var surface2 = new ParametricSurface(posFunc, config);
-                var bufferGeometrySurface2 = new BufferGeometry();
-                bufferGeometrySurface2.addMeshAttribute("position", surface2.getPositions());
-                bufferGeometrySurface2.addAttribute("color", surface2.getColors());
-                scene.addBufferGeometry(bufferGeometrySurface2);
+                bufferGeometrySurface.addMeshAttribute(surface.getIndices());
                 
                 scene.addBufferGeometry(bufferGeometrySurface);
-                //scene.startTurningGeometry();
+                scene.startTurningGeometry();
                 
             }));
+
+            var paraFSet = function(id, func, umin = 0, umax = 10, vmin = 0, vmax = 10, scal = 50){
+                $(id).click(function(){
+                    $("#paraFunc").val(func);
+                    $("#umin").val(umin);
+                    $("#umax").val(umax);
+                    $("#vmin").val(vmin);
+                    $("#vmax").val(vmax);
+                    $("#paraSkal").val(scal);
+                });                                
+            };
+            
+            paraFSet("#fForSphere", "[Math.sin(u)*Math.cos(v), Math.sin(v), Math.cos(u)*Math.cos(v)]", 0, Math.PI, 0, Math.PI, 400);
+            paraFSet("#fForFlower", "[(u-(u*u*u/3+u*v*v)), (v-(v*v*v/3+u*u*v)), (u*u-v*v)]", -2, 2, -2, 2, 100);
+            paraFSet("#fForApple", "[Math.cos(u)*(4 + 3.8 * Math.cos(v)), Math.sin(u)*(4 + 3.8 * Math.cos(v)), ((Math.cos(v)+Math.sin(v)-1) * (1+Math.sin(v)) * Math.log(1-Math.PI * v/10)+7.5*Math.sin(v))]", 0, 2*Math.PI, -Math.PI, Math.PI, 50);
 
         };
 

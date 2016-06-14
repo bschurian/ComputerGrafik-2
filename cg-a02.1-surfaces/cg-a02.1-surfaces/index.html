@@ -134,7 +134,7 @@
         <table id="parametricSurface">
             <tr>
                 <td>Umin:</td>
-                <td><input id="umin" class="objParam" value="0">
+                <td><input id="umin" class="objParam" type="number" value="0">
             </tr>
             <tr>
                 <td>Umax:</td>
@@ -151,6 +151,22 @@
             <tr>
                 <td>Segmente:</td>
                 <td><input id="segments" class="objParam" type="number" value="10">
+            </tr>
+            <tr>
+                <td>Funktion:</td>
+                <td><input id="paraFunc" class="objParam" type="text" value="[u*100, v*100, 0];"></td>
+            </tr>
+            <tr>
+                <td><input id="paraSkal"   class="objParam" type="text" value="50"></td>
+            </tr>
+            <tr>
+                <td><input id="fForSphere" class="objParam" type="button" value="Sphere"></td>
+            </tr>
+            <tr>
+                <td><input id="fForFlower"  class="objParam" type="button" value="Flower"></td>
+            </tr>
+            <tr>
+                <td><input id="fForApple"   class="objParam" type="button" value="Apple"></td>
             </tr>
             <tr>
                 <td><button id="btnNewParametricSurface" type="button">Create Parametric Surface</button></td>

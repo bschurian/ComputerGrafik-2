@@ -70,10 +70,10 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             this.startTurningGeometry = function(){
                 
                 setInterval(function(){
-                    scope.currentMesh.rotation.x += 0.01;
-                    scope.currentMesh.rotation.y += 0.01;
+                    scope.currentMesh.rotation.x += 0.0011;
+                    scope.currentMesh.rotation.y += 0.001;
                     scope.draw;
-                }, 1000);
+                }, 100);
                 
             }
             

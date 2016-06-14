@@ -45,8 +45,8 @@ define(["three"],
                 this.mesh = new THREE.Points( this.geometry, this.material );
             }
             
-            this.addMeshAttribute = function(name, buffer){
-                this.geometry.addAttribute(name, new THREE.BufferAttribute( buffer, 3 ));
+            this.addMeshAttribute = function( buffer){
+                this.geometry.setIndex( new THREE.BufferAttribute( buffer, 1 ) );
                 this.geometry.computeBoundingSphere();
                 
                 this.mesh = new THREE.Mesh( this.geometry, new THREE.MeshBasicMaterial( { color: 0xff0000 } ));
