@@ -59,14 +59,24 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     // Cursor up
                 }
             };
-
+            
             this.addBufferGeometry = function(bufferGeometry) {
 
                 scope.currentMesh = bufferGeometry.getMesh();
                 scope.scene.add( scope.currentMesh );
 
             }
-
+            
+            this.startTurningGeometry = function(){
+                
+                setInterval(function(){
+                    scope.currentMesh.rotation.x += 0.01;
+                    scope.currentMesh.rotation.y += 0.01;
+                    scope.draw;
+                }, 1000);
+                
+            }
+            
             /*
              * drawing the scene
              */

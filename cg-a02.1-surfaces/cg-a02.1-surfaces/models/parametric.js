@@ -36,8 +36,8 @@ define(["three"],
                 for(var j = 0; j<this.segments+1; j++){
                     if(i<this.segments && j<this.segments){
                         var p1 = countp / 3;
-                        var p2 = countp / 3 + 1;
-                        var p3 = (i + 1) * (this.segments + 1) + j;
+                        var p2 = (i + 1) * (this.segments + 1) + j;
+                        var p3 = countp / 3 + 1;
                         var p4 = (i + 1) * (this.segments + 1) + j + 1;
                         this.indices[counti++] = p1;
                         this.indices[counti++] = p2;
@@ -64,6 +64,9 @@ define(["three"],
                     this.colors[countc++] = color.b;
                 }
             }
+            console.log("para p "+this.positions.length/3 +" n i" + this.indices.length/3);
+            console.log(this.positions);
+            console.log(this.indices);
             
             this.getPositions = function() {
                 return this.positions;

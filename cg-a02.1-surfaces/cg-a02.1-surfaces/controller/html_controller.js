@@ -176,11 +176,13 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
 
                 console.log("neues ParametricSurface erstellt mit: " + "umin: " + parseInt($("#umin").attr("value")) + " umax: " + parseInt($("#umax").attr("value")) +
                     " vmin: " + parseInt($("#vmin").attr("value"))  + " vmax: " + parseInt($("#vmax").attr("value")) + " segments: " + parseInt($("#segments").attr("value")));
-
+                
+                var scaleFactor = 400;
+                
                 var posFunc=function(u,v){
-                    var x=Math.sin(u)*Math.cos(v)*100;
-                    var y=Math.sin(v)*100;
-                    var z=Math.cos(u)*Math.cos(v)*100;
+                    var x = u*50;Math.sin(u)*Math.cos(v)/Math.PI*scaleFactor;
+                    var y = v*50;//Math.sin(v)/Math.PI*scaleFactor;
+                    var z = -0;//Math.cos(u)/Math.PI*Math.cos(v)*scaleFactor;
 
                     var array =[x, y, z];
                     return array;
@@ -192,7 +194,14 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
                 bufferGeometrySurface.addMeshAttribute("index", surface.getIndices());
                 
+                var surface2 = new ParametricSurface(posFunc, config);
+                var bufferGeometrySurface2 = new BufferGeometry();
+                bufferGeometrySurface2.addMeshAttribute("position", surface2.getPositions());
+                bufferGeometrySurface2.addAttribute("color", surface2.getColors());
+                scene.addBufferGeometry(bufferGeometrySurface2);
+                
                 scene.addBufferGeometry(bufferGeometrySurface);
+                //scene.startTurningGeometry();
                 
             }));
 
