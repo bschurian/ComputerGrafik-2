@@ -21,6 +21,9 @@ define(["three"],
             this.vmin=config.vmin;
             this.vmax=config.vmax;
             this.scal = config.scal;
+            this.tX = config.tX;
+            this.tY = config.tY;
+            this.tZ = config.tZ;
 
             this.segments=config.segments;
             var color = new THREE.Color();
@@ -54,9 +57,9 @@ define(["three"],
 
                     var point = worldCoordFromSurfacePoint(u, v);
 
-                    this.positions[countp++] = point[0] * this.scal;
-                    this.positions[countp++] = point[1] * this.scal;
-                    this.positions[countp++] = point[2] * this.scal;
+                    this.positions[countp++] = point[0] * this.scal + this.tX;
+                    this.positions[countp++] = point[1] * this.scal + this.tY;
+                    this.positions[countp++] = point[2] * this.scal + this.tZ;
 
                     color.setRGB(1, 0, 0 );
                     this.colors[countc++] = color.r;

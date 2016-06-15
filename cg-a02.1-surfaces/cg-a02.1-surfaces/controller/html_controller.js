@@ -184,7 +184,10 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                     umax : parseFloat($("#umax").attr("value")),
                     vmin : parseFloat($("#vmin").attr("value")),
                     vmax : parseFloat($("#vmax").attr("value")),
-                    scal : parseFloat($("#paraSkal").attr("value"))
+                    scal : parseFloat($("#paraSkal").attr("value")),
+                    tX : parseFloat($("#paraTX").attr("value")),
+                    tY : parseFloat($("#paraTY").attr("value")),
+                    tZ : parseFloat($("#paraTZ").attr("value"))
                 };
 
                 console.log("neues ParametricSurface erstellt mit: " + "umin: " + parseInt($("#umin").attr("value")) + " umax: " + parseInt($("#umax").attr("value")) +
@@ -211,6 +214,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 };
                 
                 var objMesh = new OBJMesh("mesh/obj/dromedar.obj", config);
+                scene.addMesh(objMesh.getMesh());
             });
 
             
