@@ -60,6 +60,12 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 }
             };
             
+            this.addMesh = function(mesh) {
+                
+                scope.scene.add( mesh);
+                
+            }
+            
             this.addBufferGeometry = function(bufferGeometry) {
 
                 scope.currentMesh = bufferGeometry.getMesh();

@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "parametric"],
-    (function($,BufferGeometry, Random, Band, ParametricSurface) {
+define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
+    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh) {
         "use strict";
 
         /*
@@ -90,7 +90,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#obj").hide();
             }));
             
-            $("#obj").click( (function() {
+            $("#btnObj").click( (function() {
                 $("#random").hide();
                 $("#band").hide();
                 $("#box").hide();
@@ -206,7 +206,11 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
             });
 
             $("#btnNewDromedar").click( function() {
+                var config = {
+                    
+                };
                 
+                var objMesh = new OBJMesh("mesh/obj/dromedar.obj", config);
             });
 
             

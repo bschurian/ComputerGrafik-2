@@ -28,7 +28,10 @@ requirejs.config({
         "shaders" : "./shaders",
         "BufferGeometry" : "./scene/buffer_geometry",
         "HtmlController": "./controller/html_controller",
-        "parametric": "./models/parametric"
+        "parametric": "./models/parametric",
+        "objmesh": "./models/objmesh",
+        "objloader": "./mesh/loaders/OBJLoader",
+        "mtlloader": "./mesh/loaders/MTLLoader"
 
     },
     shim: {
