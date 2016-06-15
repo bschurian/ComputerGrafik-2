@@ -28,9 +28,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
             $("#sphere").hide();
             $("#torusKnot").hide();
             $("#parametricSurface").hide();
-
-
-
+            $("#obj").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
@@ -39,8 +37,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").hide();
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
-
-
+                $("#obj").hide();
             }));
 
             $("#btnBand").click( (function() {
@@ -50,8 +47,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").hide();
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
-
-
+                $("#obj").hide();
             }));
 
             $("#btnBoxGeometry").click( (function() {
@@ -61,7 +57,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").hide();
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
-
+                $("#obj").hide();
             }));
 
             $("#btnSphere").click( (function() {
@@ -71,7 +67,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").show();
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
-
+                $("#obj").hide();
             }));
 
             $("#btnTorusKnot").click( (function() {
@@ -81,6 +77,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").hide();
                 $("#parametricSurface").hide();
                 $("#torusKnot").show();
+                $("#obj").hide();
             }));
 
             $("#btnParametric").click( (function() {
@@ -90,6 +87,17 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 $("#sphere").hide();
                 $("#torusKnot").hide();
                 $("#parametricSurface").show();
+                $("#obj").hide();
+            }));
+            
+            $("#obj").click( (function() {
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+                $("#obj").show();
             }));
 
             $("#btnNewRandom").click( (function() {
@@ -139,7 +147,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 
             }));
 
-            $("#btnNewSphere").click( (function() {
+            $("#btnNewSphere").click( function() {
 
                 var radius = parseInt($("#radiusSphere").attr("value"));
                 var color = $("#boxFarbe").attr("value");
@@ -148,9 +156,9 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var sphere = new THREE.Mesh( geometry, material );
                 scene.scene.add( sphere );
                
-            }));
+            });
 
-            $("#btnNewTorusKnot").click( (function() {
+            $("#btnNewTorusKnot").click( function() {
 
                 var radius = parseInt($("#radiusKnot").attr("value"));
                 var tube = parseInt($("#tube").attr("value"));
@@ -165,10 +173,10 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var knot = new THREE.Mesh( geometry, material );
                 scene.scene.add( knot );
 
-            }));
+            });
 
 
-            $("#btnNewParametricSurface").click( (function() {
+            $("#btnNewParametricSurface").click( function() {
 
                 var config = {
                     segments : parseInt($("#segments").attr("value")),
@@ -195,8 +203,13 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 scene.addBufferGeometry(bufferGeometrySurface);
                 if($("#turning").attr("checked"))scene.startTurningGeometry();
                 
-            }));
+            });
 
+            $("#btnNewDromedar").click( function() {
+                
+            });
+
+            
             var paraFSet = function(id, func, umin = 0, umax = 10, vmin = 0, vmax = 10, scal = 50){
                 $(id).click(function(){
                     $("#paraFunc").val(func);
@@ -207,7 +220,6 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                     $("#paraSkal").val(scal);
                 });                                
             };
-            
             paraFSet("#fForSphere", "[Math.sin(u)*Math.cos(v), Math.sin(v), Math.cos(u)*Math.cos(v)]", 0, Math.PI, 0, Math.PI, 400);
             paraFSet("#fForFlower", "[(u-(u*u*u/3+u*v*v)), (v-(v*v*v/3+u*u*v)), (u*u-v*v)]", -2, 2, -2, 2, 100);
             paraFSet("#fForApple", "[Math.cos(u)*(4 + 3.8 * Math.cos(v)), Math.sin(u)*(4 + 3.8 * Math.cos(v)), ((Math.cos(v)+Math.sin(v)-1) * (1+Math.sin(v)) * Math.log(1-Math.PI * v/10)+7.5*Math.sin(v))]", 0, 2*Math.PI, -Math.PI, Math.PI, 50);
