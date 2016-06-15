@@ -51,11 +51,11 @@ define(["three"],
                         size: 10, vertexColors: THREE.VertexColors
                     } ));
                 }else{
-                    var wireM = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+                    var wireM = new THREE.MeshBasicMaterial( {  wireframe: true, color: 0x00ffaa, } );
                     if(materialT == "Wireframe"){
                         this.mesh = new THREE.Mesh( this.geometry, wireM);
                     }else{
-                        this.mesh = new THREE.Mesh( this.geometry, new THREE.MultiMaterial([new THREE.MeshBasicMaterial( { color: 0xff0000 } ), wireM]));
+                        this.mesh = THREE.SceneUtils.createMultiMaterialObject( this.geometry, [new THREE.MeshBasicMaterial( { color: 0xff0000 } ), wireM]);
                     }
                 }                
             }

@@ -224,7 +224,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                     $("#paraSkal").val(scal);
                 });                                
             };
-            paraFSet("#fForSphere", "[Math.sin(u)*Math.cos(v), Math.sin(v), Math.cos(u)*Math.cos(v)]", 0, Math.PI, 0, Math.PI, 400);
+            paraFSet("#fForSphere", "[Math.sin(u)*Math.cos(v), Math.sin(v), Math.cos(u)*Math.cos(v)]", 0, Math.PI*2, 0, Math.PI*2, 400);
             paraFSet("#fForFlower", "[(u-(u*u*u/3+u*v*v)), (v-(v*v*v/3+u*u*v)), (u*u-v*v)]", -2, 2, -2, 2, 100);
             paraFSet("#fForApple", "[Math.cos(u)*(4 + 3.8 * Math.cos(v)), Math.sin(u)*(4 + 3.8 * Math.cos(v)), ((Math.cos(v)+Math.sin(v)-1) * (1+Math.sin(v)) * Math.log(1-Math.PI * v/10)+7.5*Math.sin(v))]", 0, 2*Math.PI, -Math.PI, Math.PI, 50);
 
