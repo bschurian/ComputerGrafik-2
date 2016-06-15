@@ -154,15 +154,30 @@
             </tr>
             <tr>
                 <td>Funktion:</td>
-                <td><input id="paraFunc" class="objParam" type="text" value="[u*100, v*100, 0];"></td>
+                <td><input id="paraFunc" class="objParam" type="text" value="[u, v, 0];"></td>
             </tr>
             <tr>
-                <td><input id="paraSkal"   class="objParam" type="text" value="50"></td>
+                <td>Skalierung:</td>
+                <td><input id="paraSkal" class="objParam" type="text" value="50"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="turning" class="objParam" ></td>
+                <td><label for="turning"> Drehend</label></td>
+            </tr>            
+            <tr>
+                <td><input type="radio" id="pointM" name="paraMaterial" class="objParam" value="Points" checked="true"></td>
+                <td><label for="pointM"> Points</label></td>
+			</tr>
+            <tr>
+                <td><input type="radio" id="wireM" name="paraMaterial" class="objParam" value="Wireframe"></td>
+                <td><label for="wireM"> Wireframe</label></td>
+			</tr>
+            <tr>
+                <td><input type="radio" id="sMeshM" name="paraMaterial" class="objParam" value="ClosedMesh"></td>
+                <td><label for="sMeshM"> Closed Mesh</label></td>
             </tr>
             <tr>
                 <td><input id="fForSphere" class="objParam" type="button" value="Sphere"></td>
-            </tr>
-            <tr>
                 <td><input id="fForFlower"  class="objParam" type="button" value="Flower"></td>
             </tr>
             <tr>

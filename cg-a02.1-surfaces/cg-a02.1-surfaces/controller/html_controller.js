@@ -183,11 +183,13 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var surface = new ParametricSurface(posFunc, config);
                 var bufferGeometrySurface = new BufferGeometry();
                 bufferGeometrySurface.addAttribute("position", surface.getPositions());
+                bufferGeometrySurface.addIndices(surface.getIndices());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-                bufferGeometrySurface.addMeshAttribute(surface.getIndices());
+                
+                bufferGeometrySurface.setMeshType($("input[name=paraMaterial]:checked").val());
                 
                 scene.addBufferGeometry(bufferGeometrySurface);
-                scene.startTurningGeometry();
+                if($("#turning").attr("checked"))scene.startTurningGeometry();
                 
             }));
 

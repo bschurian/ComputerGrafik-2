@@ -25,10 +25,6 @@ define(["three"],
 
             this.mesh     = undefined;
             this.geometry = new THREE.BufferGeometry();
-            this.material = new THREE.PointsMaterial( {
-                color: 0xaaaaaa,
-                size: 10, vertexColors: THREE.VertexColors
-            } );
 
             /**
              * Adds a vertex attribute, we assume each element has three components, e.g.
@@ -40,16 +36,28 @@ define(["three"],
              */
             this.addAttribute = function(name, buffer) {
                 this.geometry.addAttribute( name, new THREE.BufferAttribute( buffer, 3 ) );
-                this.geometry.computeBoundingSphere();
-
-                this.mesh = new THREE.Points( this.geometry, this.material );
             }
             
-            this.addMeshAttribute = function( buffer){
-                this.geometry.setIndex( new THREE.BufferAttribute( buffer, 1 ) );
+            this.addIndices = function( buffer){
+                this.geometry.setIndex( new THREE.BufferAttribute( buffer, 1 ) );                
+            }
+            
+            this.setMeshType = function(materialT = "Points") {
                 this.geometry.computeBoundingSphere();
                 
-                this.mesh = new THREE.Mesh( this.geometry, new THREE.MeshBasicMaterial( { color: 0xff0000 } ));
+                if(!this.geometry.index || materialT == "Points"){
+                    this.mesh = new THREE.Points( this.geometry, new THREE.PointsMaterial( {                            
+                        color: 0xaaaaaa,
+                        size: 10, vertexColors: THREE.VertexColors
+                    } ));
+                }else{
+                    var wireM = new THREE.MeshBasicMaterial( {wirefreame: true, color: 0x00ff00 } );
+                    if(materialT == "Wireframe"){
+                        this.mesh = new THREE.Mesh( this.geometry, wireM);
+                    }else{
+                        this.mesh = new THREE.Mesh( this.geometry, new THREE.MultiMaterial([new THREE.MeshBasicMaterial( { color: 0xff0000 } ), wireM]));
+                    }
+                }                
             }
 
             this.getMesh = function() {

@@ -64,9 +64,6 @@ define(["three"],
                     this.colors[countc++] = color.b;
                 }
             }
-            console.log("para p "+this.positions.length/3 +" n i" + this.indices.length/3);
-            console.log(this.positions);
-            console.log(this.indices);
             
             this.getPositions = function() {
                 return this.positions;
@@ -83,5 +80,6 @@ define(["three"],
         };
 
         return ParametricSurface;
+    
     }));
 
