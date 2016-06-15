@@ -99,6 +99,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var bufferGeometryRandom = new BufferGeometry();
                 bufferGeometryRandom.addAttribute("position", random.getPositions());
                 bufferGeometryRandom.addAttribute("color", random.getColors());
+                
+                bufferGeometryRandom.setMeshType("Point");
 
                 scene.addBufferGeometry(bufferGeometryRandom);
             }));
@@ -117,6 +119,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric"],
                 var bufferGeometryBand = new BufferGeometry();
                 bufferGeometryBand.addAttribute("position", band.getPositions());
                 bufferGeometryBand.addAttribute("color", band.getColors());
+
+                bufferGeometryBand.setMeshType("Point");
 
                 scene.addBufferGeometry(bufferGeometryBand);
             }));
