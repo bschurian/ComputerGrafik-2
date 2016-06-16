@@ -51,6 +51,15 @@ define(["three"],
             this.rSchul.add(this.rOArm);
             this.rSchul.translateX(-(torsoSize[0]/2+schulSize[0]/2));
             this.rSchul.translateY(  torsoSize[1]/2-schulSize[1]/2);
+            
+            this.bauch;
+            this.huefte;
+            this.rHueftG;
+            this.rOSch;
+            this.rKnie;
+            this.rWade;
+            this.rFu;
+            
 
 
             this.torso = new THREE.Object3D();
