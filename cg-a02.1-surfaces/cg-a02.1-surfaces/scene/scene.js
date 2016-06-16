@@ -40,7 +40,8 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             function onDocumentKeyDown(event){
                 // Get the key code of the pressed key
                 var keyCode = event.which;
-
+                
+                // Cursor up
                 if(keyCode == 38){
                     console.log("cursor up");
                     scope.currentMesh.rotation.x += 0.05;
@@ -56,20 +57,20 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 } else if(keyCode == 39){
                     console.log("cursor right");
                     scope.currentMesh.rotation.y += -0.05;
-                    // Cursor up
                 }
             };
             
             this.addMesh = function(mesh) {
                 
-                scope.scene.add( mesh);
+                scope.currentMesh = mesh;
+                scope.scene.add(scope.currentMesh);
                 
             }
             
             this.addBufferGeometry = function(bufferGeometry) {
 
                 scope.currentMesh = bufferGeometry.getMesh();
-                scope.scene.add( scope.currentMesh );
+                scope.scene.add(scope.currentMesh );
 
             }
             

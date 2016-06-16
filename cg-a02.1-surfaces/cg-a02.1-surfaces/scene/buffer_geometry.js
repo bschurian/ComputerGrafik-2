@@ -51,7 +51,7 @@ define(["three"],
                         size: 10, vertexColors: THREE.VertexColors
                     } ));
                 }else{
-                    var wireM = new THREE.MeshBasicMaterial( {  wireframe: true, color: 0x00ffaa, } );
+                    var wireM = new THREE.MeshBasicMaterial( {  wireframe: true, color: 0x00ffaa } );
                     if(materialT == "Wireframe"){
                         this.mesh = new THREE.Mesh( this.geometry, wireM);
                     }else{

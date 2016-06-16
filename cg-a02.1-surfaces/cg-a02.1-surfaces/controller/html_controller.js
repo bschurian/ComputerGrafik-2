@@ -238,7 +238,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
 
             $("#btnNewRobot").click((function(){
                 var robot = new Robot();
-                scene.addBufferGeometry(robot);
+                scene.addMesh(robot.getMesh());
             }));
 
             
