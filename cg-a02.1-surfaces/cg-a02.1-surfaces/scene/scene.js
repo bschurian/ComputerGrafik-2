@@ -38,7 +38,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             scope.scene.add(ambientLight);
 
             var spotLight = new THREE.SpotLight(0xffffff);
-            spotLight.position.set(-20, 0, 500);
+            spotLight.position.set(-20, 0, 1000);
 
             spotLight.castShadow = true;
 
