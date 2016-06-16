@@ -32,6 +32,19 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             scope.camera.position.z = 1000;
             scope.scene = new THREE.Scene();
 
+
+            //light
+            var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+            scope.scene.add(ambientLight);
+
+            var spotLight = new THREE.SpotLight(0xffffff);
+            spotLight.position.set(-20, 0, 500);
+
+            spotLight.castShadow = true;
+
+            scope.scene.add(spotLight);
+            //
+
             // Add a listener for 'keydown' events. By this listener, all key events will be
             // passed to the function 'onDocumentKeyDown'. There's another event type 'keypress'.
             document.addEventListener("keydown", onDocumentKeyDown, false);
