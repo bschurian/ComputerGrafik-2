@@ -231,11 +231,12 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var config = {
                     
                 };
+                // scene.clearScene();
+                var objMesh = new OBJMesh(scene);
+                // var dromedar=objMesh.getMesh();
                 
-                var objMesh = new OBJMesh("mesh/obj/dromedar.obj", config);
-                scene.addMesh(objMesh.getMesh());
             });
-
+            
             $("#btnNewRobot").click((function(){
                 var robot = new Robot();
                 scene.addMesh(robot.getMesh());

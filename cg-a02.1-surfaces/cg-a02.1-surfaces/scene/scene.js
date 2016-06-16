@@ -83,7 +83,17 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 }, 100);
                 
             }
-            
+            this.clearScene = function () {
+
+                if (scope.scene.children.length !=0) {
+
+                    for( var  i = scope.scene.children.length - 1; i >= 0; i--) {
+
+                        var obj = scope.scene.children[i];
+                        scope.scene.remove(obj);
+                    }
+                }
+            }
             /*
              * drawing the scene
              */
