@@ -35,6 +35,7 @@ define(["three"],
 
             this.torsoSkin = new THREE.Mesh( new THREE.CubeGeometry( torsoSize[0], torsoSize[1], torsoSize[2]),
                 new THREE.MeshNormalMaterial());
+            this.torskoSkin.scale();
             this.torso.add(this.torsoSkin);
 
 
