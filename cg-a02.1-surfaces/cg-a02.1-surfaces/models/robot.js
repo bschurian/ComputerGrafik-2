@@ -12,7 +12,7 @@ define(["three"],
             
             var material = new THREE.MeshBasicMaterial( {color: 0x0000aa} );
             
-            var headSize  = [130, 130, 130];
+            var headSize  = [120, 130, 130];
             
             var handSize   = [ 20,  80,  60];
             var uArmSize   = [ 25, 160,  50];
@@ -20,15 +20,15 @@ define(["three"],
             var oArmSize   = [ 35, 200,  35];
             var schulSize  = [ 30,  30,  30];
 
-            var fuSize     = [110,  20, uArmSize[1]];
-            var wadeSize   = [100, 200, 100];
+            var fuSize     = [110,  30, uArmSize[1]];
+            var wadeSize   = [100, 150, 100];
             var knieSize   = [ 90, 100,  90];
-            var oSchSize   = [110, 100,  50];
+            var oSchSize   = [120, 200,  50];
             var hueftGSize = [ 40,  40,  45];
 
-            var torsoSize  = [250, 300, 150];
-            var bauchSize  = [230, 100, 125];
-            var hueftSize  = [200, 200, 110];
+            var torsoSize  = [250, 150, 100];
+            var bauchSize  = [230, 150, 125];
+            var hueftSize  = [200, 100, 110];
             // weitere Groessen
 
             // skeleton
@@ -40,6 +40,7 @@ define(["three"],
             this.rHand = new THREE.Object3D();
             this.rHand.name = "rHand";
             this.rHand.translateY(-(handSize[1]/2 + uArmSize[1]/2));
+            this.rHand.translateZ(  handSize[2]/2 - uArmSize[2]/2);
             this.rUArm = new THREE.Object3D();
             this.rUArm.name = "rUArm";
             this.rUArm.add(this.rHand);
@@ -61,6 +62,7 @@ define(["three"],
             this.lHand = new THREE.Object3D();
             this.lHand.name = "lHand";
             this.lHand.translateY(-(handSize[1]/2 + uArmSize[1]/2));
+            this.lHand.translateZ(  handSize[2]/2 - uArmSize[2]/2);
             this.lUArm = new THREE.Object3D();
             this.lUArm.name = "lUArm";
             this.lUArm.add(this.lHand);
@@ -98,7 +100,7 @@ define(["three"],
             this.rHueftG = new THREE.Object3D();
             this.rHueftG.name = "rHueftG";
             this.rHueftG.add(this.rOSch);
-            this.rHueftG.translateX(-(hueftSize[0]/2 + hueftGSize[0]/2));
+            this.rHueftG.translateX(-hueftSize[0]/2 + hueftGSize[0]*3/4);
             this.rHueftG.translateY( -hueftSize[1]/2 + hueftGSize[1]/2);            
             
             this.lFu = new THREE.Object3D();
@@ -120,7 +122,7 @@ define(["three"],
             this.lHueftG = new THREE.Object3D();
             this.lHueftG.name = "lHueftG";
             this.lHueftG.add(this.lOSch);
-            this.lHueftG.translateX(+(hueftSize[0]/2 + hueftGSize[0]/2));
+            this.lHueftG.translateX(+hueftSize[0]/2 - hueftGSize[0]*3/4);
             this.lHueftG.translateY( -hueftSize[1]/2 + hueftGSize[1]/2);            
             
             this.torso = new THREE.Object3D();
