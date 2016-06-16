@@ -7,10 +7,12 @@ define(["three"],
         var Robot = function(){
             
             var cube = new THREE.CubeGeometry( 1, 1, 1);
-            var cylinder = new THREE.CylinderGeometry( 1, 1, 1, 8);
-            var sphere = new THREE.SphereGeometry( 1, 1, 1);
+            var cylinder = new THREE.CylinderGeometry( 1, 1, 1, 32);
+            var sphere = new THREE.SphereGeometry( 1, 32, 32);
+            
             
             var material = new THREE.MeshBasicMaterial( {color: 0x0000aa} );
+            material = new THREE.MeshPhongMaterial({color: 0x20407A, specular: 0xD4D4D4, shininess: 0.05, shading: THREE.FlatShading});
             
             var headSize  = [120, 130, 130];
             
@@ -149,42 +151,44 @@ define(["three"],
             // skin
             var scale = function(mesh, scaleArray) {
                 mesh.scale.set(scaleArray[0], scaleArray[1], scaleArray[2]);
-            }
+            };
 
-            this.headSkin = new THREE.Mesh( cube, material);
-            this.headSkin.rotateY(Math.PI/4);
+            this.headSkin = new THREE.Mesh( sphere, material);
+            // this.headSkin.rotateY(Math.PI/4);
             scale(this.headSkin, headSize);
             this.head.add(this.headSkin);
                         
-            this.rHandSkin = new THREE.Mesh( cube, material);
+            this.rHandSkin = new THREE.Mesh( sphere, material);
             scale(this.rHandSkin, handSize);
             this.rHand.add(this.rHandSkin);                        
             this.rUArmSkin = new THREE.Mesh( cube, material);
             scale(this.rUArmSkin, uArmSize);
             this.rUArm.add(this.rUArmSkin);
-            this.rEllSkin = new THREE.Mesh( cube, material);
+            this.rEllSkin = new THREE.Mesh( cylinder, material);
+            this.rEllSkin.rotateZ(Math.PI/2);
             scale(this.rEllSkin, ellSize);
             this.rEll.add(this.rEllSkin);
             this.rOArmSkin = new THREE.Mesh( cube, material);
             scale(this.rOArmSkin, oArmSize);
             this.rOArm.add(this.rOArmSkin);            
-            this.rSchulSkin = new THREE.Mesh( cube, material);
+            this.rSchulSkin = new THREE.Mesh( sphere, material);
             scale(this.rSchulSkin, schulSize);
             this.rSchul.add(this.rSchulSkin);
 
-            this.lHandSkin = new THREE.Mesh( cube, material);
+            this.lHandSkin = new THREE.Mesh( sphere, material);
             scale(this.lHandSkin, handSize);
             this.lHand.add(this.lHandSkin);                        
             this.lUArmSkin = new THREE.Mesh( cube, material);
             scale(this.lUArmSkin, uArmSize);
             this.lUArm.add(this.lUArmSkin);
-            this.lEllSkin = new THREE.Mesh( cube, material);
+            this.lEllSkin = new THREE.Mesh( cylinder, material);
             scale(this.lEllSkin, ellSize);
+            this.lEllSkin.rotateZ(Math.PI/2);
             this.lEll.add(this.lEllSkin);
             this.lOArmSkin = new THREE.Mesh( cube, material);
             scale(this.lOArmSkin, oArmSize);
             this.lOArm.add(this.lOArmSkin);            
-            this.lSchulSkin = new THREE.Mesh( cube, material);
+            this.lSchulSkin = new THREE.Mesh( sphere, material);
             scale(this.lSchulSkin, schulSize);
             this.lSchul.add(this.lSchulSkin);
 
@@ -194,13 +198,14 @@ define(["three"],
             this.rWadeSkin = new THREE.Mesh( cube, material);
             scale(this.rWadeSkin, wadeSize);
             this.rWade.add(this.rWadeSkin);
-            this.rKnieSkin = new THREE.Mesh( cube, material);
+            this.rKnieSkin = new THREE.Mesh( cylinder, material);
             scale(this.rKnieSkin, knieSize);
+            this.rKnieSkin.rotateZ(Math.PI/2);
             this.rKnie.add(this.rKnieSkin);
             this.rOSchSkin = new THREE.Mesh( cube, material);
             scale(this.rOSchSkin, oSchSize);
             this.rOSch.add(this.rOSchSkin);            
-            this.rHueftGSkin = new THREE.Mesh( cube, material);
+            this.rHueftGSkin = new THREE.Mesh( sphere, material);
             scale(this.rHueftGSkin, hueftGSize);
             this.rHueftG.add(this.rHueftGSkin);            
 
@@ -210,13 +215,14 @@ define(["three"],
             this.lWadeSkin = new THREE.Mesh( cube, material);
             scale(this.lWadeSkin, wadeSize);
             this.lWade.add(this.lWadeSkin);
-            this.lKnieSkin = new THREE.Mesh( cube, material);
+            this.lKnieSkin = new THREE.Mesh( cylinder, material);
             scale(this.lKnieSkin, knieSize);
+            this.lKnieSkin.rotateZ(Math.PI/2);
             this.lKnie.add(this.lKnieSkin);
             this.lOSchSkin = new THREE.Mesh( cube, material);
             scale(this.lOSchSkin, oSchSize);
             this.lOSch.add(this.lOSchSkin);            
-            this.lHueftGSkin = new THREE.Mesh( cube, material);
+            this.lHueftGSkin = new THREE.Mesh( sphere, material);
             scale(this.lHueftGSkin, hueftGSize);
             this.lHueftG.add(this.lHueftGSkin);            
 
