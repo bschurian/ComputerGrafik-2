@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
-    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh) {
+define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "robot"],
+    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh, Robot) {
         "use strict";
 
         /*
@@ -29,6 +29,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
             $("#torusKnot").hide();
             $("#parametricSurface").hide();
             $("#obj").hide();
+            $("#robot").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
@@ -38,6 +39,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
 
             $("#btnBand").click( (function() {
@@ -48,6 +50,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
 
             $("#btnBoxGeometry").click( (function() {
@@ -58,6 +61,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
 
             $("#btnSphere").click( (function() {
@@ -68,6 +72,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
 
             $("#btnTorusKnot").click( (function() {
@@ -78,6 +83,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#parametricSurface").hide();
                 $("#torusKnot").show();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
 
             $("#btnParametric").click( (function() {
@@ -88,6 +94,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").show();
                 $("#obj").hide();
+                $("#robot").hide();
             }));
             
             $("#btnObj").click( (function() {
@@ -98,6 +105,18 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 $("#torusKnot").hide();
                 $("#parametricSurface").hide();
                 $("#obj").show();
+                $("#robot").hide();
+            }));
+
+            $("#btnRobot").click((function(){
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+                $("#obj").hide();
+                $("#robot").show();
             }));
 
             $("#btnNewRandom").click( (function() {
@@ -216,6 +235,11 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh"],
                 var objMesh = new OBJMesh("mesh/obj/dromedar.obj", config);
                 scene.addMesh(objMesh.getMesh());
             });
+
+            $("#btnNewRobot").click((function(){
+                var robot = new Robot();
+                scene.addBufferGeometry(robot);
+            }));
 
             
             var paraFSet = function(id, func, umin = 0, umax = 10, vmin = 0, vmax = 10, scal = 50){

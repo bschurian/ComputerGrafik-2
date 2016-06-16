@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["three", "util", "shaders", "BufferGeometry", "random", "band", "parametric"],
-    (function(THREE, util, shaders, BufferGeometry, Random, Band, ParametricSurface) {
+define(["three", "util", "shaders", "BufferGeometry", "random", "band", "parametric", "robot"],
+    (function(THREE, util, shaders, BufferGeometry, Random, Band, ParametricSurface, Robot) {
 
         "use strict";
 

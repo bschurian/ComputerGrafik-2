@@ -31,7 +31,8 @@ requirejs.config({
         "parametric": "./models/parametric",
         "objmesh": "./models/objmesh",
         "objloader": "./mesh/loaders/OBJLoader",
-        "mtlloader": "./mesh/loaders/MTLLoader"
+        "mtlloader": "./mesh/loaders/MTLLoader",
+        "robot": "./models/robot"
 
     },
     shim: {
