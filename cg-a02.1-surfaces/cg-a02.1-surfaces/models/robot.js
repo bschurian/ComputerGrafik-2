@@ -6,29 +6,29 @@ define(["three"],
 
         var Robot = function(){
             
-            var cube = new THREE.CubeGeometry( 40, 40, 40);
+            var cube = new THREE.CubeGeometry( 1, 1, 1);
             var cylinder = new THREE.CylinderGeometry( 1, 1, 1, 8);
-            var sphere = new THREE.SphereGeometry( 1, 8, 8);
+            var sphere = new THREE.SphereGeometry( 1, 1, 1);
             
             var material = new THREE.MeshBasicMaterial( {color: 0x0000aa} );
             
             var headSize  = [130, 130, 130];
             
-            var handSize   = [ 15,  15,  15];
-            var uArmSize   = [ 25,  80,  25];
+            var handSize   = [ 20,  80,  60];
+            var uArmSize   = [ 25, 160,  50];
             var ellSize    = [ 25,  15,  15];
-            var oArmSize   = [ 35, 100,  35];
+            var oArmSize   = [ 35, 200,  35];
             var schulSize  = [ 30,  30,  30];
 
-            var fuSize     = [100, 100, 100];
-            var wadeSize   = [100, 100, 100];
-            var knieSize   = [100, 100, 100];
-            var oSchSize   = [ 70, 100,  50];
-            var hueftGSize = [ 65,  20,  45];
+            var fuSize     = [110,  20, uArmSize[1]];
+            var wadeSize   = [100, 200, 100];
+            var knieSize   = [ 90, 100,  90];
+            var oSchSize   = [110, 100,  50];
+            var hueftGSize = [ 40,  40,  45];
 
             var torsoSize  = [250, 300, 150];
             var bauchSize  = [230, 100, 125];
-            var hueftSize  = [200, 200, 100];
+            var hueftSize  = [200, 200, 110];
             // weitere Groessen
 
             // skeleton
@@ -76,24 +76,25 @@ define(["three"],
             this.lSchul = new THREE.Object3D();
             this.lSchul.name = "lSchul";
             this.lSchul.add(this.lOArm);
-            this.lSchul.translateX(-(torsoSize[0]/2+schulSize[0]/2));
+            this.lSchul.translateX(+(torsoSize[0]/2+schulSize[0]/2));
             this.lSchul.translateY(  torsoSize[1]/2-schulSize[1]/2);
 
             this.rFu = new THREE.Object3D();
             this.rFu.name = "rFu";
-            this.rFu.translateY(-(fuSize[1]/2 - wadeSize[1]/2));            
+            this.rFu.translateY(-(fuSize[1]/2 + wadeSize[1]/2));
+            this.rFu.translateZ(  fuSize[2]/2 - wadeSize[2]/2);
             this.rWade = new THREE.Object3D();
             this.rWade.name = "rWade";
             this.rWade.add(this.rFu);
-            this.rWade.translateY(-(wadeSize[1]/2 - knieSize[1]/2));            
+            this.rWade.translateY(-(wadeSize[1]/2 + knieSize[1]/2));            
             this.rKnie = new THREE.Object3D();
             this.rKnie.name = "rKnie";
             this.rKnie.add(this.rWade);
-            this.rKnie.translateY(-(knieSize[1]/2 - oSchSize[1]/2));            
+            this.rKnie.translateY(-(knieSize[1]/2 + oSchSize[1]/2));            
             this.rOSch = new THREE.Object3D();
             this.rOSch.name = "rOSch";
             this.rOSch.add(this.rKnie);
-            this.rOSch.translateY(-(oSchSize[1]/2 - hueftGSize[1]/2));            
+            this.rOSch.translateY(-(oSchSize[1]/2 + hueftGSize[1]/2));            
             this.rHueftG = new THREE.Object3D();
             this.rHueftG.name = "rHueftG";
             this.rHueftG.add(this.rOSch);
@@ -102,32 +103,33 @@ define(["three"],
             
             this.lFu = new THREE.Object3D();
             this.lFu.name = "lFu";
-            this.lFu.translateY(-(fuSize[1]/2 - wadeSize[1]/2));            
+            this.lFu.translateY(-(fuSize[1]/2 + wadeSize[1]/2));            
+            this.lFu.translateZ(  fuSize[2]/2 - wadeSize[2]/2);
             this.lWade = new THREE.Object3D();
             this.lWade.name = "lWade";
             this.lWade.add(this.lFu);
-            this.lWade.translateY(-(wadeSize[1]/2 - knieSize[1]/2));            
+            this.lWade.translateY(-(wadeSize[1]/2 + knieSize[1]/2));            
             this.lKnie = new THREE.Object3D();
             this.lKnie.name = "lKnie";
             this.lKnie.add(this.lWade);
-            this.lKnie.translateY(-(knieSize[1]/2 - oSchSize[1]/2));            
+            this.lKnie.translateY(-(knieSize[1]/2 + oSchSize[1]/2));            
             this.lOSch = new THREE.Object3D();
             this.lOSch.name = "lOSch";
             this.lOSch.add(this.lKnie);
-            this.lOSch.translateY(-(oSchSize[1]/2 - hueftGSize[1]/2));            
+            this.lOSch.translateY(-(oSchSize[1]/2 + hueftGSize[1]/2));            
             this.lHueftG = new THREE.Object3D();
             this.lHueftG.name = "lHueftG";
             this.lHueftG.add(this.lOSch);
-            this.lHueftG.translateX(-(hueftSize[0]/2 + hueftGSize[0]/2));
+            this.lHueftG.translateX(+(hueftSize[0]/2 + hueftGSize[0]/2));
             this.lHueftG.translateY( -hueftSize[1]/2 + hueftGSize[1]/2);            
             
             this.torso = new THREE.Object3D();
             this.torso.name = "torso";
-            this.bauch.translateY(  torsoSize[1]/2 + b[1]/2);            
+            this.torso.translateY(  torsoSize[1]/2 + bauchSize[1]/2);            
             this.bauch = new THREE.Object3D();
             this.bauch.name = "bauch";
             this.bauch.add(this.torso);
-            this.bauch.translateY(  bauchSize[1]/2 + hueftSize[1]/2));            
+            this.bauch.translateY(  bauchSize[1]/2 + hueftSize[1]/2);            
             this.huefte = new THREE.Object3D();
             this.huefte.name = "huefte";
             this.huefte.add(this.bauch);
@@ -142,31 +144,91 @@ define(["three"],
             this.root = new THREE.Object3D();
             this.root.add(this.huefte);
             
-
             // skin
-            //var cubeMesh = ;
+            var scale = function(mesh, scaleArray) {
+                mesh.scale.set(scaleArray[0], scaleArray[1], scaleArray[2]);
+            }
+
             this.headSkin = new THREE.Mesh( cube, material);
             this.headSkin.rotateY(Math.PI/4);
+            scale(this.headSkin, headSize);
             this.head.add(this.headSkin);
-            
+                        
             this.rHandSkin = new THREE.Mesh( cube, material);
-            this.rHand.add(this.rHandSkin);
-            
+            scale(this.rHandSkin, handSize);
+            this.rHand.add(this.rHandSkin);                        
             this.rUArmSkin = new THREE.Mesh( cube, material);
+            scale(this.rUArmSkin, uArmSize);
             this.rUArm.add(this.rUArmSkin);
-            
             this.rEllSkin = new THREE.Mesh( cube, material);
+            scale(this.rEllSkin, ellSize);
             this.rEll.add(this.rEllSkin);
-            
             this.rOArmSkin = new THREE.Mesh( cube, material);
-            this.rOArm.add(this.rOArmSkin);
-
+            scale(this.rOArmSkin, oArmSize);
+            this.rOArm.add(this.rOArmSkin);            
             this.rSchulSkin = new THREE.Mesh( cube, material);
+            scale(this.rSchulSkin, schulSize);
             this.rSchul.add(this.rSchulSkin);
 
+            this.lHandSkin = new THREE.Mesh( cube, material);
+            scale(this.lHandSkin, handSize);
+            this.lHand.add(this.lHandSkin);                        
+            this.lUArmSkin = new THREE.Mesh( cube, material);
+            scale(this.lUArmSkin, uArmSize);
+            this.lUArm.add(this.lUArmSkin);
+            this.lEllSkin = new THREE.Mesh( cube, material);
+            scale(this.lEllSkin, ellSize);
+            this.lEll.add(this.lEllSkin);
+            this.lOArmSkin = new THREE.Mesh( cube, material);
+            scale(this.lOArmSkin, oArmSize);
+            this.lOArm.add(this.lOArmSkin);            
+            this.lSchulSkin = new THREE.Mesh( cube, material);
+            scale(this.lSchulSkin, schulSize);
+            this.lSchul.add(this.lSchulSkin);
+
+            this.rFuSkin = new THREE.Mesh( cube, material);
+            scale(this.rFuSkin, fuSize);
+            this.rFu.add(this.rFuSkin);                        
+            this.rWadeSkin = new THREE.Mesh( cube, material);
+            scale(this.rWadeSkin, wadeSize);
+            this.rWade.add(this.rWadeSkin);
+            this.rKnieSkin = new THREE.Mesh( cube, material);
+            scale(this.rKnieSkin, knieSize);
+            this.rKnie.add(this.rKnieSkin);
+            this.rOSchSkin = new THREE.Mesh( cube, material);
+            scale(this.rOSchSkin, oSchSize);
+            this.rOSch.add(this.rOSchSkin);            
+            this.rHueftGSkin = new THREE.Mesh( cube, material);
+            scale(this.rHueftGSkin, hueftGSize);
+            this.rHueftG.add(this.rHueftGSkin);            
+
+            this.lFuSkin = new THREE.Mesh( cube, material);
+            scale(this.lFuSkin, fuSize);
+            this.lFu.add(this.lFuSkin);                        
+            this.lWadeSkin = new THREE.Mesh( cube, material);
+            scale(this.lWadeSkin, wadeSize);
+            this.lWade.add(this.lWadeSkin);
+            this.lKnieSkin = new THREE.Mesh( cube, material);
+            scale(this.lKnieSkin, knieSize);
+            this.lKnie.add(this.lKnieSkin);
+            this.lOSchSkin = new THREE.Mesh( cube, material);
+            scale(this.lOSchSkin, oSchSize);
+            this.lOSch.add(this.lOSchSkin);            
+            this.lHueftGSkin = new THREE.Mesh( cube, material);
+            scale(this.lHueftGSkin, hueftGSize);
+            this.lHueftG.add(this.lHueftGSkin);            
+
             this.torsoSkin = new THREE.Mesh( cube, material);
+            scale(this.torsoSkin, torsoSize);
             this.torso.add(this.torsoSkin);
+            this.bauchSkin = new THREE.Mesh( cube, material);
+            scale(this.bauchSkin, bauchSize);
+            this.bauch.add(this.bauchSkin);
+            this.huefteSkin = new THREE.Mesh( cube, material);
+            scale(this.huefteSkin, hueftSize);
+            this.huefte.add(this.huefteSkin);
             
+                        
             console.log(this.root);
             
             this.getMesh = function() {
