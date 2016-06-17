@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "robot"],
-    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh, Robot) {
+define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "robot","material"],
+    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh, Robot,Material) {
         "use strict";
 
         /*
@@ -219,22 +219,18 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 bufferGeometrySurface.addAttribute("position", surface.getPositions());
                 bufferGeometrySurface.addIndices(surface.getIndices());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-                
-                bufferGeometrySurface.setMeshType($("input[name=paraMaterial]:checked").val());
-                
-                scene.addBufferGeometry(bufferGeometrySurface);
+                var material= new Material(scene);
+                material.setMaterial(bufferGeometrySurface,$("input[name=paraMaterial]:checked").val());
+                /*scene.addBufferGeometry(bufferGeometrySurface);
+                bufferGeometrySurface.setMeshType($("input[name=paraMaterial]:checked").val());*/
+
                 if($("#turning").attr("checked"))scene.startTurningGeometry();
                 
             });
 
             $("#btnNewDromedar").click( function() {
-                var config = {
-                    
-                };
-                // scene.clearScene();
-                var objMesh = new OBJMesh(scene);
-                // var dromedar=objMesh.getMesh();
                 
+                var objMesh = new OBJMesh(scene);
             });
             
             $("#btnNewRobot").click((function(){

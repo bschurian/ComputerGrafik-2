@@ -16,8 +16,8 @@
  */
 
 /* requireJS module definition */
-define(["three"],
-    (function(THREE) {
+define(["three","material"],
+    (function(THREE,Material) {
 
         "use strict";
 
@@ -42,7 +42,7 @@ define(["three"],
                 this.geometry.setIndex( new THREE.BufferAttribute( buffer, 1 ) );                
             }
             
-            this.setMeshType = function(materialT = "Points") {
+            /*this.setMeshType = function(materialT = "Points") {
                 this.geometry.computeBoundingSphere();
                 
                 if(!this.geometry.index || materialT == "Points"){
@@ -58,7 +58,7 @@ define(["three"],
                         this.mesh = THREE.SceneUtils.createMultiMaterialObject( this.geometry, [new THREE.MeshBasicMaterial( { color: 0xff0000 } ), wireM]);
                     }
                 }                
-            }
+            }*/
 
             this.getMesh = function() {
                 return this.mesh;

@@ -22,7 +22,7 @@ define(["three", "objloader"],
             var path = 'mesh/loaders/dromedar.obj';
             var material = new THREE.MeshBasicMaterial({color: 'yellow'});
 
-            var onProgress = function ( xhr ) {
+           /* var onProgress = function ( xhr ) {
                 if ( xhr.lengthComputable ) {
                     var percentComplete = xhr.loaded / xhr.total * 100;
                     console.log( Math.round(percentComplete, 2) + '% downloaded' );
@@ -31,33 +31,22 @@ define(["three", "objloader"],
 
             var onError = function ( xhr ) {
                 //console.log("ERROR");
-            };
+            };*/
 
             loader.load(path, function(geometry){
 
-                /* geometry.traverse(function (child) {
+                 geometry.traverse(function (child) {
 
                  if (child instanceof THREE.Mesh) {
                  child.material = material;
                  }
-                 });*/
-
-                // loadedObj = geometry;
-
-
-                
+                 });
 
                 loadedObj = geometry;
                 geometry.scale.set(100,100,100);
                 scene.addMesh(geometry);
-                
 
-            },onProgress, onError);
-
-            console.log("abc");
-            console.log(loadedObj);
-
-
+            });
 
             this.getMesh = function() {
                 
