@@ -9,7 +9,7 @@ define(["three"],
             var cube = new THREE.CubeGeometry( 1, 1, 1);
             var cylinder = new THREE.CylinderGeometry( 1, 1, 1, 32);
             var sphere = new THREE.SphereGeometry( 1, 32, 32);
-            
+
             
             var material = new THREE.MeshBasicMaterial( {color: 0x0000aa} );
             material = new THREE.MeshPhongMaterial({color: 0x20407A, specular: 0xD4D4D4, shininess: 0.05, shading: THREE.FlatShading});
