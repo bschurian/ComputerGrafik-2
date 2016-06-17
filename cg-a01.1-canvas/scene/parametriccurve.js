@@ -93,7 +93,7 @@ define(["util", "vec2"],
             var points = [];
 
 
-            for (var i = 0; i < this.segmentCount; i++) {
+            for (var i = 0; i < this.segmentCount + 1; i++) {
                 var t = this.tmin + i * ((this.tmax - this.tmin) / this.segmentCount);
                 points.push([this.funcF(t), this.funcG(t)]);
             }

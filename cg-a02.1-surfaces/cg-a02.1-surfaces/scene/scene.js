@@ -32,6 +32,19 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             scope.camera.position.z = 1000;
             scope.scene = new THREE.Scene();
 
+
+            //light
+            var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+            scope.scene.add(ambientLight);
+
+            var spotLight = new THREE.SpotLight(0xffffff);
+            spotLight.position.set(-20, 0, 1000);
+
+            spotLight.castShadow = true;
+
+            scope.scene.add(spotLight);
+            //
+
             // Add a listener for 'keydown' events. By this listener, all key events will be
             // passed to the function 'onDocumentKeyDown'. There's another event type 'keypress'.
             document.addEventListener("keydown", onDocumentKeyDown, false);
@@ -40,7 +53,10 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             function onDocumentKeyDown(event){
                 // Get the key code of the pressed key
                 var keyCode = event.which;
-                
+
+                var nodeRightEllbow = scope.scene.getObjectByName("rEll", true);
+                var nodeLeftEllbow = scope.scene.getObjectByName("lEll", true);
+
                 // Cursor up
                 if(keyCode == 38){
                     console.log("cursor up");
@@ -57,7 +73,39 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 } else if(keyCode == 39){
                     console.log("cursor right");
                     scope.currentMesh.rotation.y += -0.05;
-                }
+                } else if(keyCode == 81){
+                    console.log("button Q");
+                    if(nodeRightEllbow){
+                        var currentRotationX = nodeRightEllbow.rotation._x;
+                        if(currentRotationX > -2.72){
+                            nodeRightEllbow.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 69){
+                    console.log("button E");
+                    if(nodeRightEllbow){
+                        var currentRotationX = nodeRightEllbow.rotation._x;
+                        if(currentRotationX < 0){
+                            nodeRightEllbow.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 65){
+                    console.log("button A");
+                    if(nodeLeftEllbow){
+                        var currentRotationX = nodeLeftEllbow.rotation._x;
+                        if(currentRotationX > -2.72){
+                            nodeLeftEllbow.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 68){
+                    console.log("button D");
+                    if(nodeLeftEllbow){
+                        var currentRotationX = nodeLeftEllbow.rotation._x;
+                        if(currentRotationX < 0){
+                            nodeLeftEllbow.rotateX(Math.PI/48);
+                        }
+                    }
+            }
             };
             
             this.addMesh = function(mesh) {
