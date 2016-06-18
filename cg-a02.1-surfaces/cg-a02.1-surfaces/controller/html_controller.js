@@ -230,7 +230,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
 
             $("#btnNewDromedar").click( function() {
                 
-                var objMesh = new OBJMesh(scene);
+                var objMesh = new OBJMesh(scene,$("input[name=objMaterial]:checked").val());
             });
             
             $("#btnNewRobot").click((function(){
