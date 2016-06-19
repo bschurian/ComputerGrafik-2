@@ -29,165 +29,167 @@
       <div id="drawing_container" width="600" height="400"></div>
 
     <div id="param_area" >
-
-        <button id="btnRandom" type="button">Random</button>
-        <button id="btnBand" type="button">Band</button>
-        <button id="btnEllipsoid" type="button">Ellipsoid</button>
-        <button id="btnParametric" type="button">Parametric</button>
-        <button id="btnBoxGeometry" type="button">Box</button>
-        <button id="btnSphere" type="button">Sphere</button>
-        <button id="btnTorusKnot" type="button">TorusKnot</button>
-        <button id="btnObj" type="button">Obj-Files</button>
-        <button id="btnRobot" type="button">Robot</button>
-
+        <div class="top-buttons">
+        <button class="form" id="btnRandom" type="button">Random</button>
+        <button class="form" id="btnBand" type="button">Band</button>
+        <button class="form" id="btnEllipsoid" type="button">Ellipsoid</button>
+        <button class="form" id="btnParametric" type="button">Parametric</button>
+        <button class="form" id="btnBoxGeometry" type="button">Box</button>
+        <button class="form" id="btnSphere" type="button">Sphere</button>
+        <button class="form" id="btnTorusKnot" type="button">TorusKnot</button>
+        <button class="form" id="btnObj" type="button">Obj-Files</button>
+        <button class="form" id="btnRobot" type="button">Robot</button>
+        <button class="form" id="btnTangent" type="button">Tangent</button>
+        </div>
         <!-- add more here... -->
-        <h3>Selected Object:</h3>
-        <table id="random">
+        <br>
+        <h3 class="form">Selected Option:</h3>
+        <table class="form" id="random">
             <tr>
-                <td>Number of Items:</td>
+                <td class="labels">Number of Items:</td>
                 <td><input id="numItems" class="objParam" type="number" min="1" max="10000" value="1000">
             </tr>
             <tr>
-                <td><button id="btnNewRandom"   type="button"   >Create Random</button></td>
+                <td><button id="btnNewRandom"   type="button"  class="action" >Create Random</button></td>
             </tr>
         </table>
-        <table id="band">
+        <table class="form" id="band">
             <tr>
-                <td>Number of Segments:</td>
+                <td class="labels">Number of Segments:</td>
                 <td><input id="numSegments" class="objParam" type="number" min="1" max="10000" value="1000">
             </tr>
             <tr>
-                <td>Radius:</td>
+                <td class="labels">Radius:</td>
                 <td><input id="radius" class="objParam" type="number" min="1" max="1000" value="300">
             </tr>
             <tr>
-                <td>Height:</td>
+                <td class="labels">Height:</td>
                 <td><input id="height" class="objParam" type="number" min="1" max="1000" value="100">
             </tr>
             <tr>
-                <td><button id="btnNewBand" type="button">Create Band</button></td>
+                <td class="labels"><button class="action" id="btnNewBand" type="button">Create Band</button></td>
             </tr>
         </table>
 
         </table>
-        <table id="box">
+        <table id="box" class="form">
             <tr>
-                <td>X-Koordinate:</td>
+                <td class="labels">X-Koordinate:</td>
                 <td><input id="xKoordinate" class="objParam" type="number" min="1" max="1000" value="500">
             </tr>
             <tr>
-                <td>Y-Koordinate:</td>
+                <td class="labels">Y-Koordinate:</td>
                 <td><input id="yKoordinate" class="objParam" type="number" min="1" max="1000" value="500">
             </tr>
             <tr>
-                <td>Z-Koordinate:</td>
+                <td class="labels">Z-Koordinate:</td>
                 <td><input id="zKoordinate" class="objParam" type="number" min="1" max="1000" value="500">
             </tr>
             <tr>
-                <td>Farbe:</td>
+                <td class="labels">Farbe:</td>
                 <td><input id="boxFarbe" class="objParam" type="color">
             </tr>
             <tr>
-                <td><button id="btnNewBox"   type="button"   >Create Box</button></td>
+                <td class="labels"><button id="btnNewBox"  class="action"   type="button"   >Create Box</button></td>
             </tr>
         </table>
-        <table id="sphere">
+        <table id="sphere" class="form">
             <tr>
-                <td>Radius:</td>
+                <td class="labels">Radius:</td>
                 <td><input id="radiusSphere" class="objParam" type="number" min="100" max="1000" value="500">
             </tr>
             <tr>
-                <td>Farbe:</td>
+                <td class="labels">Farbe:</td>
                 <td><input id="sphereFarbe" class="objParam" type="color">
             </tr>
             <tr>
-                <td><button id="btnNewSphere" type="button">Create Sphere</button></td>
+                <td class="labels"><button id="btnNewSphere"  class="action" type="button">Create Sphere</button></td>
             </tr>
 
         </table>
 
-        <table id="torusKnot">
+        <table id="torusKnot" class="form">
             <tr>
-                <td>Radius:</td>
+                <td class="labels">Radius:</td>
                 <td><input id="radiusKnot" class="objParam" type="number" min="1" max="1000" value="200">
             </tr>
             <tr>
-                <td>Tube-Diameter:</td>
+                <td class="labels">Tube-Diameter:</td>
                 <td><input id="tube" class="objParam" type="number" min="1" max="1000" value="80">
             </tr>
             <tr>
-                <td>tubular Segments:</td>
+                <td class="labels">tubular Segments:</td>
                 <td><input id="tubularSegmentsKnot" class="objParam" type="number" min="1" max="1000" value="64">
             </tr>
             <tr>
-                <td>radial Segments:</td>
+                <td class="labels">radial Segments:</td>
                 <td><input id="radialSegmentsKnot" class="objParam" type="number" min="2" value="8">
             </tr>
             <tr>
-                <td>Farbe:</td>
+                <td class="labels">Farbe:</td>
                 <td><input id="torusKnotFarbe" class="objParam" type="color">
             </tr>
             <tr>
-                <td><button id="btnNewTorusKnot" type="button">Create Torus</button></td>
+                <td class="labels"><button id="btnNewTorusKnot"  class="action" type="button">Create Torus</button></td>
             </tr>
         </table>
 
-        <table id="parametricSurface">
+        <table id="parametricSurface" class="form">
             <tr>
-                <td>Umin:</td>
+                <td class="labels">Umin:</td>
                 <td><input id="umin" class="objParam" type="number" value="0">
             </tr>
             <tr>
-                <td>Umax:</td>
+                <td class="labels">Umax:</td>
                 <td><input id="umax" class="objParam" type="number" value="10">
             </tr>
             <tr>
-                <td>Vmin:</td>
+                <td class="labels">Vmin:</td>
                 <td><input id="vmin" class="objParam" type="number" value="0">
             </tr>
             <tr>
-                <td>Vmax:</td>
+                <td class="labels">Vmax:</td>
                 <td><input id="vmax" class="objParam" type="number" min="2" value="10">
             </tr>
             <tr>
-                <td>Segmente:</td>
+                <td class="labels">Segmente:</td>
                 <td><input id="segments" class="objParam" type="number" value="10">
             </tr>
             <tr>
-                <td>Funktion:</td>
+                <td class="labels">Funktion:</td>
                 <td><input id="paraFunc" class="objParam" type="text" value="[u, v, 0];"></td>
             </tr>
             <tr>
-                <td>Skalierung:</td>
+                <td class="labels">Skalierung:</td>
                 <td><input id="paraSkal" class="objParam" type="number" value="50"></td>
             </tr>            
             <tr>
-                <td>Xverschiebung:</td>
+                <td class="labels">Xverschiebung:</td>
                 <td><input id="paraTX" class="objParam" type="number" value="0"></td>
             </tr>
             <tr>
-                <td>Yverschiebung:</td>
+                <td class="labels">Yverschiebung:</td>
                 <td><input id="paraTY" class="objParam" type="number" value="0"></td>
             </tr>
             <tr>
-                <td>Zverschiebung:</td>
+                <td class="labels">Zverschiebung:</td>
                 <td><input id="paraTZ" class="objParam" type="number" value="0"></td>
             </tr>
             <tr>
                 <td><input type="checkbox" id="turning" class="objParam" ></td>
-                <td><label for="turning"> Drehend</label></td>
+                <td class="labels"><label for="turning"> Drehend</label></td>
             </tr>            
             <tr>
                 <td><input type="radio" id="pointM" name="paraMaterial" class="objParam" value="point" checked="true"></td>
-                <td><label for="pointM"> Points</label></td>
+                <td class="labels"><label for="pointM"> Points</label></td>
 			</tr>
             <tr>
                 <td><input type="radio" id="wireM" name="paraMaterial" class="objParam" value="wireframe"></td>
-                <td><label for="wireM"> Wireframe</label></td>
+                <td class="labels"><label for="wireM"> Wireframe</label></td>
 			</tr>
             <tr>
                 <td><input type="radio" id="sMeshM" name="paraMaterial" class="objParam" value="multi"></td>
-                <td><label for="sMeshM"> Closed Mesh</label></td>
+                <td class="labels"><label for="sMeshM"> Closed Mesh</label></td>
             </tr>
             <tr>
                 <td><input id="fForSphere" class="objParam" type="button" value="Sphere"></td>
@@ -197,21 +199,83 @@
                 <td><input id="fForApple"   class="objParam" type="button" value="Apple"></td>
             </tr>
             <tr>
-                <td><button id="btnNewParametricSurface" type="button">Create Parametric Surface</button></td>
+                <td class="labels"><button id="btnNewParametricSurface" type="button"  class="action">Create Parametric Surface</button></td>
             </tr>
         </table>
-        <table id="obj">
+        <table id="obj" class="form">
+            <tr>
+                <td class="labels"><button id="btnNewDromedar"  class="action-top" type="button">Create Dromedar</button></td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="objPoint" name="objMaterial" class="objParam" value="point" checked="true"></td>
+                <td class="labels"><label for="objPoint"> Points</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="objWire" name="objMaterial" class="objParam" value="wireframe"></td>
+                <td class="labels"><label for="objWire"> Wireframe</label></td>
+            </tr>
+            <!--<tr>
+                <td><input type="radio" id="objMulti" name="objMaterial" class="objParam" value="multi"></td>
+                <td><label for="objMulti"> Closed Mesh</label></td>
+            </tr>-->
+        </table>
+        <table id="robot" class="form">
             <tr>
             </tr>
             <tr>
-                <td><button id="btnNewDromedar" type="button">Create Dromedar</button></td>
+                <td class="labels"><button id="btnNewRobot"  class="action-top" type="button">Create Robot</button></td>
+            </tr>
+            <tr style="height: 15px important!"></tr>
+            <tr>
+                <td style="font-weight: bold; font-size: 14px">Move robot:</td>
+            </tr>
+            <tr style="height: 15px important!"></tr>
+            <tr>
+                <td class="instructions"><span class="keys">Q / E</span> Right Elbow</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">A / D</span> Left Elbow</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">1 / 2</span> Right Shoulder</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">3 / 4</span> Left Shoulder</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">J / K</span> Right Knee</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">N / M</span> Left Knee</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">7 / 8</span> Right Hip</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">9 / 0 </span> Left Hip</td>
+            </tr>
+            <tr>
+                <td class="instructions"><span class="keys">V / B</span> Belly</td>
             </tr>
         </table>
-        <table id="robot">
+
+        <table id="tangent" class="form">
             <tr>
+                <td class="labels">Center:</td>
+                <td><input id="tCenter" class="objParam" type="text" value="1,2">
             </tr>
             <tr>
-                <td><button id="btnNewRobot" type="button">Create Robot</button></td>
+                <td class="labels">Radius:</td>
+                <td><input id="tRadius" class="objParam" type="number" value="1">
+            </tr>
+            <tr>
+                <td class="labels">Point P:</td>
+                <td><input id="tPoint" class="objParam" type="text" value="4,2">
+            </tr>
+            <tr>
+                <td>
+                    <button type="button"  id="btnCalcTangent" class="action"> Calculate</button>
+                </td>
             </tr>
         </table>
       

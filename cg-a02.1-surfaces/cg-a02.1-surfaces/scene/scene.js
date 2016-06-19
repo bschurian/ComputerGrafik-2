@@ -54,8 +54,15 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 // Get the key code of the pressed key
                 var keyCode = event.which;
 
-                var nodeRightEllbow = scope.scene.getObjectByName("rEll", true);
-                var nodeLeftEllbow = scope.scene.getObjectByName("lEll", true);
+                var nodeRightElbow = scope.scene.getObjectByName("rEll", true);
+                var nodeLeftElbow = scope.scene.getObjectByName("lEll", true);
+                var nodeRightShoulder = scope.scene.getObjectByName("rSchul", true);
+                var nodeLeftShoulder = scope.scene.getObjectByName("lSchul", true);
+                var nodeRightHip = scope.scene.getObjectByName("rHueftG", true);
+                var nodeLeftHip = scope.scene.getObjectByName("lHueftG", true);
+                var nodeRightKnee = scope.scene.getObjectByName("rKnie", true);
+                var nodeLeftKnee = scope.scene.getObjectByName("lKnie", true);
+                var nodeBelly = scope.scene.getObjectByName("bauch", true);
 
                 // Cursor up
                 if(keyCode == 38){
@@ -74,38 +81,150 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     console.log("cursor right");
                     scope.currentMesh.rotation.y += -0.05;
                 } else if(keyCode == 81){
-                    console.log("button Q");
-                    if(nodeRightEllbow){
-                        var currentRotationX = nodeRightEllbow.rotation._x;
+                    if(nodeRightElbow){
+                        var currentRotationX = nodeRightElbow.rotation._x;
                         if(currentRotationX > -2.72){
-                            nodeRightEllbow.rotateX(-Math.PI/48);
+                            console.log("Rotate Right Elbow CCW");
+                            nodeRightElbow.rotateX(-Math.PI/48);
                         }
                     }
                 } else if(keyCode == 69){
-                    console.log("button E");
-                    if(nodeRightEllbow){
-                        var currentRotationX = nodeRightEllbow.rotation._x;
+                    if(nodeRightElbow){
+                        var currentRotationX = nodeRightElbow.rotation._x;
                         if(currentRotationX < 0){
-                            nodeRightEllbow.rotateX(Math.PI/48);
+                            console.log("Rotate Right Elbow CW");
+                            nodeRightElbow.rotateX(Math.PI/48);
                         }
                     }
                 } else if(keyCode == 65){
-                    console.log("button A");
-                    if(nodeLeftEllbow){
-                        var currentRotationX = nodeLeftEllbow.rotation._x;
+                    if(nodeLeftElbow){
+                        var currentRotationX = nodeLeftElbow.rotation._x;
                         if(currentRotationX > -2.72){
-                            nodeLeftEllbow.rotateX(-Math.PI/48);
+                            console.log("Rotate Left Elbow CW");
+                            nodeLeftElbow.rotateX(-Math.PI/48);
                         }
                     }
                 } else if(keyCode == 68){
-                    console.log("button D");
-                    if(nodeLeftEllbow){
-                        var currentRotationX = nodeLeftEllbow.rotation._x;
+                    if(nodeLeftElbow){
+                        var currentRotationX = nodeLeftElbow.rotation._x;
                         if(currentRotationX < 0){
-                            nodeLeftEllbow.rotateX(Math.PI/48);
+                            console.log("Rotate Left Elbow CCW");
+                            nodeLeftElbow.rotateX(Math.PI/48);
                         }
                     }
-            }
+                } else if(keyCode == 49){
+                    if(nodeRightShoulder){
+                        var currentRotationX = nodeRightShoulder.rotation._x;
+                        if(currentRotationX < 1.24){
+                            console.log("Rotate Right Shoulder CW");
+                            nodeRightShoulder.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 50){
+                    if(nodeRightShoulder){
+                        var currentRotationX = nodeRightShoulder.rotation._x;
+                        if(currentRotationX > -2.0){
+                            console.log("Rotate Right Shoulder CCW");
+                            nodeRightShoulder.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 51){
+                    if(nodeLeftShoulder){
+                        var currentRotationX = nodeLeftShoulder.rotation._x;
+                        if(currentRotationX < 1.24){
+                            console.log("Rotate Left Shoulder CCW");
+                            nodeLeftShoulder.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 52){
+                    if(nodeLeftShoulder){
+                        var currentRotationX = nodeLeftShoulder.rotation._x;
+                        if(currentRotationX > -2.0){
+                            console.log("Rotate Left Shoulder CW");
+                            nodeLeftShoulder.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 56){
+                    if(nodeRightHip){
+                        var currentRotationX = nodeRightHip.rotation._x;
+                        if(currentRotationX > -2.0){
+                            console.log("Rotate Right Hip CCW");
+                            nodeRightHip.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 55){
+                    if(nodeRightHip){
+                        var currentRotationX = nodeRightHip.rotation._x;
+                        if(currentRotationX < 1.2){
+                            console.log("Rotate Right Hip CW");
+                            nodeRightHip.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 57){
+                    if(nodeLeftHip){
+                        var currentRotationX = nodeLeftHip.rotation._x;
+                        if(currentRotationX < 1.2){
+                            console.log("Rotate Left Hip CW");
+                            nodeLeftHip.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 48){
+                    if(nodeLeftHip){
+                        var currentRotationX = nodeLeftHip.rotation._x;
+                        if(currentRotationX > -2.0){
+                            console.log("Rotate Left Hip CCW");
+                            nodeLeftHip.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 74){
+                    if(nodeRightKnee){
+                        var currentRotationX = nodeRightKnee.rotation._x;
+                        if(currentRotationX < 1.6){
+                            console.log("Rotate Right Knee CW");
+                            nodeRightKnee.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 75){
+                    if(nodeRightKnee){
+                        var currentRotationX = nodeRightKnee.rotation._x;
+                        if(currentRotationX > 0){
+                            console.log("Rotate Right Knee CCW");
+                            nodeRightKnee.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 78){
+                    if(nodeLeftKnee){
+                        var currentRotationX = nodeLeftKnee.rotation._x;
+                        if(currentRotationX < 1.6){
+                            console.log("Rotate Left Knee CCW");
+                            nodeLeftKnee.rotateX(Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 77){
+                    if(nodeLeftKnee){
+                        var currentRotationX = nodeLeftKnee.rotation._x;
+                        if(currentRotationX > 0){
+                            console.log("Rotate Left Knee CW");
+                            nodeLeftKnee.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 86){
+                    if(nodeBelly){
+                        var currentRotationX = nodeBelly.rotation._x;
+                        if(currentRotationX > -0.4){
+                            console.log("Rotate Belly CCW");
+                            nodeBelly.rotateX(-Math.PI/48);
+                        }
+                    }
+                } else if(keyCode == 66){
+                    if(nodeBelly){
+                        var currentRotationX = nodeBelly.rotation._x;
+                        if(currentRotationX < 0.8){
+                            console.log("Rotate Belly CW");
+                            nodeBelly.rotateX(Math.PI/48);
+                        }
+                    }
+                }
             };
             
             this.addMesh = function(mesh) {
