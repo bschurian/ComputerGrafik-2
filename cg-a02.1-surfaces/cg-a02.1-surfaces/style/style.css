@@ -29,7 +29,7 @@ h3 {
 /* container to display editable parameters */
 #param_area {
     float:left;
-    width:210px;
+    width:200px;
     height:610px;
     border-width:1px;
     border-style: dashed;

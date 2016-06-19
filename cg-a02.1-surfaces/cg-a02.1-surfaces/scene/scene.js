@@ -43,6 +43,22 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             spotLight.castShadow = true;
 
             scope.scene.add(spotLight);
+
+            var audiolistener = new THREE.AudioListener();
+            scope.camera.add(audiolistener);
+            var sound = new THREE.Audio(audiolistener);
+            scope.scene.add(sound);
+            var loader = new THREE.AudioLoader();
+            loader.load('audio/music.m4a', function(audioBuffer){
+                sound.setBuffer(audioBuffer);
+            },
+            function(xhr){
+                console.log(xhr + " loading audio");
+            },
+            function(xhr){
+                console.log("Error while loading audio");
+            });
+
             //
 
             // Add a listener for 'keydown' events. By this listener, all key events will be
@@ -116,6 +132,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     if(nodeRightShoulder){
                         var currentRotationX = nodeRightShoulder.rotation._x;
                         if(currentRotationX < 1.24){
+                            console.log(currentRotationX);
                             console.log("Rotate Right Shoulder CW");
                             nodeRightShoulder.rotateX(Math.PI/48);
                         }
@@ -225,6 +242,64 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                         }
                     }
                 }
+            };
+
+            this.animate = function(){
+                sound.play();
+
+                var nodeRightElbow = scope.scene.getObjectByName("rEll", true);
+                var nodeLeftElbow = scope.scene.getObjectByName("lEll", true);
+                var nodeRightShoulder = scope.scene.getObjectByName("rSchul", true);
+                var nodeLeftShoulder = scope.scene.getObjectByName("lSchul", true);
+                var nodeRightHip = scope.scene.getObjectByName("rHueftG", true);
+                var nodeLeftHip = scope.scene.getObjectByName("lHueftG", true);
+                var nodeRightKnee = scope.scene.getObjectByName("rKnie", true);
+                var nodeLeftKnee = scope.scene.getObjectByName("lKnie", true);
+                var nodeBelly = scope.scene.getObjectByName("bauch", true);
+
+                var animations = [];
+
+                var count = 0;
+
+                var prepareRightHand = function(){
+                    if(nodeRightShoulder){
+                        console.log("move 1");
+                        var currentRotationX = nodeRightShoulder.rotation._x;
+                        if(currentRotationX < -0.9){
+                            pointWithRightHand();
+                            return;
+                        }
+                        nodeRightShoulder.rotateX(-Math.PI/72);
+                    }
+                    window.setTimeout(prepareRightHand, 40);
+                };
+
+
+                var pointWithRightHand = function(){
+                    if(nodeRightShoulder){
+                        console.log("move 2");
+                        if(count > 100) return;
+                        var currentRotationX = nodeRightShoulder.rotation._x;
+                        var direction = -1;
+                        if((count > 25 && count < 50) || (count > 75) ){
+                            direction = 1;
+                        }
+
+                        nodeRightShoulder.rotateX(direction*Math.PI/180);
+
+                        count++;
+                    }
+                    window.setTimeout(pointWithRightHand,33);
+                };
+
+                animations.push(prepareRightHand);
+                // animations.push(pointWithRightHand);
+
+                animations.forEach(function(a){
+                    a();
+                });
+
+
             };
             
             this.addMesh = function(mesh) {

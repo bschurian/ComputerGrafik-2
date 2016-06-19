@@ -258,6 +258,10 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var robot = new Robot();
                 scene.addMesh(robot.getMesh());
             }));
+            
+            $("#btnAnimateRobot").click((function(){
+                scene.animate();
+            }));
 
             $("#btnCalcTangent").click((function(){
                 var centerInput = $("#tCenter").attr("value").split(",");
