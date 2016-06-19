@@ -39,6 +39,7 @@
         <button id="btnTorusKnot" type="button">TorusKnot</button>
         <button id="btnObj" type="button">Obj-Files</button>
         <button id="btnRobot" type="button">Robot</button>
+        <button id="btnTangent" type="button">Tangent</button>
 
         <!-- add more here... -->
         <h3>Selected Object:</h3>
@@ -222,6 +223,26 @@
             </tr>
             <tr>
                 <td><button id="btnNewRobot" type="button">Create Robot</button></td>
+            </tr>
+        </table>
+
+        <table id="tangent">
+            <tr>
+                <td>Center:</td>
+                <td><input id="tCenter" class="objParam" type="text" value="1,2">
+            </tr>
+            <tr>
+                <td>Radius:</td>
+                <td><input id="tRadius" class="objParam" type="number" value="1">
+            </tr>
+            <tr>
+                <td>Point P:</td>
+                <td><input id="tPoint" class="objParam" type="text" value="4,2">
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" class="objParam" id="btnCalcTangent" value="Calculate">
+                </td>
             </tr>
         </table>
       
