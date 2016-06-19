@@ -148,7 +148,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 bufferGeometryRandom.addAttribute("position", random.getPositions());
                 bufferGeometryRandom.addAttribute("color", random.getColors());
                 
-                bufferGeometryRandom.setMeshType("Point");
+                bufferGeometryRandom.setMeshType("point");
 
                 scene.addBufferGeometry(bufferGeometryRandom);
             }));
@@ -168,7 +168,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 bufferGeometryBand.addAttribute("position", band.getPositions());
                 bufferGeometryBand.addAttribute("color", band.getColors());
 
-                bufferGeometryBand.setMeshType("Point");
+                bufferGeometryBand.setMeshType("point");
 
                 scene.addBufferGeometry(bufferGeometryBand);
             }));
@@ -240,18 +240,16 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 bufferGeometrySurface.addAttribute("position", surface.getPositions());
                 bufferGeometrySurface.addIndices(surface.getIndices());
                 bufferGeometrySurface.addAttribute("color", surface.getColors());
-                var material= new Material(scene);
-                material.setMaterial(bufferGeometrySurface,$("input[name=paraMaterial]:checked").val());
-                /*scene.addBufferGeometry(bufferGeometrySurface);
-                bufferGeometrySurface.setMeshType($("input[name=paraMaterial]:checked").val());*/
+                bufferGeometrySurface.setMeshType($("input[name=paraMaterial]:checked").val());
+                scene.addBufferGeometry(bufferGeometrySurface, (new Material()).setMaterial(bufferGeometrySurface, $("input[name=paraMaterial]:checked").val()));
 
                 if($("#turning").attr("checked"))scene.startTurningGeometry();
                 
             });
 
-            $("#btnNewDromedar").click( function() {
+            $("#btnNewDromedar").click( function() {                
+                var objMesh = new OBJMesh(scene,{ text : $("input[name=objMaterial]:checked").val() });
                 
-                var objMesh = new OBJMesh(scene,$("input[name=objMaterial]:checked").val());
             });
             
             $("#btnNewRobot").click((function(){

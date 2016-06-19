@@ -291,6 +291,38 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                     }
                     window.setTimeout(pointWithRightHand,33);
                 };
+                
+                //ignore this trash
+                    var shootAnyExtremity = function(extremityNode, timeSpanInMillis = 4000) {
+                        if(extremityNode) {
+                            //wiggle maxWiggle deegres radiant aurond x, y and/or z axis
+                            var maxWiggleDegrees = 10/180 * Math.PI;
+                            var xW = 0;
+                            var yW = 0;
+                            var zW = 0;
+                            var rotateAround = function(axisCounter, axisString, intensity) {
+                                if(Math.random() > 0.1) return 0;
+                                var prefix = ((Math.random() * 2 / Math.PI * 2 - 1) <= Math.atan(axisCounter)) ? -1 : 1;
+                                switch(axisString) {
+                                    case "x": 
+                                        extremityNode.rotateX(prefix * intensity);
+                                        break;
+                                    case "y":
+                                        extremityNode.rotateY(prefix * intensity);
+                                        break;
+                                    case "z":
+                                        extremityNode.rotateZ(prefix * intensity);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                return prefix;
+                            };
+                            for(var t = 0; t < timeSpanInMillis; t *= timeSpanInMillis / 4) {
+
+                            }
+                        }
+                    }
 
                 animations.push(prepareRightHand);
                 // animations.push(pointWithRightHand);

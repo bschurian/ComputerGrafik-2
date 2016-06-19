@@ -4,7 +4,7 @@ define(["three"],
 
         "use strict";
 
-        var Material=function(scene){
+        var Material = function(){
 
             var point = new THREE.PointsMaterial({color: 0xaaaaaa, size: 10, vertexColors: THREE.VertexColors});
 
@@ -12,27 +12,23 @@ define(["three"],
 
             var meshBasic = [new THREE.MeshBasicMaterial({color: 0xff0000}), wireFrame];
 
-            this.setMaterial = function (bufferGeometry, text) {
-
-                console.log(bufferGeometry);
-                console.log(text);
-
-                if (text == "point") {
-
-                    bufferGeometry.mesh = new THREE.Points(bufferGeometry.geometry, point);
-                    scene.addBufferGeometry(bufferGeometry);
+            this.setMaterial = function (geometry, text) {
+                var mesh;
+                switch(text){
+                    case "point":
+                        mesh = new THREE.Points(geometry, point);
+                        break;
+                    case "wireframe":
+                        mesh = new THREE.Mesh(geometry, wireFrame);
+                        break;
+                    case "multi":
+                        mesh = THREE.SceneUtils.createMultiMaterialObject(geometry, meshBasic);
+                        break;
+                    default:
+                        console.warn("something went wrong with giving "+geometry+" its material");
                 }
-                if (text == "wireframe") {
-
-                    bufferGeometry.mesh = new THREE.Mesh(bufferGeometry.geometry, wireFrame);
-                    console.log(bufferGeometry);
-                    scene.addBufferGeometry(bufferGeometry);
-                }
-                if (text == "multi") {
-
-                    bufferGeometry.mesh = THREE.SceneUtils.createMultiMaterialObject(bufferGeometry.geometry, meshBasic);
-                    scene.addBufferGeometry(bufferGeometry);
-                }
+                console.log(mesh);
+                return mesh;
             }
         }
 
