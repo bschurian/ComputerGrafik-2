@@ -29,8 +29,8 @@ h3 {
 /* container to display editable parameters */
 #param_area {
     float:left;
-    width:200px;
-    height:400px;
+    width:210px;
+    height:610px;
     border-width:1px;
     border-style: dashed;
     border-color: #c3c3c3;
@@ -40,4 +40,64 @@ h3 {
 /* all input elements get a fixed width */
 input {
     width:80px;
+}
+
+
+.instructions{
+    font-size: 13px;
+    margin-top: 10px;
+    height: 22px;
+}
+
+.keys{
+    width: 40px;
+    display: inline-block;
+}
+
+.formgroup{
+    display: none;
+}
+
+.form{
+    margin: 3px 8px;
+}
+
+h3{
+    margin-bottom: 12px;
+}
+
+.labels{
+    font-size: 13px;
+}
+
+.top-buttons{
+    margin-left: 2px;
+    margin-top: 5px;
+}
+
+button{
+    width: 80px;
+    border-radius: 0%;
+    background-color: white;
+    color: #315C99;
+    border: 1px solid #5C81B5;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #5C81B5;
+    color: white;
+}
+
+
+input[type="checkbox"]:hover{
+    cursor: pointer;
+}
+
+.action{
+    margin-top: 10px;
+}
+
+.action-top{
+    margin-bottom: 10px;
 }

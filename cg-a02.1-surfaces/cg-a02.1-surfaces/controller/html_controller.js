@@ -266,7 +266,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var pointInput = $("#tPoint").attr("value").split(",");
                 var point = [parseFloat(pointInput[0]), parseFloat(pointInput[1])];
 
-                console.log(tangentPoints(radius, center, point));
+                console.log("TANGENT POINTS:", tangentPoints(radius, center, point));
             }));
 
             
