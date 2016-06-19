@@ -183,7 +183,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var geometry = new THREE.BoxGeometry( x, y, z );
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var cube = new THREE.Mesh( geometry, material );
-                scene.scene.add( cube );
+                scene.addMesh( cube );
                 
             }));
 
@@ -194,7 +194,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var geometry = new THREE.SphereGeometry( radius);
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var sphere = new THREE.Mesh( geometry, material );
-                scene.scene.add( sphere );
+                scene.addMesh( sphere );
                
             });
 
@@ -211,7 +211,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var geometry = new THREE.TorusKnotGeometry( radius, tube, tubularSegments, radialSegments);
                 var material = new THREE.MeshBasicMaterial(  { color: color } );
                 var knot = new THREE.Mesh( geometry, material );
-                scene.scene.add( knot );
+                scene.addMesh( knot );
 
             });
 
