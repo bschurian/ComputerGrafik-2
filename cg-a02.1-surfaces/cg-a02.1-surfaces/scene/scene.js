@@ -28,7 +28,7 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
             scope.renderer = renderer;
             scope.t = 0.0;
 
-            scope.camera = new THREE.PerspectiveCamera( 66, width / height, 0.1, 2000 );
+            scope.camera = new THREE.PerspectiveCamera( 72, width / height, 0.1, 2000 );
             scope.camera.position.z = 1000;
             scope.scene = new THREE.Scene();
 
@@ -260,36 +260,201 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 var animations = [];
 
                 var count = 0;
+                var alreadyDanced = false;
 
                 var prepareRightHand = function(){
                     if(nodeRightShoulder){
                         console.log("move 1");
                         var currentRotationX = nodeRightShoulder.rotation._x;
-                        if(currentRotationX < -0.9){
+                        if(currentRotationX < -1.0){
+                            count = 0;
                             pointWithRightHand();
                             return;
                         }
-                        nodeRightShoulder.rotateX(-Math.PI/72);
+
+                        nodeRightShoulder.rotateX(-Math.PI/40);
                     }
-                    window.setTimeout(prepareRightHand, 40);
+                    count++;
+                    window.setTimeout(prepareRightHand, 33);
                 };
 
 
                 var pointWithRightHand = function(){
                     if(nodeRightShoulder){
                         console.log("move 2");
-                        if(count > 100) return;
-                        var currentRotationX = nodeRightShoulder.rotation._x;
+                        if(count > 130){
+                            count = 0;
+                            prepareForDrop();
+                            return;
+                        }
                         var direction = -1;
-                        if((count > 25 && count < 50) || (count > 75) ){
+                        if((count > 15 && count < 35) || (count > 65) ){
                             direction = 1;
                         }
+                        var hipDirection = direction;
+                        if(count > 120){
+                            hipDirection = -2.74;
+                        }
 
-                        nodeRightShoulder.rotateX(direction*Math.PI/180);
+                        nodeLeftHip.rotateX(hipDirection*Math.PI/220);
+
+                        nodeRightShoulder.rotateX(direction*Math.PI/150);
 
                         count++;
                     }
-                    window.setTimeout(pointWithRightHand,33);
+                    window.setTimeout(pointWithRightHand,25);
+                };
+
+                var prepareForDrop = function(){
+                    if(nodeBelly){
+                        console.log("move 3");
+                        if(count > 129){
+                            count = 0;
+                            randomCameraAngles();
+                            return;
+                        }
+
+                        var direction = -1;
+                        if((count > 15 && count < 45) || (count > 75 && count < 100) || (count > 115 && count < 128)){
+                            direction = 1;
+                        }
+                        nodeBelly.rotateZ(direction*Math.PI/104);
+                        count++;
+                    }
+                    window.setTimeout(prepareForDrop, 25);
+                };
+
+                var randomCameraAngles = function(){
+                    console.log("camera effects");
+                    if(count > 5){
+                        count = 0;
+                        transitionCameraToDance();
+                        return;
+                    }
+
+                    switch(count){
+                        case 0: break;
+                        case 1: scope.camera.position.z = 400;
+                            scope.camera.position.y = 300;
+                            break;
+                        case 2: scope.camera.position.z = 700;
+                            scope.camera.position.x = 300;
+                            scope.camera.rotation.y = 0.5;
+                            break;
+                        case 3: scope.camera.position.z = 1200;
+                            scope.camera.position.x = -200;
+                            scope.camera.position.y = 800;
+                            scope.camera.rotation.x = -0.4;
+                            scope.camera.rotation.y = 0;
+                            break;
+                        case 4: scope.camera.position.z = 900;
+                            scope.camera.position.x = 400;
+                            scope.camera.position.y = 0;
+                            scope.camera.rotation.x = 0;
+                            scope.camera.rotation.z = 0.4;
+                            scope.camera.rotation.y = 0.2;
+                            break;
+                        case 5: scope.camera.position.z = 600;
+                            scope.camera.position.y = -500;
+                            scope.camera.position.x = 0;
+                            scope.camera.rotation.x = 0.6;
+                            scope.camera.rotation.z = 0;
+                            scope.camera.rotation.y = 0;
+                            break;
+                        default: break;
+                    }
+
+                    count++;
+                    window.setTimeout(randomCameraAngles, 520);
+                };
+
+                var transitionCameraToDance = function(){
+                    console.log("transition");
+                    if(count >= 2){
+                        count = 0;
+                        danceY();
+                        return;
+                    }
+
+
+                    scope.camera.position.x = 0;
+                    scope.camera.position.y = 0;
+                    scope.camera.position.z = 1000;
+                    scope.camera.rotation.x = 0;
+                    scope.camera.rotation.y = 0;
+                    scope.camera.rotation.z = 0;
+
+                    count++;
+                    window.setTimeout(transitionCameraToDance, 100);
+                };
+
+                var danceY = function(){
+                    console.log("Y");
+                    if(count > 70){
+                        count = 0;
+                        danceM();
+                        return;
+                    }
+
+                    nodeRightShoulder.rotateZ(-Math.PI/80);
+                    nodeLeftShoulder.rotateZ(Math.PI/80);
+
+                    nodeRightHip.rotateZ(-Math.PI/2000);
+                    nodeLeftHip.rotateZ(Math.PI/2000);
+
+                    count++;
+                    window.setTimeout(danceY, 15);
+                };
+
+                var danceM = function(){
+                    console.log("M");
+                    if(count > 20){
+                        count = 0;
+                        danceC();
+                        return;
+                    }
+
+                    nodeRightElbow.rotateZ(-Math.PI/40);
+                    nodeLeftElbow.rotateZ(Math.PI/40);
+
+                    nodeRightHip.rotateZ(Math.PI/700);
+                    nodeLeftHip.rotateZ(-Math.PI/700);
+
+                    count++;
+                    window.setTimeout(danceM, 15);
+                };
+
+                var danceC = function(){
+                    console.log("C");
+                    if(count > 20){
+                        count = 0;
+                        danceA();
+                        return;
+                    }
+
+                    nodeLeftShoulder.rotateZ(-Math.PI/40);
+                    nodeRightShoulder.rotateZ(-Math.PI/300);
+
+                    count++;
+                    window.setTimeout(danceC, 20);
+                };
+
+                var danceA = function(){
+                    console.log("A");
+                    if(count > 40){
+                        count = 0;
+                        prepareForNextYMCA();
+                        return;
+                    }
+
+                    nodeLeftShoulder.rotateZ(Math.PI/82);
+                    nodeRightShoulder.rotateZ(Math.PI/415);
+                    nodeRightElbow.rotateZ(Math.PI/80);
+                    nodeLeftElbow.rotateZ(-Math.PI/80);
+
+
+                    count++;
+                    window.setTimeout(danceA, 15);
                 };
                 
                 //ignore this trash
@@ -323,6 +488,29 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                             }
                         }
                     }
+
+                var prepareForNextYMCA = function(){
+                    console.log("little break");
+                    if(count > 70){
+                        count = 0;
+                        if(!alreadyDanced){
+                            danceY();
+                        }
+                        alreadyDanced = true;
+                        return;
+                    }
+                    var progressDelay = 90;
+                    if(alreadyDanced){
+                        progressDelay = 77;
+                    }
+
+                    nodeRightShoulder.rotateZ(Math.PI/progressDelay);
+                    nodeLeftShoulder.rotateZ(-Math.PI/progressDelay);
+
+                    count++;
+                    window.setTimeout(prepareForNextYMCA, 15);
+                };
+
 
                 animations.push(prepareRightHand);
                 // animations.push(pointWithRightHand);
