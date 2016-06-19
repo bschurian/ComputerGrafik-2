@@ -23,7 +23,7 @@ define(["three"],
             var oArmSize   = [ 50, 200,  60];
             var uArmSize   = [ 30, 160,  50];
             var schulSize  = [ oArmSize[0],  50,  oArmSize[2]];
-            var ellSize    = [ oArmSize[1],  uArmSize[0],  oArmSize[2]];
+            var ellSize    = [ oArmSize[0],  uArmSize[0],  uArmSize[2]];
             var handSize   = [ 20,  80,  60];
             
             var hueftGSize = [ 80,  60,  95];
