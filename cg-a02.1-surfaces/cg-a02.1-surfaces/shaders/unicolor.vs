@@ -39,7 +39,7 @@ void main() {
      vec3 ecNormal = normalize(normalMatrix*normal );
      bool useOrtho=projectionMatrix[2][3]==0;
      vec viewDir=useOrtho? vec3(0,0,1) : normalize(-ecPosition.xyz);
-     vColor= phong(ecPosition.xyz, ecNormal, viewDir );
+     vColor= phong(ecPosition.xyz, ecNormal, viewDir,directionalLightDirection[MAX_DIR_LIGHTS],directionalLightColor[MAX_DIR_LIGHTS] );
      gl_Position = projetionMatrix*ecPosition;
 }
 
