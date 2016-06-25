@@ -566,6 +566,10 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
                 scope.renderer.render(scope.scene, scope.camera);
 
             };
+
+            this.addLight = function (light) {
+                scope.scene.add(light);
+            };
         };
 
 
