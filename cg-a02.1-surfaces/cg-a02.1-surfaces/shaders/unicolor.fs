@@ -12,7 +12,7 @@
 
 
 
-precision medump float;
+precision mediump float;
 varying vec3 vColor;
 
 void main(){

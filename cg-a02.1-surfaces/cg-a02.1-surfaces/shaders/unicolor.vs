@@ -22,19 +22,19 @@ uniform vec3 phongDiffuseMaterial;
 uniform vec3 phongSpecularMaterial;
 uniform float phongShininessMaterial;
 
-uniform vec3 ambientLightColor[1];
+//uniform vec3 ambientLightColor[1];
 
-varying vec3 position;
-varying vec3 normal;
+//varying vec3 position;
+//varying vec3 normal;
 
-uniform vec3 directionalLightColor[MAX_DIR_LIGHTS];
-uniform vec3 directionalLightDirection[MAX_DIR_LIGHTS];
+//uniform vec3 directionalLightColor[MAX_DIR_LIGHTS];
+//uniform vec3 directionalLightDirection[MAX_DIR_LIGHTS];
 
 //uniform mat4 modelViewMatrix;
 //uniform mat4 projectionMatrix;
 
 varying vec3 vColor;
-
+/*
 vec3 phong(vec3 pos, vec3 n, vec3 v) {
 
     // ambient
@@ -68,14 +68,21 @@ vec3 phong(vec3 pos, vec3 n, vec3 v) {
     return ambient + diffuse + specular;
 
 }
-
+*/
 void main(){
-
+/*
     vec4 ecPosition=modelViewMatrix*vec4(position,1.0);
     vec3 ecNormal=normalize(normalMatrix*normal);
     bool useOrtho=projectionMatrix[2][3]==0;
     vec3 viewDir=useOrtho? vec3(0,0,1) : normalize(-ecPosition.xyz);
     vColor=phong(ecPosition.xyz,ecNormal,viewDir);
     gl_position=projectionMatrix*ecPosition;
+*/
+    gl_Position = projectionMatrix *
+               modelViewMatrix *
+               vec4(position,1.0);
+    gl_PointSize = 3.0;
+    vColor = vec3( 0.7, 0, 0 );
 }
+
 
