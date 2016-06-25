@@ -22,7 +22,7 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
         var HtmlController = function(scene) {
 
 
-            $("#random").show();
+            $("#random").hide();
             $("#band").hide();
             $("#box").hide();
             $("#sphere").hide();
@@ -298,10 +298,10 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
 
                 var phongSphere = new PhongSphere() ;
                 scene.addMesh(phongSphere.getMesh());
-                var color = new THREE.Color( 0xff0000 );
-                var aLight=new THREE.AmbientLight(color);
+                //var color = new THREE.Color( 0xff0000 );
+                var aLight=new THREE.AmbientLight(0x00ff00);
                 scene.addLight(aLight);
-                var dlight = new THREE.DirectionalLightHelper(color,intensity);
+                var dlight = new THREE.DirectionalLight(0xff0000,0.5);
                 dlight.name = " dLight " ;
                 dlight.position.set(-1,0,-0.3).normalize() ;
                 scene.addLight(dlight);

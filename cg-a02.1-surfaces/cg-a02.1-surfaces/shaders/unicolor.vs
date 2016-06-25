@@ -15,47 +15,67 @@
 
 
 
+precision mediump float;
+
 uniform vec3 phongAmbientMaterial;
 uniform vec3 phongDiffuseMaterial;
 uniform vec3 phongSpecularMaterial;
+uniform float phongShininessMaterial;
+
 uniform vec3 ambientLightColor[1];
 
-
-attribute vec3 position;
-attribute vec3 normal;
+varying vec3 position;
+varying vec3 normal;
 
 uniform vec3 directionalLightColor[MAX_DIR_LIGHTS];
 uniform vec3 directionalLightDirection[MAX_DIR_LIGHTS];
 
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
-uniform mat3 normalMatrix;
+//uniform mat4 modelViewMatrix;
+//uniform mat4 projectionMatrix;
 
 varying vec3 vColor;
 
-void main() {
+vec3 phong(vec3 pos, vec3 n, vec3 v) {
 
-     vec4 ecPosition = modelViewMatrix*vec4(position, 1.0);
-     vec3 ecNormal = normalize(normalMatrix*normal );
-     bool useOrtho=projectionMatrix[2][3]==0;
-     vec viewDir=useOrtho? vec3(0,0,1) : normalize(-ecPosition.xyz);
-     vColor= phong(ecPosition.xyz, ecNormal, viewDir,directionalLightDirection[MAX_DIR_LIGHTS],directionalLightColor[MAX_DIR_LIGHTS] );
-     gl_Position = projetionMatrix*ecPosition;
+    // ambient
+    vec3 ambient = phongAmbientMaterial*ambientLightColor[1];
+
+    // back face towards viewer?
+    float ndotv = dot(n,v);
+    if(ndotv<0.0)
+        return vec3(0,0,0);
+
+    // vector from light to current point
+    vec3 l = normalize(directionalLightDirection[MAX_DIR_LIGHTS]);
+
+    // cos of angle between light and surface. 0 = light behind surface
+    float ndotl = dot(n,-l);
+    if(ndotl<=0.0)
+        return ambient;
+
+    // diffuse
+    vec3 diffuse = phongDiffuseMaterial*directionalLightColor[MAX_DIR_LIGHTS]*ndotl;
+
+     // reflected light direction = perfect reflection direction
+    vec3 r = reflect(l,n);
+
+    // angle between reflection dir and viewing dir
+    float rdotv = max( dot(r,v), 0.0);
+
+    // specular
+    vec3 specular = phongSpecularMaterial *directionalLightColor[MAX_DIR_LIGHTS]  * pow(rdotv,phongShininessMaterial );
+
+    return ambient + diffuse + specular;
+
 }
 
-vec3 phong(vec3 p, vec3 v, vec3 n, vec3 lightPos, vec3 lightColor) {
-    if(dot(v,n) < 0.0)
-        return vec3(0,0,0); // back-face
+void main(){
 
-    vec3 toLight = normalize(lightPos - p);
-    vec3 reflectLight = reflect(-toLight, n);
-
-    float ndots = max( dot(toLight,n), 0.0);
-    float rdotv = max( dot(reflectLight, v), 0.0);
-
-    vec3 ambi = phongAmbientMaterial * ambientLightColor[1];
-    vec3 diff = phongDiffuseMaterial * ndots * lightColor;
-    vec3 spec = phongSpecularMaterial * pow(rdotv, phongShininessMaterial ) * lightColor;
-
-    return ambi + diff + spec;
+    vec4 ecPosition=modelViewMatrix*vec4(position,1.0);
+    vec3 ecNormal=normalize(normalMatrix*normal);
+    bool useOrtho=projectionMatrix[2][3]==0;
+    vec3 viewDir=useOrtho? vec3(0,0,1) : normalize(-ecPosition.xyz);
+    vColor=phong(ecPosition.xyz,ecNormal,viewDir);
+    gl_position=projectionMatrix*ecPosition;
 }
+

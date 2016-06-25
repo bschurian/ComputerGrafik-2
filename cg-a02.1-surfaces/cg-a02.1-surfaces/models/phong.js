@@ -26,8 +26,8 @@ define(["three", "shaders"],
                lights: true
            });
 
-           scope.mesh = new THREE.Mesh(new THREE.SphereGeometry(400, 100, 100), material);
-           scope.mesh.name = "planet";
+           scope.mesh = new THREE.Mesh(new THREE.SphereGeometry(400, 100, 100), scope.material);
+           scope.mesh.name = "phongSphere";
 
            scope.root.add(scope.mesh);
 
