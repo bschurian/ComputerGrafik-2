@@ -34,7 +34,9 @@ requirejs.config({
         "mtlloader": "./mesh/loaders/MTLLoader",
         "robot": "./models/robot",
         "material":"./utils/material",
-        "phong":"./models/phong"
+        "phong":"./models/phong",
+        "planet":"./models/planet",
+        "explosion":"./models/explosion"
     },
     shim: {
         three: {

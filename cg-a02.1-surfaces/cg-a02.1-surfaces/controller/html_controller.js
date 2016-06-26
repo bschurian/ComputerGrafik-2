@@ -11,8 +11,8 @@
 
 
 /* requireJS module definition */
-define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "robot","material","phong"],
-    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh, Robot,Material,PhongSphere) {
+define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "robot", "material", "phong", "planet", "explosion"],
+    (function($,BufferGeometry, Random, Band, ParametricSurface, OBJMesh, Robot, Material, PhongSphere, Planet, Explosion) {
         "use strict";
 
         /*
@@ -32,6 +32,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
             $("#robot").hide();
             $("#tangent").hide();
             $("#phong").hide();
+            $("#planet").hide();
+            $("#explosion").hide();
 
             $("#btnRandom").click( (function() {
                 $("#random").show();
@@ -44,6 +46,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnBand").click( (function() {
@@ -57,6 +61,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnBoxGeometry").click( (function() {
@@ -70,6 +76,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnSphere").click( (function() {
@@ -83,6 +91,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnTorusKnot").click( (function() {
@@ -96,6 +106,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnParametric").click( (function() {
@@ -109,6 +121,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
             
             $("#btnObj").click( (function() {
@@ -122,6 +136,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnRobot").click((function(){
@@ -135,6 +151,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").show();
                 $("#tangent").hide();
                 $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
 
             $("#btnTangent").click((function(){
@@ -148,6 +166,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#phong").hide();
                 $("#tangent").show();
+                $("#planet").hide();
+                $("#explosion").hide();
             }));
             $("#btnPhongSphere").click((function(){
                 $("#random").hide();
@@ -160,6 +180,37 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 $("#robot").hide();
                 $("#tangent").hide();
                 $("#phong").show();
+                $("#planet").hide();
+                $("#explosion").hide();
+            }));
+            $("#btnPlanet").click((function(){
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+                $("#obj").hide();
+                $("#robot").hide();
+                $("#tangent").hide();
+                $("#phong").hide();
+                $("#planet").show();
+                $("#explosion").hide();
+
+            }));
+            $("#btnExplosion").click((function(){
+                $("#random").hide();
+                $("#band").hide();
+                $("#box").hide();
+                $("#sphere").hide();
+                $("#torusKnot").hide();
+                $("#parametricSurface").hide();
+                $("#obj").hide();
+                $("#robot").hide();
+                $("#tangent").hide();
+                $("#phong").hide();
+                $("#planet").hide();
+                $("#explosion").show();
 
             }));
 
@@ -295,18 +346,35 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 console.log("TANGENT POINTS:", tangentPoints(radius, center, point));
             }));
             $("#btnNewPhongSphere").click((function () {
-
                 var phongSphere = new PhongSphere() ;
                 scene.addMesh(phongSphere.getMesh());
                 //var color = new THREE.Color( 0xff0000 );
                 var aLight=new THREE.AmbientLight(0x00ff00);
                 scene.addLight(aLight);
                 var dlight = new THREE.DirectionalLight(0xff0000,0.5);
-                dlight.name = " dLight " ;
+                dlight.name = "dLight" ;
                 dlight.position.set(-1,0,-0.3).normalize() ;
                 scene.addLight(dlight);
-
-
+            }));
+            $("#btnNewPlanet").click((function () {
+                var phongSphere = new Planet() ;
+                scene.addMesh(phongSphere.getMesh());
+                var aLight=new THREE.AmbientLight(0x00ff00);
+                scene.addLight(aLight);
+                var dlight = new THREE.DirectionalLight(0xff0000,0.5);
+                dlight.name = "dLight" ;
+                dlight.position.set(-1,0,-0.3).normalize() ;
+                scene.addLight(dlight);
+            }));
+            $("#btnNewExplosion").click((function () {
+                var phongSphere = new Explosion() ;
+                scene.addMesh(phongSphere.getMesh());
+                var aLight=new THREE.AmbientLight(0x00ff00);
+                scene.addLight(aLight);
+                var dlight = new THREE.DirectionalLight(0xff0000,0.5);
+                dlight.name = "dLight" ;
+                dlight.position.set(-1,0,-0.3).normalize() ;
+                scene.addLight(dlight);
             }));
 
             
