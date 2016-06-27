@@ -12,8 +12,8 @@
 
 
 /* requireJS module definition */
-define(["three", "util", "shaders", "BufferGeometry", "random", "band", "parametric", "robot"],
-    (function(THREE, util, shaders, BufferGeometry, Random, Band, ParametricSurface, Robot) {
+define(["three", "util", "shaders", "BufferGeometry", "random", "band", "parametric", "robot","phong"],
+    (function(THREE, util, shaders, BufferGeometry, Random, Band, ParametricSurface, Robot,PhongSphere) {
 
         "use strict";
 
@@ -565,6 +565,10 @@ define(["three", "util", "shaders", "BufferGeometry", "random", "band", "paramet
 
                 scope.renderer.render(scope.scene, scope.camera);
 
+            };
+
+            this.addLight = function (light) {
+                scope.scene.add(light);
             };
         };
 

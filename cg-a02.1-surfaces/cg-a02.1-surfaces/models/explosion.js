@@ -18,7 +18,7 @@ define(["jquery", "three", "shaders"],
             // onLoadSuccess, onLoadProgress and onLoadError
             // we need to handle these cases. Only in onLoadSuccess we can setup
             // the scene, the texture and the shaders correctly.
-            
+
             // define a shader with these uniform values
 
             // var material = new THREE.ShaderMaterial( {

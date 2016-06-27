@@ -33,7 +33,10 @@ requirejs.config({
         "objloader": "./mesh/loaders/OBJLoader",
         "mtlloader": "./mesh/loaders/MTLLoader",
         "robot": "./models/robot",
-        "material":"./utils/material"
+        "material":"./utils/material",
+        "phong":"./models/phong",
+        "planet":"./models/planet",
+        "explosion":"./models/explosion"
     },
     shim: {
         three: {
