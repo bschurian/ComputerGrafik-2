@@ -295,7 +295,8 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
 
                 // angle between OP and radius side
                 var cosA = radius / lengthOP;
-
+                console.log("aaa------ " + Math.cos(radius/lengthOP));
+                console.log("and now: " + cosA);
                 // length of the side between Q and T1 / T2
                 // where Q is the intersection point of T1T2 with OP
                 var sinA = Math.sqrt(1-cosA*cosA);

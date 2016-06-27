@@ -10,7 +10,7 @@
  */
 
 define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
-        "text!shaders/unicolor.vs",     "text!shaders/unicolor.fs",
+        // "text!shaders/unicolor.vs",     "text!shaders/unicolor.fs",
         "text!shaders/planet_vs.glsl",          "text!shaders/planet_fs.glsl",
         "text!shaders/explosion_vs.glsl",          "text!shaders/explosion_fs.glsl"
     ],
