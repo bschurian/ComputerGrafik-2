@@ -164,6 +164,7 @@ void main() {
 
 
     // vec3 displacedPosition = ...
-    // gl_Position = ...
+     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0) * noise3D(position);
+      gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
 
 }
