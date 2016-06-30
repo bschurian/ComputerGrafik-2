@@ -21,8 +21,8 @@ define(["three", "shaders"],
                        phongShininessMaterial: {type: 'f', value: 16.0},
                    },
                ]),
-               vertexShader: Shaders.getVertexShader("phong_vs.glsl"),
-               fragmentShader: Shaders.getFragmentShader("phong_fs.glsl"),
+               vertexShader: Shaders.getVertexShader("phong"),
+               fragmentShader: Shaders.getFragmentShader("phong"),
                lights: true
            });
 

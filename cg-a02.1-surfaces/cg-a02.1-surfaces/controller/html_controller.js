@@ -349,9 +349,9 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 var phongSphere = new PhongSphere() ;
                 scene.addMesh(phongSphere.getMesh());
                 //var color = new THREE.Color( 0xff0000 );
-                var aLight=new THREE.AmbientLight(0.6,0.6,0.6);
+                var aLight=new THREE.AmbientLight(0,1,0);
                 scene.addLight(aLight);
-                var dlight = new THREE.DirectionalLight(0.5,0.5,0.75,0.5);
+                var dlight = new THREE.DirectionalLight(1,0,0,1.0);
                 dlight.name = "dLight" ;
                 dlight.position.set(-1,0,-0.3).normalize() ;
                 scene.addLight(dlight);

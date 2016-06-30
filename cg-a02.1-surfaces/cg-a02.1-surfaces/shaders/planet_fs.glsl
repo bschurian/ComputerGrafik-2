@@ -2,10 +2,9 @@ precision mediump float;
 
 
 // uniform lights (we only have the sun)
-uniform vec3 directionalLightColor[1];
-uniform vec3 directionalLightDirection[1];
 
-uniform vec3 ambientLightColor[1];
+
+
 
 // uniform material constants k_a, k_d, k_s, alpha
 
@@ -15,9 +14,6 @@ uniform vec3 ambientLightColor[1];
 // if you want a boolean value in the shader, use int
 
 // data from the vertex shader
-varying vec4 ecPosition;
-varying vec3 ecNormal;
-varying vec2 vUv;
 
 
 void main() {
