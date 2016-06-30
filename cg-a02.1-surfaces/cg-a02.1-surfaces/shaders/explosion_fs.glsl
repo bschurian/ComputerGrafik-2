@@ -5,7 +5,6 @@ uniform float colorScale;
 //varying 
 //varying 
 
-
 void main() {
 
     // noise values can be negative / we need to use its absolute values
@@ -20,7 +19,7 @@ void main() {
     // a high noise value should return a light value
 
 
-    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+//    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
 
 }
 	
