@@ -19,10 +19,10 @@ define(["three", "shaders"],
                        phongSpecularMaterial: {type: 'c', value: new THREE.Color(0.7, 0.7, 0.7)},
                        phongAmbientMaterial: {type: 'c', value: new THREE.Color(0.8, 0.2, 0.2)},
                        phongShininessMaterial: {type: 'f', value: 16.0},
-                   }
+                   },
                ]),
-               vertexShader: Shaders.getVertexShader("vertex_color"),
-               fragmentShader: Shaders.getFragmentShader("vertex_color"),
+               vertexShader: Shaders.getVertexShader("phong"),
+               fragmentShader: Shaders.getFragmentShader("phong"),
                lights: true
            });
 

@@ -10,12 +10,12 @@
  */
 
 define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
-        "text!shaders/unicolor.vs",     "text!shaders/unicolor.fs",
+        "text!shaders/phong_vs.glsl",     "text!shaders/phong_fs.glsl",
         "text!shaders/planet_vs.glsl",          "text!shaders/planet_fs.glsl",
         "text!shaders/explosion_vs.glsl",          "text!shaders/explosion_fs.glsl"
     ],
     (function( vs_vertex_color, fs_vertex_color,
-               vs_unicolor,     fs_unicolor,
+               vs_phong,        fs_phong,
                vs_planet,       fs_planet,
                vs_explosion,    fs_explosion
     ) {
@@ -25,7 +25,7 @@ define(["text!shaders/vertex_color.vs", "text!shaders/vertex_color.fs",
             // store all shaders in an associative array
             var shaders = {};
             shaders["vertex_color"] = {vertex: vs_vertex_color, fragment: fs_vertex_color};
-//            shaders["unicolor"] = {vertex: vs_unicolor, fragment: fs_unicolor};
+            shaders["phong"] = {vertex: vs_phong, fragment: fs_phong};
             shaders["planet"] = {vertex: vs_planet, fragment: fs_planet};
             shaders["explosion"] = {vertex: vs_explosion, fragment: fs_explosion};
 
