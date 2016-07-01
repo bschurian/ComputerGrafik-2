@@ -9,10 +9,16 @@ uniform vec3 ambientLightColor[1];
 
 // uniform material constants k_a, k_d, k_s, alpha
 
-// uniform sampler2D textures
+//uniform sampler2D textures;
+uniform sampler2D daytimeTexture;
+uniform sampler2D nighttimeTexture;
+uniform sampler2D cloudedTexture;
 
 // three js only supports int no bool
 // if you want a boolean value in the shader, use int
+uniform int daytimeTextureBool;
+uniform int nighttimeTextureBool;
+uniform int cloudedTextureBool;
 
 // data from the vertex shader
 varying vec4 ecPosition;
@@ -43,15 +49,15 @@ void main() {
     //       e.g. color = pow(color, vec3(0.6))*2.0;
     
     // vector from light to current point
-    vec3 l = normalize(directionalLightDirection[0]);
+//    vec3 l = normalize(directionalLightDirection[0]);
 
     
     // diffuse contribution
-    vec3 diffuseCoeff = (daytimeTextureBool == 1 )? dayCol : diffuseMaterial;
+//    vec3 diffuseCoeff = (daytimeTextureBool == 1 )? dayCol : diffuseMaterial;
     // clouds at day?
-    if(cloudsTextureBool == 1) {
+//    if(cloudedTextureBool == 1) {
         //diffuseCoeff = ...
-    }
+//    }
 
     // ...
 
@@ -61,8 +67,9 @@ void main() {
     // ambient part contains lights; modify depending on time of day
     // when ndotl == 1.0 the ambient term should be zero
 
-    vec3 color = vec3(1,0,0); //replace with ambient + diffuse + specular;
+    vec3 color = texture2D(daytimeTexture, vUv).rgb; //replace with ambient + diffuse + specular;
 
     gl_FragColor = vec4(color, 1.0);
+
 
 }

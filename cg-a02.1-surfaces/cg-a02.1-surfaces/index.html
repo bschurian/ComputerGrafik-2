@@ -228,11 +228,10 @@
 
             <table id="robot" class="form">
                 <tr>
-                </tr>
-                <tr>
                     <td class="labels"><button id="btnNewRobot"  class="action-top" type="button">New Robot</button></td>
                 </tr>
-                <tr>                <td class="labels"><button id="btnAnimateRobot"  class="action-top" type="button">Animate</button></td>
+                <tr>
+                    <td class="labels"><button id="btnAnimateRobot"  class="action-top" type="button">Animate</button></td>
                 </tr>
                 <tr style="height: 15px important!"></tr>
                 <tr>
@@ -297,6 +296,18 @@
             </table>
 
             <table id="planet" class="form">
+                <tr>
+                    <td><input type="checkbox" id="dayPl" class="objParam" ></td>
+                    <td class="labels"><label for="dayPl">Day</label></td>
+                </tr>            
+                <tr>
+                    <td><input type="checkbox" id="nightPl" class="objParam" ></td>
+                    <td class="labels"><label for="nightPl">Night</label></td>
+                </tr>            
+                <tr>
+                    <td><input type="checkbox" id="cloudedPl" class="objParam" ></td>
+                    <td class="labels"><label for="cloudedPl">Clouds</label></td>
+                </tr>            
                 <tr>
                     <td>
                         <button type="button"  id="btnNewPlanet" class="action"> create Planet</button>

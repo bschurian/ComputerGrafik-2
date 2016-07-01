@@ -357,7 +357,12 @@ define(["jquery", "BufferGeometry", "random", "band", "parametric", "objmesh", "
                 scene.addLight(dlight);
             }));
             $("#btnNewPlanet").click((function () {
-                var phongSphere = new Planet() ;
+                var config = {
+                    day: true,//$("#dayPL").attr("checked"),
+                    night: $("#nightPL").attr("checked"),
+                    clouded: $("#cloudedPL").attr("checked")
+                };
+                var phongSphere = new Planet(config) ;
                 scene.addMesh(phongSphere.getMesh());
                 var aLight=new THREE.AmbientLight(0x00ff00);
                 scene.addLight(aLight);
